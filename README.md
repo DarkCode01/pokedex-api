@@ -10,9 +10,9 @@ The dependencies are managed by a container (IoC) to have a low or no coupling.
 
 ### Followed best practices ❤️
 
-🔗 [NodeJS Best Practices](https://github.com/goldbergyoni/nodebestpractices)
-🔗 [DDD Architecture](https://en.wikipedia.org/wiki/Domain-driven_design)
-🔗 [Inversion of control (IoC)](https://en.wikipedia.org/wiki/Inversion_of_control)
+1. 🔗 [NodeJS Best Practices](https://github.com/goldbergyoni/nodebestpractices)
+2. 🔗 [DDD Architecture](https://en.wikipedia.org/wiki/Domain-driven_design)
+3. 🔗 [Inversion of control (IoC)](https://en.wikipedia.org/wiki/Inversion_of_control)
 
 ### Contribute
 
