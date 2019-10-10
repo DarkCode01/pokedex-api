@@ -1,0 +1,45 @@
+version: '3.1'
+
+services:
+  db:
+    image: postgres
+    env_file:
+      - .env
+    networks:
+      - app
+    ports:
+      - 5432:5432
+    restart: always
+    volumes:
+      - data_school:/var/lib/postgresql/data
+
+  app:
+    build: .
+    command: npm run watch
+    ports:
+      - 2302:2302
+    networks:
+      - app
+    env_file:
+      - .env
+    depends_on:
+      - db
+    volumes:
+      - .:/app/
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    env_file:
+      - .env
+    networks:
+      - app
+
+networks:
+  app:
+    driver: bridge
+
+volumes:
+  data_school: {}

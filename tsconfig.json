@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "strictPropertyInitialization": false,
+    "baseUrl": "./",
+    "outDir": "dist",
+    "typeRoots" : ["./src/infrastructure/@types", "./node_modules/@types"],
+    "paths": {
+      "*": [
+        "node_modules/*"
+      ]
+    }
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
