@@ -1,4 +1,4 @@
-import { User } from './domain/entity'
+import { User } from './domain/user.entity'
 
 interface IProps {
   UserService: any

@@ -1,7 +1,7 @@
 import { getRepository } from 'typeorm'
 
 // Entity
-import { User } from './domain/entity'
+import { User } from './domain/user.entity'
 
 export class UserRepository {
   constructor(

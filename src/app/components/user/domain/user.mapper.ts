@@ -1,5 +1,5 @@
-import { UserDTO } from './dto'
-import { User } from './entity'
+import { UserDTO } from './user.dto'
+import { User } from './user.entity'
 
 export class UserMapper {
   static mapToDTO(from: any): UserDTO {

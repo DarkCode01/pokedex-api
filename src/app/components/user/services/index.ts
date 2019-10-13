@@ -1,12 +1,20 @@
-import { UserDTO } from '../domain/dto'
-import { UserMapper } from '../domain/mapper'
-
+interface IProps {
+  User: any
+  UserDTO: any
+  UserMapper: any
+  UserRepository: any
+}
 export class UserService {
-  constructor() {
+  constructor({
+    User,
+    UserDTO,
+    UserMapper,
+    UserRepository
+  }: IProps) {
 
   }
 
-  public async create() {
-
+  public async create(user: any) {
+    // return Create.build({})
   }
 }

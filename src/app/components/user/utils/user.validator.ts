@@ -1,6 +1,6 @@
 import { check } from 'express-validator'
 
-import { UserResponses } from './responses'
+import { UserResponses } from './user.responses'
 
 const { validator } = UserResponses
 
@@ -14,7 +14,9 @@ const createIsValid = [
     .isEmail()
     .normalizeEmail({ all_lowercase: true }),
   check('password', validator.password)
-    .isLength({ min: 6 })
+    .isLength({ min: 6 }),
+  check('role', validator.role)
+    .isLength({ min: 3 }),
 ]
 
 export {

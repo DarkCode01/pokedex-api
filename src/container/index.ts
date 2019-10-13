@@ -13,7 +13,10 @@ import {
   UserRepository,
   UserService,
   UserRoutes,
-  UserController
+  UserController,
+  UserDTO,
+  UserMapper,
+  User
 } from './providers'
 
 const container = createContainer()
@@ -50,6 +53,18 @@ container
   .register({
     Routes: asFunction(ApiRoutes).singleton(),
     UserRoutes: asClass(UserRoutes).singleton(),
+  })
+  // Dtos
+  .register({
+    UserDTO: asClass(UserDTO).singleton()
+  })
+  // Mappers
+  .register({
+    UserMapper: asClass(UserMapper).singleton()
+  })
+  // Entities
+  .register({
+    User: asClass(User).singleton()
   })
 
 

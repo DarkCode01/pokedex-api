@@ -14,10 +14,16 @@ export { ApiCodes, ResponseHandler, HttpError } from '../infrastructure/http/res
 // Routes
 export { ApiRoutes } from '../infrastructure/http/routes/Routes'
 
+// Base entity
+export { BaseEntity } from '../infrastructure/database/base.entity'
+
 // User providers
 export {
   UserRoutes,
   UserController,
   UserService,
-  UserRepository
+  UserRepository,
+  UserMapper,
+  UserDTO,
+  User
 } from '../app/components/user/user.providers'

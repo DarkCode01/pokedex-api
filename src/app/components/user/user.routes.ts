@@ -2,7 +2,7 @@ import { Router, Response, Request } from 'express'
 import { validationResult } from 'express-validator'
 
 // Validators
-import { createIsValid } from './utils/validator'
+import { createIsValid } from './utils/user.validator'
 
 interface IProps {
   UserController: any,
