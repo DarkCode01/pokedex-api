@@ -1,9 +1,17 @@
-import { Entity, Column } from 'typeorm'
-import { BaseEntity } from '../../../../container/providers'
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm'
 import { Roles } from '../utils/user.roles'
 
-@Entity()
-export class User extends BaseEntity {
+@Entity({ name: 'users' })
+export class User {
+  @PrimaryGeneratedColumn()
+  id: number
+
+  @PrimaryGeneratedColumn('uuid')
+  uuid: string
+
+  @CreateDateColumn()
+  createDate: Date
+
   @Column()
   name: string
 
