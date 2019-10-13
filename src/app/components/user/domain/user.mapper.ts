@@ -1,8 +1,18 @@
-import { UserDTO } from './user.dto'
-import { User } from './user.entity'
+import { User, UserDTO } from '../user.providers'
 
+interface IProps {
+  UserRepository: any
+}
 export class UserMapper {
-  static mapToDTO(from: any): UserDTO {
+  _UserRepository: any
+
+  constructor({
+    UserRepository
+  }: IProps){
+    this._UserRepository = UserRepository
+  }
+
+  public mapToDTO(from: any): UserDTO {
     const userDTO = new UserDTO()
     if (from)
       userDTO.name = from.name
@@ -10,15 +20,6 @@ export class UserMapper {
       return userDTO
   }
 
-  static mapToUser(from: any): User {
-    const {
-      name,
-      surname,
-      email,
-      username,
-      picture
-    } = from
-    const user = new User()
-    return user
-  }
+  public mapToEntity = async (from: any): Promise<User> =>
+    await this._UserRepository.create(from)
 }
