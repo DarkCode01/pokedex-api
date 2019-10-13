@@ -1,7 +1,7 @@
 // Main
 export { Server } from '../server'
 export { App } from '../app'
-export { DatabaseConnection } from '../dal/DatabaseConnection'
+export { DatabaseConnection } from '../database/DatabaseConnection'
 
 // Values
 export { default as config } from '../../config'
