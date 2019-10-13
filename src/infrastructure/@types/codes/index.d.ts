@@ -1,5 +1,6 @@
 declare interface ApiCodes {
   OK: number,
+  CREATE: number,
   BAD_REQUEST: number,
   UNAUTHORIZED: number,
   FORBIDDEN: number,

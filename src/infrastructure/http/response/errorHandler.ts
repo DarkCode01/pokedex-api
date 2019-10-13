@@ -6,13 +6,13 @@ interface IProps {
 
 export class ErrorHandler extends Error {
   public statusCode: number
-  public body: {}
+  public message: string
   public error: Error
 
-  constructor(statusCode: number, body: {}, error?: any) {
+  constructor(statusCode: number, message: string, error?: any) {
     super()
     this.statusCode = statusCode
-    this.body = { message: body }
+    this.message = message
     this.error = error
   }
 
