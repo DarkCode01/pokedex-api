@@ -1,23 +1,18 @@
+import { Mapper } from 'ts-simple-automapper'
 import { User, UserDTO } from '../user.providers'
 
-interface IProps {
-  UserRepository: any
-}
 export class UserMapper {
   _UserRepository: any
 
   constructor({
     UserRepository
-  }: IProps){
+  }: any){
     this._UserRepository = UserRepository
   }
 
   public mapToDTO(from: any): UserDTO {
-    const userDTO = new UserDTO()
-    if (from)
-      userDTO.name = from.name
-      userDTO.email = from.email
-      return userDTO
+    const userDTO: UserDTO = new Mapper().map(from, new UserDTO())
+    return userDTO
   }
 
   public mapToEntity = async (from: any): Promise<User> =>

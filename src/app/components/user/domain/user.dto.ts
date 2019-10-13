@@ -1,4 +1,7 @@
+import { MapProp } from 'ts-simple-automapper'
+
 export class UserDTO {
+  @MapProp()
   name: string
   lastname: string
   email: string
