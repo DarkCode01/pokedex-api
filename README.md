@@ -48,4 +48,4 @@ If he came this far it is because we are ready. ✔️
 
 You can consult the Documentation at this URL:
 
-🌐 [Pokedex Docs](https://documenter.getpostman.com/view/7831505/S1Zw6VCU?version=latest)
+🌐 [Pokedex Docs](https://documenter.getpostman.com/view/7831505/SVtWvmoc?version=latest)

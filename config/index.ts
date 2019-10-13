@@ -5,7 +5,7 @@ dotenv.config({
 
 export default {
   server: {
-    port: process.env.PORT || 4000,
+    port: parseInt(<string>process.env.PORT),
     prefixRoutes: process.env.PREFIX_ROUTES,
   },
   database: {
@@ -19,10 +19,7 @@ export default {
     secret: process.env.SECRET,
     tokenExpire: process.env.TOKEN_EXPIRE,
   },
-  google: {
-    clientId: process.env.CLIENT_ID,
-  },
   test: {
-    uri: `http://localhost`
+    uri: process.env.TEST_URI
   }
 }

@@ -5,6 +5,8 @@
     "**/.editorconfig": true,
     "**/.gitignore": false,
     "**/package-lock.json": true,
-    "**/jest.config.js": false
+    "**/jest.config.js": true,
+    "**/tsconfig.json": true,
+    "**/.dockerignore": true
   }
 }

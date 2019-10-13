@@ -16,10 +16,6 @@ interface jwt {
   tokenExpire: string,
 }
 
-interface google {
-  clientId: string,
-}
-
 interface test {
   uri: string
 }
@@ -28,6 +24,5 @@ declare interface config {
   server: server
   database: database
   jwt: jwt
-  google: google
   test: test
 }
