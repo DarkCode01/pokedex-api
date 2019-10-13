@@ -1,18 +1,14 @@
 import container from './src/container'
-
-const App: any = container.resolve('app')
-const ConnectDB: any = container.resolve('connect')
+const Server: any = container.resolve('server')
 
 class Main {
   public static async init(): Promise<void> {
     try {
-      // Connecting DB
-      const connect = await ConnectDB.build()
-      // Lauch Server
-      if (connect)
-        await App.listen()
+      // Start app and DB Connection
+      await Server.start()
     } catch (err) {
       console.error(err)
+      process.exit()
     }
   }
 }
