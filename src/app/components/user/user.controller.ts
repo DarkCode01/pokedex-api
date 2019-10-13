@@ -5,16 +5,16 @@ interface IProps {
 }
 
 export class UserController {
-  UserService: any
+  _UserService: any
 
   constructor({
     UserService
   }: IProps) {
-    this.UserService = UserService
+    this._UserService = UserService
   }
 
   public create = async (user: User) => {
-    const _user = await this.UserService.create({ user })
+    const _user = await this._UserService.create(user)
     if (_user)
       return _user
   }
