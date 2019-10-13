@@ -16,6 +16,10 @@ import {
   UserRoutes,
   UserController,
   UserMapper,
+  GenderController,
+  GenderService,
+  GenderMapper,
+  GenderRepository
 } from './providers'
 
 const container = createContainer()
@@ -25,7 +29,7 @@ container
     server: asClass(Server).singleton(),
     app: asClass(App).singleton(),
     routing: asClass(Routing).singleton(),
-    DatabaseConnection: asValue(DatabaseConnection)
+    DatabaseConnection: asValue(DatabaseConnection),
   })
   // Values
   .register({
@@ -39,15 +43,18 @@ container
   })
   // Repository
   .register({
-    UserRepository: asClass(UserRepository).singleton()
+    UserRepository: asClass(UserRepository).singleton(),
+    GenderRepository: asClass(GenderRepository).singleton(),
   })
   // Services
   .register({
     UserService: asClass(UserService).singleton(),
+    GenderService: asClass(GenderService).singleton(),
   })
   // Controllers
   .register({
     UserController: asClass(UserController).singleton(),
+    GenderController: asClass(GenderController).singleton(),
   })
   // Routes
   .register({
@@ -56,7 +63,8 @@ container
   })
   // Mappers
   .register({
-    UserMapper: asClass(UserMapper).singleton()
+    UserMapper: asClass(UserMapper).singleton(),
+    GenderMapper: asClass(GenderMapper).singleton(),
   })
 
 export default container

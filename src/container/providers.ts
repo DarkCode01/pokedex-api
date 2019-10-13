@@ -23,3 +23,11 @@ export {
   UserMapper,
   UserRepository
 } from '../app/components/user/user.providers'
+
+// Gender providers
+export {
+  GenderController,
+  GenderService,
+  GenderMapper,
+  GenderRepository
+} from '../app/components/gender/gender.providers'

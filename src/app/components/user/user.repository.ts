@@ -9,10 +9,10 @@ export class UserRepository {
   constructor({
     DatabaseConnection
   }: any) {
-    this.getRepository(DatabaseConnection)
+    this.getUserRepository(DatabaseConnection)
   }
 
-  private async getRepository(DatabaseConnection: Connection) {
+  private async getUserRepository(DatabaseConnection: Connection) {
     await DatabaseConnection.connect()
     this._User = getRepository(User)
     return this._User

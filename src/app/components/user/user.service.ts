@@ -5,6 +5,7 @@ interface IProps {
   UserRepository: any,
   ErrorHandler: any,
   codes: ApiCodes,
+  GenderController: any
 }
 
 export class UserService {
@@ -12,21 +13,26 @@ export class UserService {
   _UserRepository: any
   _ErrorHandler: any
   _codes: ApiCodes
+  _GenderController: any
 
   constructor({
     UserMapper,
     UserRepository,
     ErrorHandler,
-    codes
+    codes,
+    GenderController
   }: IProps) {
     this._UserMapper = UserMapper
     this._UserRepository = UserRepository
     this._ErrorHandler = ErrorHandler
     this._codes = codes
+    this._GenderController = GenderController
   }
 
   public create = async (userPayload: any) : Promise<UserDTO> => {
     const user = await this._UserMapper.mapToEntity(userPayload)
+    const gender = await this._GenderController.getOrCreateGender(user.gender)
+    if (gender) user.gender = gender
 
     const isRegistered = await this._UserRepository.getUserByEmail(user.email)
     const usernameExists = await this._UserRepository.getUserByUsername(user.username)
