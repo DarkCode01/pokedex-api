@@ -2,7 +2,7 @@ import { Router, Response, Request } from 'express'
 import { validationResult } from 'express-validator'
 
 // Validators
-import { createIsValid } from './utils/user.validator'
+import { createIsValid } from './user.providers'
 
 interface IProps {
   UserController: any,
@@ -46,12 +46,12 @@ export class UserRoutes {
       const user = await this.UserController.create(req.body)
       if (user)
         return res
-          .status(this.codes.OK)
+          .status(this.codes.CREATE)
           .send(this.ResponseHandler.build(user, false))
 
     } catch (err) {
       return res
-        .status(err.status || this.codes.INTERNAL_ERROR)
+        .status(err.statusCode || this.codes.INTERNAL_ERROR)
         .send(this.ResponseHandler.build(err.message))
     }
   }
