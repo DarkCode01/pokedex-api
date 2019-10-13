@@ -1,10 +1,10 @@
-import { UserDTO } from './user.providers'
+import { UserDTO, UserResponses } from './user.providers'
 
 interface IProps {
   UserMapper: any
   UserRepository: any,
   ErrorHandler: any,
-  codes: ApiCodes
+  codes: ApiCodes,
 }
 
 export class UserService {
@@ -33,11 +33,17 @@ export class UserService {
 
     if (isRegistered)
       throw this._ErrorHandler.build({
-        status: this._codes.UNAUTHORIZED,
-        msg: 'Candidate does not have a registered token'
+        status: this._codes.BAD_REQUEST,
+        msg: UserResponses.emailExists
       })
 
-    const savedUser = await this._UserRepository.savedUser(user)
-    return this._UserMapper.mapToDTO(savedUser)
+    if (usernameExists)
+      throw this._ErrorHandler.build({
+        status: this._codes.BAD_REQUEST,
+        msg: UserResponses.usernameExists
+      })
+
+    const saveUser = await this._UserRepository.saveUser(user)
+    return this._UserMapper.mapToDTO(saveUser)
   }
 }
