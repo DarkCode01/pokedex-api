@@ -1,4 +1,10 @@
-export class HttpError extends Error {
+interface IProps {
+  status: number,
+  msg: string,
+  error?: any
+}
+
+export class ErrorHandler extends Error {
   public statusCode: number
   public body: {}
   public error: Error
@@ -10,7 +16,7 @@ export class HttpError extends Error {
     this.error = error
   }
 
-  public build(statusCode: number, message: string, error?: any) {
-    return new HttpError(statusCode, message, error)
+  public build({ status, msg, error }: IProps) {
+    return new ErrorHandler(status, msg, error)
   }
 }
