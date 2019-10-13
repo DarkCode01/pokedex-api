@@ -1,6 +1,7 @@
 // Main
-export { App } from '../app/app'
-export { ConnectDB } from '../infrastructure/database'
+export { Server } from '../server'
+export { App } from '../app'
+export { DatabaseConnection } from '../dal/DatabaseConnection'
 
 // Values
 export { default as config } from '../../config'
@@ -9,21 +10,16 @@ export { default as config } from '../../config'
 export { Routing } from '../infrastructure/http/routes'
 
 // Http Response
-export { ApiCodes, ResponseHandler, HttpError } from '../infrastructure/http/response'
+export { statusCodes, ResponseHandler, ErrorHandler } from '../infrastructure/http/response'
 
 // Routes
 export { ApiRoutes } from '../infrastructure/http/routes/Routes'
-
-// Base entity
-export { BaseEntity } from '../infrastructure/database/base.entity'
 
 // User providers
 export {
   UserRoutes,
   UserController,
   UserService,
-  UserRepository,
   UserMapper,
-  UserDTO,
-  User
+  UserRepository
 } from '../app/components/user/user.providers'
