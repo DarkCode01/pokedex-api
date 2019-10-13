@@ -22,7 +22,7 @@ export class Routing {
 
   public build() {
     const { prefixRoutes } = this.config.server
-    this.Routes.forEach(route => this.router.use(prefixRoutes, route))
+    this.Routes.forEach(route => this.router.use(<any>prefixRoutes, route))
     return this.router
   }
 }

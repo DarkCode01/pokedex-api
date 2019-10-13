@@ -1,9 +1,5 @@
-interface IProps {
-  UserRoutes: any
-}
-
 export const ApiRoutes = ({
   UserRoutes
-}: IProps) => ([
+}: any) => ([
   UserRoutes.routes
 ])
