@@ -2,40 +2,40 @@ import { createContainer, asClass, asValue, asFunction } from 'awilix'
 
 // Dependencies
 import {
+  Server,
   App,
-  ConnectDB,
   config,
+  DatabaseConnection,
   Routing,
-  ApiCodes,
+  statusCodes,
   ApiRoutes,
   ResponseHandler,
-  HttpError,
+  ErrorHandler,
   UserRepository,
   UserService,
   UserRoutes,
   UserController,
-  UserDTO,
   UserMapper,
-  User
 } from './providers'
 
 const container = createContainer()
 container
   // Instances of classes
   .register({
+    server: asClass(Server).singleton(),
     app: asClass(App).singleton(),
-    connect: asClass(ConnectDB).singleton(),
     routing: asClass(Routing).singleton(),
+    DatabaseConnection: asValue(DatabaseConnection)
   })
   // Values
   .register({
     config: asValue(config),
-    codes: asValue(ApiCodes),
+    codes: asValue(statusCodes),
   })
   // Http
   .register({
     ResponseHandler: asClass(ResponseHandler).singleton(),
-    HttpError: asClass(HttpError).singleton(),
+    ErrorHandler: asClass(ErrorHandler).singleton(),
   })
   // Repository
   .register({
@@ -43,7 +43,7 @@ container
   })
   // Services
   .register({
-    UserService: asValue(UserService),
+    UserService: asClass(UserService).singleton(),
   })
   // Controllers
   .register({
@@ -54,18 +54,9 @@ container
     Routes: asFunction(ApiRoutes).singleton(),
     UserRoutes: asClass(UserRoutes).singleton(),
   })
-  // Dtos
-  .register({
-    UserDTO: asClass(UserDTO).singleton()
-  })
   // Mappers
   .register({
     UserMapper: asClass(UserMapper).singleton()
   })
-  // Entities
-  .register({
-    User: asClass(User).singleton()
-  })
-
 
 export default container
