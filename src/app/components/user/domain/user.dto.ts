@@ -20,6 +20,9 @@ export class UserDTO {
   birthdate: Date
 
   @MapProp()
+  gender: {}
+
+  @MapProp()
   city: string
 
   @MapProp()

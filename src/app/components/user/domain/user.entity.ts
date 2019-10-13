@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm'
-import { Roles } from '../utils/user.enums'
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne } from 'typeorm'
+import { Roles } from '../utils/user.roles'
+import { Gender } from '../../gender/domain/gender.entity'
 
 @Entity({ name: 'users' })
 export class User {
@@ -68,4 +69,12 @@ export class User {
     nullable: true
   })
   forgotPasswordExpire: Date
+
+  @Column({
+    nullable: true
+  })
+  genderId: number
+
+  @ManyToOne(type => Gender, gender => gender.name)
+  gender: Gender
 }
