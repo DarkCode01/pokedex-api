@@ -1,23 +1,23 @@
 interface server {
   port: number,
-  prefixRoutes: string,
+  prefixRoutes: string | undefined,
 }
 
 interface database {
-  type: string,
-  host: string,
-  username: string,
-  password: string,
-  name: string,
+  type: string | undefined,
+  host: string | undefined,
+  username: string | undefined,
+  password: string | undefined,
+  name: string | undefined,
 }
 
 interface jwt {
-  secret: string,
-  tokenExpire: string,
+  secret: string | undefined,
+  tokenExpire: string | undefined,
 }
 
 interface test {
-  uri: string
+  uri: string | undefined
 }
 
 declare interface config {
