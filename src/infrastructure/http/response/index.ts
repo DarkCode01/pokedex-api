@@ -1,3 +1,3 @@
-export { ApiCodes } from './ApiCodes'
+export { statusCodes } from './statusCodes'
 export { ResponseHandler } from './ResponseHandler'
-export { HttpError } from './HttpError'
+export { ErrorHandler } from './errorHandler'
