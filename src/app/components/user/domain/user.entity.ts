@@ -44,6 +44,7 @@ export class User {
 
   @Column({
     type: 'enum',
+    default: Roles.user,
     enum: Roles
   })
   role: Roles
@@ -54,7 +55,7 @@ export class User {
   onBoarding: boolean
 
   @Column({
-    default: false
+    default: true
   })
   isActive: boolean
 
