@@ -1,4 +1,4 @@
-import { check } from 'express-validator'
+import { check, checkSchema } from 'express-validator'
 import { UserResponses } from './user.responses'
 
 const { validator } = UserResponses
@@ -16,6 +16,15 @@ const createIsValid = [
   check('password', validator.password)
     .trim()
     .isLength({ min: 6 }),
+  checkSchema({
+    'gender': {
+      in: 'body',
+      matches: {
+        options: [/\b(?:male|female|others)\b/],
+        errorMessage: validator.gender
+      }
+    }
+  })
 ]
 
 export {
