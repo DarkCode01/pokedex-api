@@ -51,7 +51,7 @@ export class UserRoutes {
 
     } catch (err) {
       return res
-        .status(err.statusCode || this.codes.INTERNAL_ERROR)
+        .status(err.status || this.codes.INTERNAL_ERROR)
         .send(this.ResponseHandler.build(err.message))
     }
   }
