@@ -4,7 +4,7 @@ export const UserResponses: any = {
     username: 'Please, enter a username with 3 or more characters',
     email: 'Please, include a valid email',
     password: 'Please, enter a password with 6 or more characters',
-    role: 'The user role is required',
+    gender: 'Please, enter your gender. [male, female, others]',
   },
   usernameExists: 'the username cannot already exist in the database.',
   emailExists: 'the email cannot already exist in the database.',
