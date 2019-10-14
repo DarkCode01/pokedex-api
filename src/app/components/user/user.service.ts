@@ -1,36 +1,36 @@
 import { UserDTO, UserResponses } from './user.providers'
 
-interface IProps {
-  UserMapper: any
-  UserRepository: any,
-  ErrorHandler: any,
-  codes: ApiCodes,
-  GenderController: any
-}
-
 export class UserService {
-  _UserMapper: any
-  _UserRepository: any
-  _ErrorHandler: any
-  _codes: ApiCodes
-  _GenderController: any
+  private _UserMapper: any
+  private _UserRepository: any
+  private _ErrorHandler: any
+  private _codes: ApiCodes
+  private _GenderController: any
+  private _encryptPassword: any
+  private _jwt: any
 
   constructor({
     UserMapper,
     UserRepository,
     ErrorHandler,
     codes,
-    GenderController
-  }: IProps) {
+    GenderController,
+    encryptPassword,
+    JWT
+  }: any) {
     this._UserMapper = UserMapper
     this._UserRepository = UserRepository
     this._ErrorHandler = ErrorHandler
     this._codes = codes
     this._GenderController = GenderController
+    this._encryptPassword = encryptPassword
+    this._jwt = JWT
   }
 
   public create = async (userPayload: any) : Promise<UserDTO> => {
     const user = await this._UserMapper.mapToEntity(userPayload)
+    user.password = this._encryptPassword(user.password)
+
     const gender = await this._GenderController.getOrCreateGender(user.gender)
     if (gender) user.gender = gender
 
@@ -50,6 +50,6 @@ export class UserService {
       })
 
     const saveUser = await this._UserRepository.saveUser(user)
-    return this._UserMapper.mapToDTO(saveUser)
+    return await this._jwt.generateToken(this._UserMapper.mapToDTO(saveUser))
   }
 }

@@ -1,5 +1,5 @@
 export class GenderController {
-  _GenderService: any
+  private _GenderService: any
 
   constructor({
     GenderService

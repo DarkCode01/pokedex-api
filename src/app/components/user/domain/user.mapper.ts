@@ -2,7 +2,7 @@ import { Mapper } from 'ts-simple-automapper'
 import { User, UserDTO } from '../user.providers'
 
 export class UserMapper {
-  _UserRepository: any
+  private _UserRepository: any
 
   constructor({
     UserRepository

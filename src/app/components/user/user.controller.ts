@@ -1,15 +1,11 @@
 import { User } from './domain/user.entity'
 
-interface IProps {
-  UserService: any
-}
-
 export class UserController {
   _UserService: any
 
   constructor({
     UserService
-  }: IProps) {
+  }: any) {
     this._UserService = UserService
   }
 

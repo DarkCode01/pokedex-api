@@ -1,8 +1,8 @@
 import { Gender } from './gender.providers'
 
 export class GenderService {
-  _GenderMapper: any
-  _GenderRepository: any
+  private _GenderMapper: any
+  private _GenderRepository: any
 
   constructor({
     GenderMapper,
