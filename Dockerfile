@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install
+RUN npm install node-gyp node-pre-gyp && npm install && npm rebuild bcrypt --build-from-source
 
 COPY . .
 

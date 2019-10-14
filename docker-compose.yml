@@ -11,7 +11,7 @@ services:
       - 5432:5432
     restart: always
     volumes:
-      - data_school:/var/lib/postgresql/data
+      - data_pokedex:/var/lib/postgresql/data
 
   app:
     build: .
@@ -42,4 +42,4 @@ networks:
     driver: bridge
 
 volumes:
-  data_school: {}
+  data_pokedex: {}
