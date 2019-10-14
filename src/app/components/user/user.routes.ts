@@ -2,13 +2,7 @@ import { Router, Response, Request } from 'express'
 import { validationResult } from 'express-validator'
 
 // Validators
-import { createIsValid } from './user.providers'
-
-interface IProps {
-  UserController: any,
-  codes: ApiCodes,
-  ResponseHandler: any
-}
+import { createValidator, authValidator } from './user.providers'
 
 export class UserRoutes {
   readonly api: Router
@@ -20,7 +14,7 @@ export class UserRoutes {
     UserController,
     ResponseHandler,
     codes
-  }: IProps) {
+  }: any) {
     this.api = Router()
     this.codes = codes
     this.UserController = UserController
@@ -30,7 +24,11 @@ export class UserRoutes {
   public get routes(): Router {
     // @Desc    Create user
     // @Access  Public
-    this.api.post('/register', createIsValid, this.create)
+    this.api.post('/register', <any>createValidator, this.create)
+
+    // @Desc    Authentication
+    // @Access  Public
+    this.api.post('/auth', <any>authValidator, this.auth)
 
     return this.api
   }
@@ -47,6 +45,27 @@ export class UserRoutes {
       if (user)
         return res
           .status(this.codes.CREATE)
+          .send(this.ResponseHandler.build(user, false))
+
+    } catch (err) {
+      return res
+        .status(err.statusCode || this.codes.INTERNAL_ERROR)
+        .send(this.ResponseHandler.build(err.message))
+    }
+  }
+
+  public auth = async (req: Request, res: Response) => {
+    const errors = validationResult(req)
+    if (!errors.isEmpty())
+      return res
+        .status(this.codes.BAD_REQUEST)
+        .send(this.ResponseHandler.build(errors.array(), false))
+
+    try {
+      const user = await this.UserController.auth(req.body)
+      if (user)
+        return res
+          .status(this.codes.OK)
           .send(this.ResponseHandler.build(user, false))
 
     } catch (err) {
