@@ -12,6 +12,7 @@ import {
   ResponseHandler,
   ErrorHandler,
   encryptPassword,
+  comparePassword,
   JWT,
   UserRepository,
   UserService,
@@ -41,6 +42,7 @@ container
   // Utils
   .register({
     encryptPassword: asValue(encryptPassword),
+    comparePassword: asValue(comparePassword),
     JWT: asClass(JWT).singleton(),
   })
   // Http
