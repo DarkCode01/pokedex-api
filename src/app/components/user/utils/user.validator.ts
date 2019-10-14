@@ -1,7 +1,7 @@
 import { check, checkSchema } from 'express-validator'
 import { UserResponses } from './user.responses'
 
-const { validator, auth } = UserResponses
+const { validator, auth, changePassword  } = UserResponses
 
 const createValidator = [
   check('name', validator.name)
@@ -38,7 +38,19 @@ const authValidator = [
     })
 ]
 
+const changePassValidator = [
+  check('password', changePassword.validator.pass)
+    .isLength({
+      min: 6
+    }),
+  check('newPassword', changePassword.validator.newpass)
+    .isLength({
+      min: 6
+    })
+]
+
 export {
   createValidator,
-  authValidator
+  authValidator,
+  changePassValidator
 }

@@ -14,6 +14,15 @@ export const UserResponses: any = {
     accountIsDisable: 'Oops! Your account is temporarily deactivated.',
     badCredentials: 'Oops! Something in your credentials is wrong.',
   },
+  changePassword: {
+    validator: {
+      pass: 'Your password is not correct.',
+      newpass: 'Your new password must have 6 or more characters.',
+    },
+    equal: 'Your new password must be different from your current password.',
+    incorrect: 'Your password is incorrect.',
+    success: 'Your password has been updated successfully.',
+  },
   usernameExists: 'the username cannot already exist in the database.',
   emailExists: 'the email cannot already exist in the database.',
 }
