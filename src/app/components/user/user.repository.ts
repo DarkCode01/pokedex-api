@@ -33,4 +33,8 @@ export class UserRepository {
   public async saveUser(user: User): Promise<User> {
     return await this._User.save(user)
   }
+
+  public async update(user: User, update: {}) : Promise<User> {
+    return await this._User.merge(user, update)
+  }
 }
