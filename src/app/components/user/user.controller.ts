@@ -14,4 +14,12 @@ export class UserController {
     if (_user)
       return _user
   }
+
+  public auth = async (user: User) => {
+    const _user = await this._UserService.auth(user)
+    if (_user)
+      return _user
+  }
 }
+
+
