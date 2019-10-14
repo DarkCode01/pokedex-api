@@ -56,7 +56,7 @@ export class UserService {
     return await this._jwt.generateToken(this._UserMapper.mapToDTO(saveUser))
   }
 
-  public auth = async (userPayload: any) => {
+  public auth = async (userPayload: any) : Promise<UserDTO> => {
     const getUserByEmail = await this._UserRepository.getUserByEmail(userPayload.emailOrUsername)
     const getUserByUsername = await this._UserRepository.getUserByUsername(userPayload.emailOrUsername)
     const user = getUserByEmail || getUserByUsername
@@ -80,6 +80,29 @@ export class UserService {
     throw this._ErrorHandler.build({
       status: this._codes.BAD_REQUEST,
       msg: UserResponses.auth.badCredentials
+    })
+  }
+
+  public changePassword = async ({ username, password, newPassword }: any) => {
+    let user = await this._UserRepository.getUserByUsername(username)
+    if (user && this._comparePassword(password, user.password)) {
+      if (password === newPassword)
+        throw this._ErrorHandler.build({
+          status: this._codes.BAD_REQUEST,
+          msg: UserResponses.changePassword.equal
+        })
+
+      const encryptPassword = this._encryptPassword(newPassword)
+      const updatePassword = this._UserRepository.update(user, { password: encryptPassword })
+      if (updatePassword)
+        await this._UserRepository.saveUser(user)
+
+      return UserResponses.changePassword.success
+    }
+
+    throw this._ErrorHandler.build({
+      status: this._codes.BAD_REQUEST,
+      msg: UserResponses.changePassword.incorrect
     })
   }
 }
