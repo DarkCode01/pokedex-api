@@ -8,6 +8,7 @@ export class UserService {
   private _GenderController: any
   private _encryptPassword: any
   private _jwt: any
+  private _comparePassword: any
 
   constructor({
     UserMapper,
@@ -16,6 +17,7 @@ export class UserService {
     codes,
     GenderController,
     encryptPassword,
+    comparePassword,
     JWT
   }: any) {
     this._UserMapper = UserMapper
@@ -24,6 +26,7 @@ export class UserService {
     this._codes = codes
     this._GenderController = GenderController
     this._encryptPassword = encryptPassword
+    this._comparePassword = comparePassword
     this._jwt = JWT
   }
 
@@ -51,5 +54,32 @@ export class UserService {
 
     const saveUser = await this._UserRepository.saveUser(user)
     return await this._jwt.generateToken(this._UserMapper.mapToDTO(saveUser))
+  }
+
+  public auth = async (userPayload: any) => {
+    const getUserByEmail = await this._UserRepository.getUserByEmail(userPayload.emailOrUsername)
+    const getUserByUsername = await this._UserRepository.getUserByUsername(userPayload.emailOrUsername)
+    const user = getUserByEmail || getUserByUsername
+
+    if (!user)
+      throw this._ErrorHandler.build({
+        status: this._codes.BAD_REQUEST,
+        msg: UserResponses.auth.accountDoesNotExist
+      })
+
+    if (user && this._comparePassword(userPayload.password, user.password)) {
+      if (!user.isActive)
+        throw this._ErrorHandler.build({
+          status: this._codes.UNAUTHORIZED,
+          msg: UserResponses.auth.accountIsDisable
+        })
+
+      return await this._jwt.generateToken(this._UserMapper.mapToDTO(user))
+    }
+
+    throw this._ErrorHandler.build({
+      status: this._codes.BAD_REQUEST,
+      msg: UserResponses.auth.badCredentials
+    })
   }
 }
