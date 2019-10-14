@@ -1,9 +1,9 @@
 import { check, checkSchema } from 'express-validator'
 import { UserResponses } from './user.responses'
 
-const { validator } = UserResponses
+const { validator, auth } = UserResponses
 
-const createIsValid = [
+const createValidator = [
   check('name', validator.name)
     .trim()
     .isLength({ min: 2 }),
@@ -27,6 +27,18 @@ const createIsValid = [
   })
 ]
 
+const authValidator = [
+  check('emailOrUsername', auth.validator.emailOrUsername)
+    .isLength({
+      min: 3
+    }),
+  check('password', validator.password)
+    .isLength({
+      min: 6
+    })
+]
+
 export {
-  createIsValid
+  createValidator,
+  authValidator
 }
