@@ -2,7 +2,7 @@ import { Router, Response, Request } from 'express'
 import { validationResult } from 'express-validator'
 
 // Validators
-import { createValidator, authValidator } from './user.providers'
+import { createValidator, authValidator, changePassValidator } from './user.providers'
 
 export class UserRoutes {
   readonly api: Router
@@ -29,6 +29,10 @@ export class UserRoutes {
     // @Desc    Authentication
     // @Access  Public
     this.api.post('/auth', <any>authValidator, this.auth)
+
+    // @Desc    Change Password
+    // @Access  Private
+    this.api.put('/change-password', <any>changePassValidator, this.changePassword)
 
     return this.api
   }
@@ -67,6 +71,27 @@ export class UserRoutes {
         return res
           .status(this.codes.OK)
           .send(this.ResponseHandler.build(user, false))
+
+    } catch (err) {
+      return res
+        .status(err.statusCode || this.codes.INTERNAL_ERROR)
+        .send(this.ResponseHandler.build(err.message))
+    }
+  }
+
+  public changePassword = async (req: Request, res: Response) => {
+    const errors = validationResult(req)
+    if (!errors.isEmpty())
+      return res
+        .status(this.codes.BAD_REQUEST)
+        .send(this.ResponseHandler.build(errors.array(), false))
+
+    try {
+      const response = await this.UserController.changePassword(req.user, req.body)
+      if (response)
+        return res
+          .status(this.codes.OK)
+          .send(this.ResponseHandler.build(response))
 
     } catch (err) {
       return res
