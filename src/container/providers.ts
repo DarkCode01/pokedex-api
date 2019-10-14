@@ -15,6 +15,10 @@ export { statusCodes, ResponseHandler, ErrorHandler } from '../infrastructure/ht
 // Routes
 export { ApiRoutes } from '../infrastructure/http/routes/Routes'
 
+// Utils
+export { encryptPassword } from '../infrastructure/utils/encryption'
+export { JWT } from '../infrastructure/utils/jwt'
+
 // User providers
 export {
   UserRoutes,

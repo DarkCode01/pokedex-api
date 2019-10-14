@@ -11,6 +11,8 @@ import {
   ApiRoutes,
   ResponseHandler,
   ErrorHandler,
+  encryptPassword,
+  JWT,
   UserRepository,
   UserService,
   UserRoutes,
@@ -35,6 +37,11 @@ container
   .register({
     config: asValue(config),
     codes: asValue(statusCodes),
+  })
+  // Utils
+  .register({
+    encryptPassword: asValue(encryptPassword),
+    JWT: asClass(JWT).singleton(),
   })
   // Http
   .register({
