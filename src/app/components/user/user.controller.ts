@@ -20,6 +20,15 @@ export class UserController {
     if (_user)
       return _user
   }
+
+  public changePassword = async (user: User, payload: any) => {
+    const { username } = user
+    const { password, newPassword } = payload
+
+    const res = await this._UserService.changePassword({ username, password, newPassword })
+    if (res)
+      return res
+  }
 }
 
 
