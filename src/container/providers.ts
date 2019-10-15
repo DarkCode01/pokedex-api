@@ -8,6 +8,7 @@ export { default as config } from '../../config'
 
 // Routes
 export { Routing } from '../infrastructure/http/routes'
+export { RouteMethod } from '../infrastructure/http/response/routeMethod'
 
 // Http Response
 export { statusCodes, ResponseHandler, ErrorHandler } from '../infrastructure/http/response'

@@ -7,6 +7,7 @@ import {
   config,
   DatabaseConnection,
   Routing,
+  RouteMethod,
   statusCodes,
   ApiRoutes,
   ResponseHandler,
@@ -49,6 +50,7 @@ container
   .register({
     ResponseHandler: asClass(ResponseHandler).singleton(),
     ErrorHandler: asClass(ErrorHandler).singleton(),
+    RouteMethod: asClass(RouteMethod).singleton(),
   })
   // Repository
   .register({
