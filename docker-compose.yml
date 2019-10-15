@@ -10,8 +10,6 @@ services:
     ports:
       - 5432:5432
     restart: always
-    volumes:
-      - data_pokedex:/var/lib/postgresql/data
 
   app:
     build: .
@@ -25,7 +23,7 @@ services:
     depends_on:
       - db
     volumes:
-      - .:/app/
+      - .:/usr/src/app/
 
   adminer:
     image: adminer
@@ -40,6 +38,3 @@ services:
 networks:
   app:
     driver: bridge
-
-volumes:
-  data_pokedex: {}
