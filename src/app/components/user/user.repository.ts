@@ -6,14 +6,12 @@ import { User } from './user.providers'
 export class UserRepository {
   private _User: any
 
-  constructor({
-    DatabaseConnection
-  }: any) {
-    this.getUserRepository(DatabaseConnection)
+  constructor(private DatabaseConnection: Connection) {
+    this.getUserRepository()
   }
 
-  private async getUserRepository(DatabaseConnection: Connection) {
-    await DatabaseConnection.connect()
+  private async getUserRepository() {
+    await this.DatabaseConnection.connect()
     this._User = getRepository(User)
     return this._User
   }

@@ -1,5 +1,5 @@
-import container from './src/container'
-const Server: any = container.resolve('server')
+import ioc from './src/container'
+const Server: any = ioc.resolve('server')
 
 class Main {
   public static async init(): Promise<void> {

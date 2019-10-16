@@ -6,14 +6,12 @@ import { Gender } from './gender.providers'
 export class GenderRepository {
   private _Gender: any
 
-  constructor({
-    DatabaseConnection
-  }: any) {
-    this.getRepository(DatabaseConnection)
+  constructor(private DatabaseConnection: Connection) {
+    this.getRepository()
   }
 
-  private async getRepository(DatabaseConnection: Connection) {
-    await DatabaseConnection.connect()
+  private async getRepository() {
+    await this.DatabaseConnection.connect()
     this._Gender = getRepository(Gender)
     return this._Gender
   }

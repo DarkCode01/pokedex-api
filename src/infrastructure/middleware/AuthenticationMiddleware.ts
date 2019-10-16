@@ -1,19 +1,13 @@
-// Helpers
 import { Response, NextFunction, Request } from 'express'
 
 export class AuthMiddleware {
-  private _jwt: any
-  private _codes: ApiCodes
-  private _ResponseHandler: any
-
-  constructor({
-    JWT,
-    ResponseHandler,
-    codes
-  }: any) {
-    this._jwt = JWT
-    this._codes = codes
-    this._ResponseHandler = ResponseHandler
+  constructor(
+    private JWT: any,
+    private ResponseHandler: any,
+    private codes: ApiCodes
+  ) {
+    this.codes = codes
+    this.ResponseHandler = ResponseHandler
   }
 
   public ensureAuth = async (req: Request, res: Response, next: NextFunction) => {
@@ -21,18 +15,18 @@ export class AuthMiddleware {
       const token = req.get('authorization')
       if (!token)
         return res
-        .status(this._codes.INTERNAL_ERROR)
-        .send(this._ResponseHandler.build('The request does not have the authorization headers.'))
+        .status(this.codes.INTERNAL_ERROR)
+        .send(this.ResponseHandler.build('The request does not have the authorization headers.'))
 
-      const isValidToken = await this._jwt.verifyToken(token)
+      const isValidToken = await this.JWT.verifyToken(token)
       if (isValidToken)
         req.user = isValidToken.user
         next()
 
     } catch (e) {
       return res
-        .status(this._codes.UNAUTHORIZED)
-        .send(this._ResponseHandler.build('An error occurred with the token verification.'))
+        .status(this.codes.UNAUTHORIZED)
+        .send(this.ResponseHandler.build('An error occurred with the token verification.'))
     }
   }
 }

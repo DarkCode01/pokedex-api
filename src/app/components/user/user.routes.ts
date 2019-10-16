@@ -4,27 +4,15 @@ import { Router, Response, Request } from 'express'
 import { createValidator, authValidator, changePassValidator } from './user.providers'
 
 export class UserRoutes {
-  readonly api: Router
-  private codes: ApiCodes
-  private ResponseHandler: any
-  private UserController: any
-  private RouteMethod: any
-  private AuthMiddleware: any
+  private readonly api: Router = Router()
 
-  constructor({
-    UserController,
-    ResponseHandler,
-    RouteMethod,
-    codes,
-    AuthMiddleware
-  }: any) {
-    this.api = Router()
-    this.codes = codes
-    this.UserController = UserController
-    this.ResponseHandler = ResponseHandler
-    this.RouteMethod = RouteMethod
-    this.AuthMiddleware = AuthMiddleware
-  }
+  constructor (
+    private UserController: any,
+    private ResponseHandler: any,
+    private RouteMethod: any,
+    private codes: any,
+    private AuthMiddleware: any
+  ) {}
 
   public get routes(): Router {
     // @Desc    Create user

@@ -4,21 +4,15 @@ import compression from 'compression'
 import cors from 'cors'
 import morgan from 'morgan'
 
-interface IProps {
-  routing: any,
-  config: config
-}
-
 export class App {
   private app: Application = express()
   private port: number
-  private routing: any
 
-  constructor({
-    routing,
-    config
-  } : IProps) {
-    this.port = config.server.port
+  constructor (
+    private routing: any,
+    private config: config
+  ) {
+    this.port = this.config.server.port
     this.routing = routing
     this.middlewares()
     this.routes()

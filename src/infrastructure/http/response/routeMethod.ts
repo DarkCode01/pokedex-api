@@ -1,16 +1,10 @@
 import { validationResult } from 'express-validator'
 
 export class RouteMethod {
-  private codes: ApiCodes
-  private ResponseHandler: any
-
-  constructor({
-    ResponseHandler,
-    codes
-  }: any) {
-    this.codes = codes
-    this.ResponseHandler = ResponseHandler
-  }
+  constructor(
+    private ResponseHandler: any,
+    private codes: ApiCodes
+  ) {}
 
   public async build({ req, res, resolve }: any) {
     const errors = validationResult(req)

@@ -1,4 +1,4 @@
-import { createContainer, asClass, asValue, asFunction } from 'awilix'
+import { createContainer, asClass, asValue, asFunction, InjectionMode } from 'awilix'
 
 // Dependencies
 import {
@@ -27,7 +27,9 @@ import {
   GenderRepository
 } from './providers'
 
-const container = createContainer()
+const container = createContainer({
+  injectionMode: InjectionMode.CLASSIC
+})
 container
   // Instances of classes
   .register({
@@ -50,7 +52,9 @@ container
   // Http
   .register({
     ResponseHandler: asClass(ResponseHandler).singleton(),
-    ErrorHandler: asClass(ErrorHandler).singleton(),
+    ErrorHandler: asClass(ErrorHandler, {
+      injectionMode: InjectionMode.PROXY
+    }).singleton(),
     RouteMethod: asClass(RouteMethod).singleton(),
   })
   // Repository
@@ -70,7 +74,9 @@ container
   })
   // Routes
   .register({
-    Routes: asFunction(ApiRoutes).singleton(),
+    Routes: asFunction(ApiRoutes, {
+      injectionMode: InjectionMode.PROXY
+    }).singleton(),
     UserRoutes: asClass(UserRoutes).singleton(),
   })
   // Mappers
