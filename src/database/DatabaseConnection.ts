@@ -15,7 +15,7 @@ export class DatabaseConnection {
 
     if (this._connection == undefined)
       this._connection = await createConnection({
-        type: <any>type,
+        type: type as any,
         host,
         username,
         password,

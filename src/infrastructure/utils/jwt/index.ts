@@ -17,7 +17,7 @@ export class JWT {
   public async generateToken(user: any) {
     return jwt.sign(
       { user },
-      <Secret>this._config.jwt.secret,
+      this._config.jwt.secret as Secret,
       { expiresIn: this._config.jwt.tokenExpire }
     )
   }

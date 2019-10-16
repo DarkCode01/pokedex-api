@@ -5,7 +5,7 @@ dotenv.config({
 
 export default {
   server: {
-    port: parseInt(<string>process.env.PORT),
+    port: parseInt(process.env.PORT as string),
     prefixRoutes: process.env.PREFIX_ROUTES,
   },
   database: {

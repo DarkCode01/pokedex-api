@@ -10,7 +10,7 @@ interface IProps {
 }
 
 export class App {
-  private app: Application
+  private app: Application = express()
   private port: number
   private routing: any
 
@@ -18,7 +18,6 @@ export class App {
     routing,
     config
   } : IProps) {
-    this.app = express()
     this.port = config.server.port
     this.routing = routing
     this.middlewares()

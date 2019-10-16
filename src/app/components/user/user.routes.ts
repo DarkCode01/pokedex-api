@@ -26,15 +26,15 @@ export class UserRoutes {
   public get routes(): Router {
     // @Desc    Create user
     // @Access  Public
-    this.api.post('/register', <any>createValidator, this.create)
+    this.api.post('/register', createValidator as any, this.create)
 
     // @Desc    Authentication
     // @Access  Public
-    this.api.post('/auth', <any>authValidator, this.auth)
+    this.api.post('/auth', authValidator as any, this.auth)
 
     // @Desc    Change Password
     // @Access  Private
-    this.api.put('/change-password', <any>changePassValidator, this.changePassword)
+    this.api.put('/change-password', changePassValidator as any, this.changePassword)
 
     return this.api
   }
