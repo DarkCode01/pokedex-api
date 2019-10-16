@@ -1,7 +1,10 @@
+import { Application } from 'express'
+import { DataConnection } from './infrastructure/@types/dataConnection'
+
 export class Server {
   constructor(
-    private app: any,
-    private DatabaseConnection: any
+    private app: Application,
+    private DatabaseConnection: DataConnection
   ) {}
 
   public async start() : Promise<void> {
