@@ -36,7 +36,7 @@ container
     server: asClass(Server).singleton(),
     app: asClass(App).singleton(),
     routing: asClass(Routing).singleton(),
-    DatabaseConnection: asValue(DatabaseConnection),
+    DatabaseConnection: asClass(DatabaseConnection).singleton(),
   })
   // Values
   .register({
