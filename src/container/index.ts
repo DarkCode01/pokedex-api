@@ -15,6 +15,7 @@ import {
   encryptPassword,
   comparePassword,
   JWT,
+  AuthMiddleware,
   UserRepository,
   UserService,
   UserRoutes,
@@ -76,6 +77,9 @@ container
   .register({
     UserMapper: asClass(UserMapper).singleton(),
     GenderMapper: asClass(GenderMapper).singleton(),
+  })
+  .register({
+    AuthMiddleware: asClass(AuthMiddleware).singleton(),
   })
 
 export default container

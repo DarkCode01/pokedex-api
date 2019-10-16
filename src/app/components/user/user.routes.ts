@@ -9,18 +9,21 @@ export class UserRoutes {
   private ResponseHandler: any
   private UserController: any
   private RouteMethod: any
+  private AuthMiddleware: any
 
   constructor({
     UserController,
     ResponseHandler,
     RouteMethod,
     codes,
+    AuthMiddleware
   }: any) {
     this.api = Router()
     this.codes = codes
     this.UserController = UserController
     this.ResponseHandler = ResponseHandler
     this.RouteMethod = RouteMethod
+    this.AuthMiddleware = AuthMiddleware
   }
 
   public get routes(): Router {
@@ -34,7 +37,12 @@ export class UserRoutes {
 
     // @Desc    Change Password
     // @Access  Private
-    this.api.put('/change-password', changePassValidator as any, this.changePassword)
+    this.api.put(
+      '/change-password',
+      this.AuthMiddleware.ensureAuth,
+      changePassValidator as any,
+      this.changePassword
+    )
 
     return this.api
   }

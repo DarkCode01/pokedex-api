@@ -9,8 +9,8 @@ export class JWT {
     this._config = config
   }
 
-  public async verifyToken(token: string, secretToken: Buffer) : Promise<string|object> {
-    const decoded = await jwt.verify(token, secretToken)
+  public async verifyToken(token: string) : Promise<string|object> {
+    const decoded = await jwt.verify(token, this._config.jwt.secret as string | Buffer)
     return decoded
   }
 

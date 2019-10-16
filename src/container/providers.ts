@@ -20,6 +20,9 @@ export { ApiRoutes } from '../infrastructure/http/routes/Routes'
 export { encryptPassword, comparePassword } from '../infrastructure/utils/encryption'
 export { JWT } from '../infrastructure/utils/jwt'
 
+// Middlewares
+export { AuthMiddleware } from '../infrastructure/middleware/AuthenticationMiddleware'
+
 // User providers
 export {
   UserRoutes,

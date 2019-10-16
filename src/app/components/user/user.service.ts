@@ -85,6 +85,7 @@ export class UserService {
 
   public changePassword = async ({ username, password, newPassword }: any) => {
     let user = await this._UserRepository.getUserByUsername(username)
+
     if (user && this._comparePassword(password, user.password)) {
       if (password === newPassword)
         throw this._ErrorHandler.build({
