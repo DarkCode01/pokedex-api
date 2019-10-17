@@ -16,6 +16,17 @@ interface jwt {
   tokenExpire: string | undefined,
 }
 
+interface nodemailer {
+  host: string | undefined,
+  port: number,
+  from: string | undefined,
+  fromEmail: string | undefined,
+  auth: {
+    user: string | undefined,
+    pass: string | undefined,
+  }
+}
+
 interface test {
   uri: string | undefined
 }
@@ -25,4 +36,5 @@ declare interface config {
   database: database
   jwt: jwt
   test: test
+  nodemailer: nodemailer
 }
