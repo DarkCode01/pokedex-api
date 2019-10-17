@@ -26,6 +26,6 @@ export const UserResponses: any = {
   usernameExists: 'the username cannot already exist in the database.',
   emailExists: 'the email cannot already exist in the database.',
   nodemailer: {
-    subject: 'Password reset token',
+    subject: 'Change your password',
   }
 }

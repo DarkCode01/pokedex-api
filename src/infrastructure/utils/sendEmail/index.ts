@@ -41,6 +41,6 @@ export class Email {
 
     const send = await this.transporter.sendMail(message)
     if (send)
-      return `The email has been sent successfully. ${send.messageId}`
+      return 'The email has been sent successfully.'
   }
 }

@@ -22,8 +22,7 @@ export default {
   nodemailer: {
     host: process.env.SMTP_HOST,
     port: process.env.SMTP_PORT,
-    from: process.env.FROM_NAME,
-    fromEmail: process.env.FROM_EMAIL,
+    from: process.env.MAILER_FROM || 'Forgot Password <forgot@pokedex.com.do>',
     auth: {
       user: process.env.SMTP_EMAIL,
       pass: process.env.SMTP_PASSWORD,

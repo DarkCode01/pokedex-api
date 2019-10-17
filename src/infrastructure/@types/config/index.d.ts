@@ -20,7 +20,6 @@ interface nodemailer {
   host: string | undefined,
   port: number,
   from: string | undefined,
-  fromEmail: string | undefined,
   auth: {
     user: string | undefined,
     pass: string | undefined,
