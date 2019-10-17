@@ -19,6 +19,7 @@ export { ApiRoutes } from '../infrastructure/http/routes/Routes'
 // Utils
 export { encryptPassword, comparePassword } from '../infrastructure/utils/encryption'
 export { JWT } from '../infrastructure/utils/jwt'
+export { Email } from '../infrastructure/utils/sendEmail'
 
 // Middlewares
 export { AuthMiddleware } from '../infrastructure/middleware/AuthenticationMiddleware'

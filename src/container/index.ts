@@ -15,6 +15,7 @@ import {
   encryptPassword,
   comparePassword,
   JWT,
+  Email,
   AuthMiddleware,
   UserRepository,
   UserService,
@@ -48,6 +49,7 @@ container
     encryptPassword: asValue(encryptPassword),
     comparePassword: asValue(comparePassword),
     JWT: asClass(JWT).singleton(),
+    Email: asClass(Email).singleton(),
   })
   // Http
   .register({
