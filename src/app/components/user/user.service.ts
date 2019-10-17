@@ -1,4 +1,5 @@
 import { UserDTO, UserResponses } from './user.providers'
+import crypto from 'crypto'
 
 export class UserService {
   constructor(
@@ -87,5 +88,31 @@ export class UserService {
       status: this.codes.BAD_REQUEST,
       msg: UserResponses.changePassword.incorrect
     })
+  }
+
+  public forgotPassword = async (email: string) => {
+    const user = await this.UserRepository.getUserByEmail(email)
+
+    if (!user)
+      throw this.ErrorHandler.build({
+        status: this.codes.BAD_REQUEST,
+        msg: UserResponses.auth.accountDoesNotExist
+      })
+
+    // Generate Token
+    const token = crypto.randomBytes(20).toString('hex')
+    const forgotPasswordToken = crypto
+      .createHash('sha256')
+      .update(token)
+      .digest('hex')
+
+    const forgotPasswordExpire = new Date()
+    const updateUser = this.UserRepository.update(user,
+      { forgotPasswordToken, forgotPasswordExpire })
+
+    if (updateUser)
+      await this.UserRepository.saveUser(user)
+
+    return forgotPasswordToken
   }
 }

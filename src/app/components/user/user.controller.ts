@@ -1,7 +1,10 @@
-import { User } from './domain/user.entity'
+import { User, forgotMessage, UserResponses } from './user.providers'
 
 export class UserController {
-  constructor(private UserService: any) {}
+  constructor(
+    private UserService: any,
+    private Email: any
+  ) {}
 
   public create = async (user: User) => {
     const _user = await this.UserService.create(user)
@@ -23,6 +26,24 @@ export class UserController {
     if (res)
       return res
   }
+
+  public forgotPassword = async ({
+    email,
+    protocol,
+    host,
+    prefixRoutes,
+    path
+  }: any) => {
+    const token = await this.UserService.forgotPassword(email as string)
+    if (token) {
+      const resetPasswordUrl = `${protocol}://${host}${prefixRoutes}${path}/${token}`
+      const sendEmail = await this.Email.build({
+        to: email,
+        subject: UserResponses.nodemailer.subject,
+        html: forgotMessage(resetPasswordUrl)
+      })
+      if (sendEmail)
+        return sendEmail
+    }
+  }
 }
-
-

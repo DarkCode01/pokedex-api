@@ -11,6 +11,7 @@ export class UserRoutes {
     private ResponseHandler: any,
     private RouteMethod: any,
     private codes: any,
+    private config: config,
     private AuthMiddleware: any
   ) {}
 
@@ -31,6 +32,10 @@ export class UserRoutes {
       changePassValidator as any,
       this.changePassword
     )
+
+    // @Desc    Forgot Password
+    // @Access  Public
+    this.api.post('/forgot-password', this.forgotPassword)
 
     return this.api
   }
@@ -63,6 +68,24 @@ export class UserRoutes {
     this.RouteMethod.build({
       resolve: async () => {
         const response = await this.UserController.changePassword(req.user, req.body)
+        if (response)
+          return res
+            .status(this.codes.OK)
+            .send(this.ResponseHandler.build(response))
+      }, req, res
+    })
+  }
+
+  public forgotPassword = async (req: Request, res: Response) => {
+    this.RouteMethod.build({
+      resolve: async () => {
+        const response = await this.UserController.forgotPassword({
+          email: req.body.email,
+          protocol: req.protocol,
+          host: req.get('host'),
+          prefixRoutes: this.config.server.prefixRoutes,
+          path: '/reset_password'
+        })
         if (response)
           return res
             .status(this.codes.OK)
