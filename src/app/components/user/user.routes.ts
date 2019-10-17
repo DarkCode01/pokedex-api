@@ -1,7 +1,11 @@
 import { Router, Response, Request } from 'express'
 
 // Validators
-import { createValidator, authValidator, changePassValidator } from './user.providers'
+import {
+  createValidator,
+  authValidator,
+  changePassValidator
+} from './user.providers'
 
 export class UserRoutes {
   private readonly api: Router = Router()
@@ -24,18 +28,31 @@ export class UserRoutes {
     // @Access  Public
     this.api.post('/auth', authValidator as any, this.auth)
 
-    // @Desc    Change Password
-    // @Access  Private
+    // @Desc       Change Password
+    // @Access     Private
+    // @Namespace  /account
     this.api.put(
-      '/change-password',
+      '/account/change_password',
       this.AuthMiddleware.ensureAuth,
       changePassValidator as any,
       this.changePassword
     )
 
-    // @Desc    Forgot Password
-    // @Access  Public
-    this.api.post('/forgot-password', this.forgotPassword)
+    // @Desc        Forgot Password
+    // @Access      Public
+    // @Namespace  /account
+    this.api.post(
+      '/account/forgot_password',
+      this.forgotPassword
+    )
+
+    // @Desc        Reset Password
+    // @Access      Public
+    // @Namespace  /account
+    /* this.api.post(
+      '/account/reset_password',
+      this.resetPassword
+    ) */
 
     return this.api
   }
@@ -84,7 +101,7 @@ export class UserRoutes {
           protocol: req.protocol,
           host: req.get('host'),
           prefixRoutes: this.config.server.prefixRoutes,
-          path: '/reset_password'
+          path: '/account/reset_password'
         })
         if (response)
           return res
