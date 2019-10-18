@@ -1,4 +1,4 @@
-import { getRepository, Connection } from 'typeorm'
+import { getRepository, Connection, MoreThanOrEqual } from 'typeorm'
 
 // Entity
 import { User } from './user.providers'
@@ -34,5 +34,12 @@ export class UserRepository {
 
   public async update(user: User, update: {}) : Promise<User> {
     return await this._User.merge(user, update)
+  }
+
+  public async getUserByForgotPasswordToken(forgotPasswordToken: string): Promise<User|undefined> {
+    return await this._User.findOne({
+      forgotPasswordToken,
+      forgotPasswordExpire: MoreThanOrEqual(new Date())
+    })
   }
 }
