@@ -5,7 +5,9 @@ import {
   createValidator,
   authValidator,
   changePassValidator,
-  forgotPassValidator
+  forgotPassValidator,
+  forgotPassExpireValidator,
+  resetPassValidator
 } from './user.providers'
 
 export class UserRoutes {
@@ -56,13 +58,23 @@ export class UserRoutes {
       this.forgotPassword
     )
 
+    // @Desc        Check Password Expire
+    // @Access      Public
+    // @Namespace  /account
+    this.api.get(
+      '/account/forgot_password_expire/:token',
+      forgotPassExpireValidator as Array<any>,
+      this.checkPasswordExpire
+    )
+
     // @Desc        Reset Password
     // @Access      Public
     // @Namespace  /account
-    /* this.api.post(
-      '/account/reset_password',
+    this.api.put(
+      '/account/reset_password/:token',
+      resetPassValidator as Array<any>,
       this.resetPassword
-    ) */
+    )
 
     return this.api
   }
@@ -110,6 +122,30 @@ export class UserRoutes {
           email: req.body.email,
           url: this.config.forgotPass.url,
         })
+        if (response)
+          return res
+            .status(this.codes.OK)
+            .send(this.ResponseHandler.build(response))
+      }, req, res
+    })
+  }
+
+  public checkPasswordExpire = async (req: Request, res: Response) => {
+    this.RouteMethod.build({
+      resolve: async () => {
+        const response = await this.UserController.checkPasswordExpire(req.params.token)
+        if (response)
+          return res
+            .status(this.codes.OK)
+            .send(this.ResponseHandler.build(response, false))
+      }, req, res
+    })
+  }
+
+  public resetPassword = async (req: Request, res: Response) => {
+    this.RouteMethod.build({
+      resolve: async () => {
+        const response = await this.UserController.resetPassword(req.params.token, req.body.password)
         if (response)
           return res
             .status(this.codes.OK)
