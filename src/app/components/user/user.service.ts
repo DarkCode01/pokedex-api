@@ -106,7 +106,9 @@ export class UserService {
       .update(token)
       .digest('hex')
 
-    const forgotPasswordExpire = new Date()
+    const expireDate = new Date()
+    expireDate.setMinutes(expireDate.getMinutes() + 30)
+    const forgotPasswordExpire = expireDate
     const updateUser = this.UserRepository.update(user,
       { forgotPasswordToken, forgotPasswordExpire })
 
