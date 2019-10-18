@@ -4,7 +4,8 @@ import { Router, Response, Request } from 'express'
 import {
   createValidator,
   authValidator,
-  changePassValidator
+  changePassValidator,
+  forgotPassValidator
 } from './user.providers'
 
 export class UserRoutes {
@@ -22,11 +23,19 @@ export class UserRoutes {
   public get routes(): Router {
     // @Desc    Create user
     // @Access  Public
-    this.api.post('/register', createValidator as any, this.create)
+    this.api.post(
+      '/register',
+      createValidator as Array<any>,
+      this.create
+    )
 
     // @Desc    Authentication
     // @Access  Public
-    this.api.post('/auth', authValidator as any, this.auth)
+    this.api.post(
+      '/auth',
+      authValidator as Array<any>,
+      this.auth
+    )
 
     // @Desc       Change Password
     // @Access     Private
@@ -34,7 +43,7 @@ export class UserRoutes {
     this.api.put(
       '/account/change_password',
       this.AuthMiddleware.ensureAuth,
-      changePassValidator as any,
+      changePassValidator as Array<any>,
       this.changePassword
     )
 
@@ -43,6 +52,7 @@ export class UserRoutes {
     // @Namespace  /account
     this.api.post(
       '/account/forgot_password',
+      forgotPassValidator as Array<any>,
       this.forgotPassword
     )
 

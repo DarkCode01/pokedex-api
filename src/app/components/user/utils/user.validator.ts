@@ -38,6 +38,12 @@ const authValidator = [
     })
 ]
 
+const forgotPassValidator = [
+  check('email', validator.email)
+    .isEmail()
+    .normalizeEmail({ all_lowercase: true }),
+]
+
 const changePassValidator = [
   check('password', changePassword.validator.pass)
     .isLength({
@@ -52,5 +58,6 @@ const changePassValidator = [
 export {
   createValidator,
   authValidator,
-  changePassValidator
+  changePassValidator,
+  forgotPassValidator
 }
