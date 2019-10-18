@@ -107,14 +107,44 @@ export class UserService {
       .digest('hex')
 
     const expireDate = new Date()
+    // Increase 30 minutes to the current time
     expireDate.setMinutes(expireDate.getMinutes() + 30)
     const forgotPasswordExpire = expireDate
-    const updateUser = this.UserRepository.update(user,
+    const updateUser = await this.UserRepository.update(user,
       { forgotPasswordToken, forgotPasswordExpire })
 
     if (updateUser)
       await this.UserRepository.saveUser(user)
 
     return forgotPasswordToken
+  }
+
+  public checkPasswordExpire = async (token: string) => {
+    const user = await this.UserRepository
+      .getUserByForgotPasswordToken(token)
+
+    if (!user)
+      throw this.ErrorHandler.build({
+        status: this.codes.BAD_REQUEST,
+        msg: UserResponses.forgotPass.userNotFound
+      })
+
+    return user
+  }
+
+  public resetPassword = async (token: string, password: string) => {
+    const user = await this.checkPasswordExpire(token)
+    if (user) {
+      const updateUser = await this.UserRepository.update(user,
+        { forgotPasswordToken: null,
+          forgotPasswordExpire: null,
+          password
+        })
+
+      if (updateUser)
+        await this.UserRepository.saveUser(user)
+
+        return UserResponses.forgotPass.success
+    }
   }
 }
