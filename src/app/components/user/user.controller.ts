@@ -29,18 +29,14 @@ export class UserController {
 
   public forgotPassword = async ({
     email,
-    protocol,
-    host,
-    prefixRoutes,
-    path
+    url
   }: any) => {
     const token = await this.UserService.forgotPassword(email as string)
     if (token) {
-      const resetPasswordUrl = `${protocol}://${host}${prefixRoutes}${path}/${token}`
       const sendEmail = await this.Email.build({
         to: email,
         subject: UserResponses.nodemailer.subject,
-        html: forgotMessage(resetPasswordUrl)
+        html: forgotMessage(`${url}/${token}`)
       })
       if (sendEmail)
         return sendEmail

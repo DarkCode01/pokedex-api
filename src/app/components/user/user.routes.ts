@@ -98,10 +98,7 @@ export class UserRoutes {
       resolve: async () => {
         const response = await this.UserController.forgotPassword({
           email: req.body.email,
-          protocol: req.protocol,
-          host: req.get('host'),
-          prefixRoutes: this.config.server.prefixRoutes,
-          path: '/account/reset_password'
+          url: this.config.forgotPass.url,
         })
         if (response)
           return res

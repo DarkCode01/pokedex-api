@@ -30,10 +30,14 @@ interface test {
   uri: string | undefined
 }
 
+interface forgotPass {
+  url: string
+}
 declare interface config {
   server: server
   database: database
   jwt: jwt
   test: test
   nodemailer: nodemailer
+  forgotPass: forgotPass
 }

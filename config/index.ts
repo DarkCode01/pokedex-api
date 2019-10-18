@@ -28,6 +28,9 @@ export default {
       pass: process.env.SMTP_PASSWORD,
     }
   },
+  forgotPass: {
+    url: process.env.AGENT_CLIENT_URI
+  },
   test: {
     uri: process.env.TEST_URI
   }
