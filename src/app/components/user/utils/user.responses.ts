@@ -23,6 +23,13 @@ export const UserResponses: any = {
     incorrect: 'Your password is incorrect.',
     success: 'Your password has been updated successfully.',
   },
+  forgotPass: {
+    userNotFound: 'Password reset token is invalid or has expired.',
+    success: 'Your password has been changed successfully.',
+    validator: {
+      token: 'Password reset token is required.',
+    }
+  },
   usernameExists: 'the username cannot already exist in the database.',
   emailExists: 'the email cannot already exist in the database.',
   nodemailer: {

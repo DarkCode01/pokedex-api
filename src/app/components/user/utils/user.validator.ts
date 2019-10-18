@@ -1,7 +1,7 @@
-import { check, checkSchema } from 'express-validator'
+import { check, checkSchema, param } from 'express-validator'
 import { UserResponses } from './user.responses'
 
-const { validator, auth, changePassword  } = UserResponses
+const { validator, auth, changePassword, forgotPass  } = UserResponses
 
 const createValidator = [
   check('name', validator.name)
@@ -55,9 +55,29 @@ const changePassValidator = [
     })
 ]
 
+const forgotPassExpireValidator = [
+  param('token', forgotPass.validator.token)
+    .isLength({
+      min: 10
+    })
+]
+
+const resetPassValidator = [
+  check('password', changePassword.validator.pass)
+    .isLength({
+      min: 6
+    }),
+  param('token', forgotPass.validator.token)
+    .isLength({
+      min: 10
+    })
+]
+
 export {
   createValidator,
   authValidator,
   changePassValidator,
-  forgotPassValidator
+  forgotPassValidator,
+  forgotPassExpireValidator,
+  resetPassValidator
 }
