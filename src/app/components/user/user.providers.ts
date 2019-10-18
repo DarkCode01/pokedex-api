@@ -11,5 +11,7 @@ export {
   createValidator,
   authValidator,
   changePassValidator,
-  forgotPassValidator
+  forgotPassValidator,
+  forgotPassExpireValidator,
+  resetPassValidator
 } from './utils/user.validator'
