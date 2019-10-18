@@ -42,4 +42,16 @@ export class UserController {
         return sendEmail
     }
   }
+
+  public checkPasswordExpire = async (token: string) => {
+    const checkToken = await this.UserService.checkPasswordExpire(token)
+    if (checkToken)
+      return checkToken
+  }
+
+  public resetPassword = async (token: string, password: string) => {
+    const changedPass = await this.UserService.resetPassword(token, password)
+    if (changedPass)
+      return changedPass
+  }
 }
