@@ -24,6 +24,14 @@ export { Email } from '../infrastructure/utils/sendEmail'
 // Middlewares
 export { AuthMiddleware } from '../infrastructure/middleware/AuthenticationMiddleware'
 
+// Auth providers
+export {
+  AuthRoutes,
+  AuthController,
+  AuthService,
+  AuthRepository
+} from '../app/components/auth/auth.providers'
+
 // User providers
 export {
   UserRoutes,

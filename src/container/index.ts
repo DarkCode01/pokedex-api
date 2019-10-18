@@ -16,6 +16,10 @@ import {
   comparePassword,
   JWT,
   Email,
+  AuthRoutes,
+  AuthController,
+  AuthService,
+  AuthRepository,
   AuthMiddleware,
   UserRepository,
   UserService,
@@ -61,16 +65,19 @@ container
   })
   // Repository
   .register({
+    AuthRepository: asClass(AuthRepository).singleton(),
     UserRepository: asClass(UserRepository).singleton(),
     GenderRepository: asClass(GenderRepository).singleton(),
   })
   // Services
   .register({
+    AuthService: asClass(AuthService).singleton(),
     UserService: asClass(UserService).singleton(),
     GenderService: asClass(GenderService).singleton(),
   })
   // Controllers
   .register({
+    AuthController: asClass(AuthController).singleton(),
     UserController: asClass(UserController).singleton(),
     GenderController: asClass(GenderController).singleton(),
   })
@@ -79,6 +86,7 @@ container
     Routes: asFunction(ApiRoutes, {
       injectionMode: InjectionMode.PROXY
     }).singleton(),
+    AuthRoutes: asClass(AuthRoutes).singleton(),
     UserRoutes: asClass(UserRoutes).singleton(),
   })
   // Mappers

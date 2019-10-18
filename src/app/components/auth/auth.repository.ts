@@ -1,9 +1,9 @@
-import { getRepository, Connection } from 'typeorm'
+import { getRepository, Connection, MoreThanOrEqual } from 'typeorm'
 
 // Entity
-import { User } from './user.providers'
+import { User } from '../user/user.providers'
 
-export class UserRepository {
+export class AuthRepository {
   private _User: any
 
   constructor(private DatabaseConnection: Connection) {
@@ -16,6 +16,14 @@ export class UserRepository {
     return this._User
   }
 
+  public create = async (user: User): Promise<User> => {
+    return await this._User.create(user)
+  }
+
+  public async getUserByEmail(email: string): Promise<User|undefined> {
+    return await this._User.findOne({ email })
+  }
+
   public async getUserByUsername(username: string): Promise<User|undefined> {
     return await this._User.findOne({ username })
   }
@@ -26,5 +34,12 @@ export class UserRepository {
 
   public async update(user: User, update: {}) : Promise<User> {
     return await this._User.merge(user, update)
+  }
+
+  public async getUserByForgotPasswordToken(forgotPasswordToken: string): Promise<User|undefined> {
+    return await this._User.findOne({
+      forgotPasswordToken,
+      forgotPasswordExpire: MoreThanOrEqual(new Date())
+    })
   }
 }
