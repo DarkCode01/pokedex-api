@@ -36,6 +36,10 @@ export class AuthRepository {
     return await this._User.merge(user, update)
   }
 
+  public async count() : Promise<number> {
+    return await this._User.count()
+  }
+
   public async getUserByForgotPasswordToken(forgotPasswordToken: string): Promise<User|undefined> {
     return await this._User.findOne({
       forgotPasswordToken,

@@ -1,6 +1,6 @@
 import crypto from 'crypto'
 
-import { UserDTO } from '../user/user.providers'
+import { UserDTO, Roles } from '../user/user.providers'
 import { AuthResponses } from './auth.providers'
 
 export class AuthService {
@@ -22,20 +22,24 @@ export class AuthService {
     const gender = await this.GenderController.getOrCreateGender(user.gender)
     if (gender) user.gender = gender
 
-    const isRegistered = await this.AuthRepository.getUserByEmail(user.email)
-    const usernameExists = await this.AuthRepository.getUserByUsername(user.username)
+    const users = await this.AuthRepository.count()
+    if (!users) user.role = Roles.owner
+    else {
+      const isRegistered = await this.AuthRepository.getUserByEmail(user.email)
+      const usernameExists = await this.AuthRepository.getUserByUsername(user.username)
 
-    if (isRegistered)
-      throw this.ErrorHandler.build({
-        status: this.codes.BAD_REQUEST,
-        msg: AuthResponses.emailExists
-      })
+      if (isRegistered)
+        throw this.ErrorHandler.build({
+          status: this.codes.BAD_REQUEST,
+          msg: AuthResponses.emailExists
+        })
 
-    if (usernameExists)
-      throw this.ErrorHandler.build({
-        status: this.codes.BAD_REQUEST,
-        msg: AuthResponses.usernameExists
-      })
+      if (usernameExists)
+        throw this.ErrorHandler.build({
+          status: this.codes.BAD_REQUEST,
+          msg: AuthResponses.usernameExists
+        })
+    }
 
     const saveUser = await this.AuthRepository.saveUser(user)
     return await this.JWT.generateToken(this.UserMapper.mapToDTO(saveUser))
