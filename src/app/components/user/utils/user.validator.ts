@@ -1,6 +1,15 @@
-import { check, checkSchema, param } from 'express-validator'
+import { param } from 'express-validator'
 import { UserResponses } from './user.responses'
 
 const { validator } = UserResponses
 
-export {}
+const getValidator = [
+  param('username', validator.username)
+    .isLength({
+      min: 3
+    })
+]
+
+export {
+  getValidator
+}
