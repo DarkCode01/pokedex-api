@@ -1,9 +1,9 @@
-import { User } from '../../../app/components/user/domain/user.entity'
+import { UserDTO } from '../../../app/components/user/user.providers'
 
 declare global {
   namespace Express {
     export interface Request {
-      user?: User
+      user?: UserDTO
     }
   }
 }

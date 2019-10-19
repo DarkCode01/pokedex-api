@@ -17,7 +17,7 @@ export class AuthRoutes {
     private AuthController: any,
     private ResponseHandler: any,
     private RouteMethod: any,
-    private codes: any,
+    private codes: ApiCodes,
     private config: config,
     private AuthMiddleware: any
   ) {}
