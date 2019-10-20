@@ -1,10 +1,14 @@
 export const AuthResponses: any = {
   validator: {
     name: 'Please, enter a name with 2 or more characters.',
+    lastname: 'Please, enter a lastname with 2 or more characters.',
     username: 'Please, enter a username with 3 or more characters.',
     email: 'Please, include a valid email.',
     password: 'Please, enter a password with 6 or more characters.',
+    commonPass: 'Oops!, your password is not safe, try using not so common words and numbers.',
     gender: 'Please, enter your gender. [male, female, others]',
+    birthdate: 'Please, include a valid date.',
+    city: 'Please, enter a city with 3 or more characters.',
   },
   auth: {
     validator: {
