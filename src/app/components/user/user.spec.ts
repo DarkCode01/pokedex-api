@@ -1,5 +1,5 @@
 import request from 'supertest'
-import { config } from '../../../../container/providers'
+import { config } from '../../../container/providers'
 const api = request.agent(config.test.uri)
 
 /*****************************************************
