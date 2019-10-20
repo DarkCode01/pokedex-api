@@ -25,4 +25,31 @@ export class UserService {
       msg: UserResponses.unauthorized
     })
   }
+
+  public list = async (props: {
+    perPage: number,
+    page: number,
+  }) : Promise <{
+    users: UserDTO[],
+    allUsers: number,
+    pages: number,
+  }> => {
+    const { page, perPage } = props
+    const users = await this.UserRepository.getAll({
+      page,
+      perPage,
+    })
+    if (!users && !users.rows)
+      throw this.ErrorHandler.build({
+        status: this.codes.BAD_REQUEST,
+        msg: UserResponses.noRecords
+      })
+
+    const mapListToDTO = this.UserMapper.mapListToDTO(users.rows)
+    return {
+      users: mapListToDTO,
+      allUsers: users.allUsers,
+      pages: users.pages
+    }
+  }
 }
