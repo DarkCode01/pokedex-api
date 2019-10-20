@@ -5,9 +5,11 @@ export class UserController {
     private UserService: any,
   ) {}
 
-  public get = async (username: string, user: UserDTO) => {
-    const _user = await this.UserService.get(username, user)
-    if (_user)
-      return _user
-  }
+  public get = async (username: string, user: UserDTO) =>
+    await this.UserService.get(username, user)
+
+  public list = async (query: {
+    perPage: number,
+    page: number,
+  }) => await this.UserService.list(query)
 }
