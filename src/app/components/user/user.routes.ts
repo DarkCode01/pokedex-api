@@ -1,7 +1,7 @@
 import { Router, Response, Request } from 'express'
 
 // Validators
-import { getValidator, Roles } from './user.providers'
+import { getValidator, updateValidator } from './user.providers'
 
 export class UserRoutes {
   private readonly api: Router = Router()
@@ -24,13 +24,19 @@ export class UserRoutes {
       this.list
     )
 
-    // @Desc        Get User
+    // @Desc        Get and Update User
     // @Access      Private
-    this.api.get('/user/:username',
-      getValidator as Array<any>,
-      this.AuthMiddleware.ensureAuth,
-      this.get
-    )
+    this.api.route('/user/:username')
+      .get(
+        getValidator as Array<any>,
+        this.AuthMiddleware.ensureAuth,
+        this.get
+      )
+      .put(
+        updateValidator as Array<any>,
+        this.AuthMiddleware.ensureAuth,
+        this.update
+      )
 
     return this.api
   }
@@ -58,6 +64,21 @@ export class UserRoutes {
           return res
             .status(this.codes.OK)
             .send(this.ResponseHandler.build(users, false))
+      }, req, res
+    })
+
+  public update = async (req: Request, res: Response) =>
+    this.RouteMethod.build({
+      resolve: async () => {
+        const user = await this.UserController.update({
+          userLogged: req.user,
+          username: req.params.username,
+          changes: req.body
+        })
+        if (user)
+          return res
+            .status(this.codes.OK)
+            .send(this.ResponseHandler.build(user, false))
       }, req, res
     })
 }
