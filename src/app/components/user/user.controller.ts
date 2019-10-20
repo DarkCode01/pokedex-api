@@ -12,4 +12,10 @@ export class UserController {
     perPage: number,
     page: number,
   }) => await this.UserService.list(query)
+
+  public update = async (query: {
+    username: string,
+    userLogged: UserDTO,
+    changes: UserDTO
+  }) => await this.UserService.update(query)
 }
