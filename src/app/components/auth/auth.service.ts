@@ -72,7 +72,12 @@ export class AuthService {
     })
   }
 
-  public changePassword = async ({ username, password, newPassword }: any) => {
+  public changePassword = async (props: {
+    username: string,
+    password: string,
+    newPassword: string
+  }) => {
+    const { username, password, newPassword } = props
     let user = await this.AuthRepository.getUserByUsername(username)
 
     if (user && this.comparePassword(password, user.password)) {

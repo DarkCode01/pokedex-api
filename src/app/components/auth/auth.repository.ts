@@ -16,34 +16,26 @@ export class AuthRepository {
     return this._User
   }
 
-  public create = async (user: User): Promise<User> => {
-    return await this._User.create(user)
-  }
+  public create = async (user: User): Promise<User> =>
+    await this._User.create(user)
 
-  public async getUserByEmail(email: string): Promise<User|undefined> {
-    return await this._User.findOne({ email })
-  }
+  public getUserByEmail = async (email: string): Promise<User|undefined> =>
+    await this._User.findOne({ email })
 
-  public async getUserByUsername(username: string): Promise<User|undefined> {
-    return await this._User.findOne({ username })
-  }
+  public getUserByUsername = async (username: string): Promise<User|undefined> =>
+    await this._User.findOne({ username })
 
-  public async saveUser(user: User): Promise<User> {
-    return await this._User.save(user)
-  }
+  public saveUser = async (user: User): Promise<User> =>
+    await this._User.save(user)
 
-  public async update(user: User, update: {}) : Promise<User> {
-    return await this._User.merge(user, update)
-  }
+  public update = async (user: User, update: {}): Promise<User> =>
+    await this._User.merge(user, update)
 
-  public async count() : Promise<number> {
-    return await this._User.count()
-  }
+  public count = async (): Promise<number> => await this._User.count()
 
-  public async getUserByForgotPasswordToken(forgotPasswordToken: string): Promise<User|undefined> {
-    return await this._User.findOne({
-      forgotPasswordToken,
+  public getUserByForgotPasswordToken = async (token: string): Promise<User|undefined> =>
+    await this._User.findOne({
+      forgotPasswordToken: token,
       forgotPasswordExpire: MoreThanOrEqual(new Date())
     })
-  }
 }

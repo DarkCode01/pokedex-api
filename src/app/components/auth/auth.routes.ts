@@ -79,7 +79,7 @@ export class AuthRoutes {
     return this.api
   }
 
-  public create = async (req: Request, res: Response) => {
+  public create = async (req: Request, res: Response) =>
     this.RouteMethod.build({
       resolve: async () => {
         const user = await this.AuthController.create(req.body)
@@ -89,9 +89,8 @@ export class AuthRoutes {
             .send(this.ResponseHandler.build(user, false))
       }, req, res
     })
-  }
 
-  public auth = (req: Request, res: Response) => {
+  public auth = (req: Request, res: Response) =>
     this.RouteMethod.build({
       resolve: async () => {
         const user = await this.AuthController.auth(req.body)
@@ -101,9 +100,8 @@ export class AuthRoutes {
             .send(this.ResponseHandler.build(user, false))
       }, req, res
     })
-  }
 
-  public changePassword = async (req: Request, res: Response) => {
+  public changePassword = async (req: Request, res: Response) =>
     this.RouteMethod.build({
       resolve: async () => {
         const response = await this.AuthController.changePassword(req.user, req.body)
@@ -113,9 +111,8 @@ export class AuthRoutes {
             .send(this.ResponseHandler.build(response))
       }, req, res
     })
-  }
 
-  public forgotPassword = async (req: Request, res: Response) => {
+  public forgotPassword = async (req: Request, res: Response) =>
     this.RouteMethod.build({
       resolve: async () => {
         const response = await this.AuthController.forgotPassword({
@@ -128,9 +125,8 @@ export class AuthRoutes {
             .send(this.ResponseHandler.build(response))
       }, req, res
     })
-  }
 
-  public checkPasswordExpire = async (req: Request, res: Response) => {
+  public checkPasswordExpire = async (req: Request, res: Response) =>
     this.RouteMethod.build({
       resolve: async () => {
         const response = await this.AuthController.checkPasswordExpire(req.params.token)
@@ -140,9 +136,8 @@ export class AuthRoutes {
             .send(this.ResponseHandler.build(response, false))
       }, req, res
     })
-  }
 
-  public resetPassword = async (req: Request, res: Response) => {
+  public resetPassword = async (req: Request, res: Response) =>
     this.RouteMethod.build({
       resolve: async () => {
         const response = await this.AuthController.resetPassword(req.params.token, req.body.password)
@@ -152,5 +147,4 @@ export class AuthRoutes {
             .send(this.ResponseHandler.build(response))
       }, req, res
     })
-  }
 }

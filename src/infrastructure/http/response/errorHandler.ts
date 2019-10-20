@@ -16,7 +16,6 @@ export class ErrorHandler extends Error {
     this.error = error
   }
 
-  public build({ status, msg, error }: IProps) {
-    return new ErrorHandler(status, msg, error)
-  }
+  public build = async ({ status, msg, error }: IProps) =>
+    new ErrorHandler(status, msg, error)
 }

@@ -16,6 +16,7 @@ import {
   comparePassword,
   JWT,
   Email,
+  OwnerMiddleware,
   AuthRoutes,
   AuthController,
   AuthService,
@@ -94,8 +95,10 @@ container
     UserMapper: asClass(UserMapper).singleton(),
     GenderMapper: asClass(GenderMapper).singleton(),
   })
+  // Middlewares
   .register({
     AuthMiddleware: asClass(AuthMiddleware).singleton(),
+    OwnerMiddleware: asClass(OwnerMiddleware).singleton(),
   })
 
 export default container

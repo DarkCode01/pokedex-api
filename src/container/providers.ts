@@ -23,6 +23,7 @@ export { Email } from '../infrastructure/utils/sendEmail'
 
 // Middlewares
 export { AuthMiddleware } from '../infrastructure/middleware/AuthenticationMiddleware'
+export { OwnerMiddleware } from '../infrastructure/middleware/OwnerMiddleware'
 
 // Auth providers
 export {

@@ -20,7 +20,7 @@ export class App {
 
   private routes = () => this.app.use(this.routing.build())
 
-  private middlewares() : void {
+  private middlewares(): void {
     this.app.use(bodyParser.urlencoded({ extended: false }))
     this.app.use(bodyParser.json())
     this.app.use(morgan('dev'))
@@ -28,7 +28,7 @@ export class App {
     this.app.use(compression())
   }
 
-  public async listen(): Promise<void> {
+  public listen = async () =>
     await this.app.listen(this.port, () => console.log('Running on port', this.port))
-  }
+
 }

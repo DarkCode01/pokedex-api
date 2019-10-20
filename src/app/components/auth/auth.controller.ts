@@ -7,20 +7,13 @@ export class AuthController {
     private Email: any
   ) {}
 
-  public create = async (user: User) => {
-    const _user = await this.AuthService.create(user)
-    if (_user)
-      return _user
-  }
+  public create = async (user: User) =>
+    await this.AuthService.create(user)
 
   public auth = async (user: {
     email: string,
     password: string
-  }) => {
-    const _user = await this.AuthService.auth(user)
-    if (_user)
-      return _user
-  }
+  }) => await this.AuthService.auth(user)
 
   public changePassword = async (user: User, payload: any) => {
     const { username } = user
@@ -31,31 +24,25 @@ export class AuthController {
       return res
   }
 
-  public forgotPassword = async ({
-    email,
-    url
-  }: any) => {
-    const token = await this.AuthService.forgotPassword(email as string)
+  public forgotPassword = async (props: {
+    email: string,
+    url: string
+  }) => {
+    const token = await this.AuthService.forgotPassword(props.email)
     if (token) {
       const sendEmail = await this.Email.build({
-        to: email,
+        to: props.email,
         subject: AuthResponses.nodemailer.subject,
-        html: forgotMessage(`${url}/${token}`)
+        html: forgotMessage(`${props.url}/${token}`)
       })
       if (sendEmail)
         return sendEmail
     }
   }
 
-  public checkPasswordExpire = async (token: string) => {
-    const checkToken = await this.AuthService.checkPasswordExpire(token)
-    if (checkToken)
-      return checkToken
-  }
+  public checkPasswordExpire = async (token: string) =>
+    await this.AuthService.checkPasswordExpire(token)
 
-  public resetPassword = async (token: string, password: string) => {
-    const changedPass = await this.AuthService.resetPassword(token, password)
-    if (changedPass)
-      return changedPass
-  }
+  public resetPassword = async (token: string, password: string) =>
+    await this.AuthService.resetPassword(token, password)
 }

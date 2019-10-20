@@ -3,17 +3,14 @@ import jwt, { Secret } from 'jsonwebtoken'
 export class JWT {
   constructor(private config: config) {}
 
-  public async verifyToken(token: string) : Promise<string|object> {
-    const decoded = await jwt.verify(token, this.config.jwt.secret as string | Buffer)
-    return decoded
-  }
+  public verifyToken = async (token: string): Promise<string|object> =>
+    await jwt.verify(token, this.config.jwt.secret as string | Buffer)
 
-  public async generateToken(user: any) {
-    return jwt.sign(
+  public generateToken = async (user: any) =>
+    await jwt.sign(
       { user },
       this.config.jwt.secret as Secret,
       { expiresIn: this.config.jwt.tokenExpire }
     )
-  }
 }
 

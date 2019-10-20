@@ -16,15 +16,12 @@ export class GenderRepository {
     return this._Gender
   }
 
-  public create = async (gender: Gender): Promise<Gender> => {
-    return await this._Gender.create(gender)
-  }
+  public create = async (gender: Gender): Promise<Gender> =>
+    await this._Gender.create(gender)
 
-  public async getGenderByName(name: string): Promise<Gender|undefined> {
-    return await this._Gender.findOne({ name })
-  }
+  public getGenderByName = async (name: string): Promise<Gender|undefined> =>
+    await this._Gender.findOne({ name })
 
-  public async saveGender(gender: Gender): Promise<Gender> {
-    return await this._Gender.save(gender)
-  }
+  public saveGender = async (gender: Gender): Promise<Gender> =>
+    await this._Gender.save(gender)
 }
