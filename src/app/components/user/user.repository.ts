@@ -19,6 +19,9 @@ export class UserRepository {
   public getUserByUsername = async (username: string): Promise<User|undefined> =>
     await this._User.findOne({ username })
 
+  public getUserByEmail = async (email: string): Promise<User|undefined> =>
+    await this._User.findOne({ email })
+
   public async getAll(query: {
     page: number,
     perPage: number,

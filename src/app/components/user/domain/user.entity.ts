@@ -16,10 +16,14 @@ export class User {
   @Column()
   lastname: string
 
-  @Column()
+  @Column({
+    nullable: true
+  })
   birthdate: Date
 
-  @Column()
+  @Column({
+    nullable: true
+  })
   city: string
 
   @Column({
