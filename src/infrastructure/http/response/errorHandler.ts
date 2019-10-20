@@ -1,9 +1,3 @@
-interface IProps {
-  status: number,
-  msg: string,
-  error?: any
-}
-
 export class ErrorHandler extends Error {
   public statusCode: number
   public message: string
@@ -16,6 +10,6 @@ export class ErrorHandler extends Error {
     this.error = error
   }
 
-  public build = async ({ status, msg, error }: IProps) =>
-    new ErrorHandler(status, msg, error)
+  public build = (props: { status: number, msg: string, error?: any }) =>
+    new ErrorHandler(props.status, props.msg, props.error)
 }
