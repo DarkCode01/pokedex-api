@@ -11,4 +11,8 @@ export class UserMapper {
 
   public mapToEntity = async (from: any): Promise<User> =>
     await this.AuthRepository.create(from)
+
+  public mapListToDTO(users: User[]): UserDTO[] {
+    return users.map(user => this.mapToDTO(user))
+  }
 }
