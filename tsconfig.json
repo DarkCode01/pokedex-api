@@ -19,7 +19,13 @@
       ]
     }
   },
+  "files": [
+    "main.ts",
+    "config/*.ts",
+    "src/**/*.ts"
+  ],
+  "transpileOnly": true,
   "exclude": [
-    "node_modules"
+    "**/node_modules/*"
   ]
 }

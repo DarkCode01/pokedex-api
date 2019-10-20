@@ -4,6 +4,7 @@ export class UserService {
   constructor(
     private UserMapper: any,
     private UserRepository: any,
+    private GenderController: any,
     private ErrorHandler: any,
     private codes: ApiCodes,
   ) {}
@@ -51,5 +52,67 @@ export class UserService {
       allUsers: users.allUsers,
       pages: users.pages
     }
+  }
+
+  public update = async (props: {
+    username: string,
+    userLogged: UserDTO,
+    changes: UserDTO
+  }) => {
+    const { username, userLogged, changes: payload } = props
+    const changes: any = {
+      name: payload.name,
+      email: payload.email,
+      username: payload.username,
+      lastname: payload.lastname,
+      birthdate: payload.birthdate,
+      city: payload.city,
+      gender: payload.gender,
+    }
+
+    if (
+      userLogged.username === username ||
+      userLogged.role === Roles.owner
+    ) {
+      const user = await this.UserRepository.getUserByUsername(username)
+      if (!user)
+        throw this.ErrorHandler.build({
+          status: this.codes.BAD_REQUEST,
+          msg: UserResponses.userNotFound
+        })
+
+      if (changes.username && changes.username !== user.username) {
+        const isUsername = await this.UserRepository.getUserByUsername(changes.username)
+        if (isUsername)
+          throw this.ErrorHandler.build({
+            status: this.codes.BAD_REQUEST,
+            msg: UserResponses.usernameExists
+          })
+      }
+
+      if (changes.gender) {
+        const gender = await this.GenderController.getOrCreateGender(changes.gender)
+        if (gender) changes.gender = gender
+      }
+
+      if (changes.email && changes.email !== user.email) {
+        const isEmail = await this.UserRepository.getUserByEmail(changes.email)
+        if (isEmail)
+          throw this.ErrorHandler.build({
+            status: this.codes.BAD_REQUEST,
+            msg: UserResponses.emailExists
+          })
+      }
+
+      const update = await this.UserRepository.update(user, changes)
+      if (update)
+        await this.UserRepository.saveUser(user)
+        return this.UserMapper.mapToDTO(update)
+    }
+
+    throw this.ErrorHandler.build({
+      status: this.codes.UNAUTHORIZED,
+      msg: UserResponses.unauthorized
+    })
   }
 }
