@@ -1,7 +1,7 @@
 import { getRepository, Connection } from 'typeorm'
 
 // Entity
-import { User } from './user.providers'
+import { User, Roles } from './user.providers'
 
 export class UserRepository {
   private _User: any
@@ -16,15 +16,43 @@ export class UserRepository {
     return this._User
   }
 
-  public async getUserByUsername(username: string): Promise<User|undefined> {
-    return await this._User.findOne({ username })
+  public getUserByUsername = async (username: string): Promise<User|undefined> =>
+    await this._User.findOne({ username })
+
+  public async getAll(query: {
+    page: number,
+    perPage: number,
+  }): Promise<{
+    rows: User[],
+    allUsers: number,
+    pages: number
+  }> {
+    const page = query.page || 1
+    const perPage = query.perPage || 5
+
+    const rows = await this._User.find({
+      skip: ((perPage * page) - perPage),
+      take: perPage,
+      where: {
+        role: Roles.user
+      },
+    })
+
+    const count: number = await this._User.count({
+      role: Roles.user
+    })
+    const pages: number = Math.ceil(count / perPage)
+
+    return {
+      rows,
+      allUsers: count,
+      pages
+    }
   }
 
-  public async saveUser(user: User): Promise<User> {
-    return await this._User.save(user)
-  }
+  public saveUser = async (user: User): Promise<User> =>
+    await this._User.save(user)
 
-  public async update(user: User, update: {}) : Promise<User> {
-    return await this._User.merge(user, update)
-  }
+  public update = async (user: User, update: {}): Promise<User> =>
+    await this._User.merge(user, update)
 }
