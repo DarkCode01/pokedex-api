@@ -4,7 +4,7 @@ export class AuthMiddleware {
   constructor(
     private JWT: any,
     private ResponseHandler: any,
-    private codes: ApiCodes
+    private codes: statusCodes
   ) {}
 
   public ensureAuth = async (req: Request, res: Response, next: NextFunction) => {

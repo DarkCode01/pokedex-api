@@ -1,4 +1,4 @@
-declare interface ApiCodes {
+declare type statusCodes = {
   OK: number,
   CREATE: number,
   BAD_REQUEST: number,

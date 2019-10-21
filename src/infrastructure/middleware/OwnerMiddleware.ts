@@ -4,7 +4,7 @@ import { Roles } from '../../app/user/user.providers'
 export class OwnerMiddleware {
   constructor(
     private ResponseHandler: any,
-    private codes: ApiCodes
+    private codes: statusCodes
   ) {}
 
   public isOwner = (req: Request, res: Response, next: NextFunction) => {

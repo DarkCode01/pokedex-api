@@ -1,9 +1,9 @@
-interface server {
+type server = {
   port: number,
   prefixRoutes: string | undefined,
 }
 
-interface database {
+type database = {
   type: string | undefined,
   host: string | undefined,
   username: string | undefined,
@@ -11,12 +11,12 @@ interface database {
   name: string | undefined,
 }
 
-interface jwt {
+type jwt = {
   secret: string | undefined,
   tokenExpire: string | undefined,
 }
 
-interface nodemailer {
+type nodemailer = {
   host: string | undefined,
   port: number,
   from: string | undefined,
@@ -26,14 +26,14 @@ interface nodemailer {
   }
 }
 
-interface test {
+type test = {
   uri: string | undefined
 }
 
-interface forgotPass {
+type forgotPass = {
   url: string
 }
-declare interface config {
+declare type config = {
   server: server
   database: database
   jwt: jwt

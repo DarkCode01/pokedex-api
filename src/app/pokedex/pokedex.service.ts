@@ -5,7 +5,7 @@ export class PokedexService {
     private PokedexMapper: any,
     private PokedexRepository: any,
     private ErrorHandler: any,
-    private codes: ApiCodes,
+    private codes: statusCodes,
   ) {}
 
   public get = async (pokedexname: string, _pokedex: PokedexDTO) => {

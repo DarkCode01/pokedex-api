@@ -8,7 +8,7 @@ export class AuthService {
     private AuthRepository: any,
     private UserMapper: any,
     private ErrorHandler: any,
-    private codes: ApiCodes,
+    private codes: statusCodes,
     private GenderController: any,
     private encryptPassword: any,
     private comparePassword: any,
