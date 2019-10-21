@@ -40,7 +40,16 @@ const updateValidator = [
     .normalizeEmail({ all_lowercase: true })
 ]
 
+const disableValidator = [
+  param('username', validator.username)
+    .optional()
+    .isLength({
+      min: 3
+    })
+]
+
 export {
   getValidator,
-  updateValidator
+  updateValidator,
+  disableValidator
 }

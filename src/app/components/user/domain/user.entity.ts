@@ -7,6 +7,9 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number
 
+  @PrimaryGeneratedColumn('uuid')
+  uuid: string
+
   @CreateDateColumn()
   createDate: Date
 
