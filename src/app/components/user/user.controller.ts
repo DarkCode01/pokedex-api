@@ -18,4 +18,7 @@ export class UserController {
     userLogged: UserDTO,
     changes: UserDTO
   }) => await this.UserService.update(query)
+
+  public toggleStatus = async (username: string) =>
+    await this.UserService.toggleStatus(username)
 }
