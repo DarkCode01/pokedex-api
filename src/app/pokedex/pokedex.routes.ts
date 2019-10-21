@@ -10,7 +10,7 @@ export class PokedexRoutes {
     private PokedexController: any,
     private ResponseHandler: any,
     private RouteMethod: any,
-    private codes: ApiCodes,
+    private codes: statusCodes,
     private AuthMiddleware: any,
     private OwnerMiddleware: any,
   ) {}

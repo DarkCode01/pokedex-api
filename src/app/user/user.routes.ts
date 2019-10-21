@@ -1,4 +1,4 @@
-import { Router, Response, Request } from 'express'
+import { Router, Response, Request, RequestHandler } from 'express'
 
 // Validators
 import { getValidator, updateValidator, disableValidator } from './user.providers'
@@ -10,7 +10,7 @@ export class UserRoutes {
     private UserController: any,
     private ResponseHandler: any,
     private RouteMethod: any,
-    private codes: ApiCodes,
+    private codes: statusCodes,
     private AuthMiddleware: any,
     private OwnerMiddleware: any,
   ) {}
@@ -50,7 +50,7 @@ export class UserRoutes {
     return this.api
   }
 
-  public get = (req: Request, res: Response) =>
+  public get: RequestHandler = (req: Request, res: Response) =>
     this.RouteMethod.build({
       resolve: async () => {
         const user = await this.UserController.get(req.params.username, req.user)
@@ -61,7 +61,7 @@ export class UserRoutes {
       }, req, res
     })
 
-  public list = (req: Request, res: Response) =>
+  public list: RequestHandler = (req: Request, res: Response) =>
     this.RouteMethod.build({
       resolve: async () => {
         const { page, perPage } = req.query
@@ -76,7 +76,7 @@ export class UserRoutes {
       }, req, res
     })
 
-  public update = (req: Request, res: Response) =>
+  public update: RequestHandler = (req: Request, res: Response) =>
     this.RouteMethod.build({
       resolve: async () => {
         const user = await this.UserController.update({
@@ -91,7 +91,7 @@ export class UserRoutes {
       }, req, res
     })
 
-  public toggleStatus = (req: Request, res: Response) =>
+  public toggleStatus: RequestHandler = (req: Request, res: Response) =>
     this.RouteMethod.build({
       resolve: async () => {
         const user = await this.UserController.toggleStatus(req.params.username)

@@ -1,4 +1,4 @@
-import { Router, Response, Request } from 'express'
+import { Router, Response, Request, RequestHandler } from 'express'
 
 // Validators
 import {
@@ -17,7 +17,7 @@ export class AuthRoutes {
     private AuthController: any,
     private ResponseHandler: any,
     private RouteMethod: any,
-    private codes: ApiCodes,
+    private codes: statusCodes,
     private config: config,
     private AuthMiddleware: any
   ) {}
@@ -79,7 +79,7 @@ export class AuthRoutes {
     return this.api
   }
 
-  public create = (req: Request, res: Response) =>
+  public create: RequestHandler = (req: Request, res: Response) =>
     this.RouteMethod.build({
       resolve: async () => {
         const user = await this.AuthController.create(req.body)
@@ -90,7 +90,7 @@ export class AuthRoutes {
       }, req, res
     })
 
-  public auth = (req: Request, res: Response) =>
+  public auth: RequestHandler = (req: Request, res: Response) =>
     this.RouteMethod.build({
       resolve: async () => {
         const user = await this.AuthController.auth(req.body)
@@ -101,7 +101,7 @@ export class AuthRoutes {
       }, req, res
     })
 
-  public changePassword = (req: Request, res: Response) =>
+  public changePassword: RequestHandler = (req: Request, res: Response) =>
     this.RouteMethod.build({
       resolve: async () => {
         const response = await this.AuthController.changePassword(req.user, req.body)
@@ -112,7 +112,7 @@ export class AuthRoutes {
       }, req, res
     })
 
-  public forgotPassword = (req: Request, res: Response) =>
+  public forgotPassword: RequestHandler = (req: Request, res: Response) =>
     this.RouteMethod.build({
       resolve: async () => {
         const response = await this.AuthController.forgotPassword({
@@ -126,7 +126,7 @@ export class AuthRoutes {
       }, req, res
     })
 
-  public checkPasswordExpire = (req: Request, res: Response) =>
+  public checkPasswordExpire: RequestHandler = (req: Request, res: Response) =>
     this.RouteMethod.build({
       resolve: async () => {
         const response = await this.AuthController.checkPasswordExpire(req.params.token)
@@ -137,7 +137,7 @@ export class AuthRoutes {
       }, req, res
     })
 
-  public resetPassword = (req: Request, res: Response) =>
+  public resetPassword: RequestHandler = (req: Request, res: Response) =>
     this.RouteMethod.build({
       resolve: async () => {
         const response = await this.AuthController.resetPassword(req.params.token, req.body.password)
