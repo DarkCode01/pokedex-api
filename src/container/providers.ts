@@ -32,7 +32,7 @@ export {
   AuthController,
   AuthService,
   AuthRepository
-} from '../app/components/auth/auth.providers'
+} from '../app/auth/auth.providers'
 
 // User providers
 export {
@@ -41,7 +41,7 @@ export {
   UserService,
   UserMapper,
   UserRepository
-} from '../app/components/user/user.providers'
+} from '../app/user/user.providers'
 
 // Gender providers
 export {
@@ -49,4 +49,4 @@ export {
   GenderService,
   GenderMapper,
   GenderRepository
-} from '../app/components/gender/gender.providers'
+} from '../app/gender/gender.providers'
