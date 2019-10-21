@@ -21,6 +21,7 @@ export class DatabaseConnection {
         password,
         database,
         synchronize: true,
+        cache: true,
         entities: ['**/src/**/*.entity.ts'],
         // ssl: true
       })
