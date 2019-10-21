@@ -1,7 +1,7 @@
 import { Router, Response, Request } from 'express'
 
 // Validators
-import { getValidator, updateValidator } from './user.providers'
+import { getValidator, updateValidator, disableValidator } from './user.providers'
 
 export class UserRoutes {
   private readonly api: Router = Router()
@@ -37,6 +37,15 @@ export class UserRoutes {
         this.AuthMiddleware.ensureAuth,
         this.update
       )
+
+    // @Desc        Toggle user status
+    // @Access      Private
+    this.api.put('/user/toggle_status/:username',
+      disableValidator as Array<any>,
+      this.AuthMiddleware.ensureAuth,
+      this.OwnerMiddleware.isOwner,
+      this.toggleStatus
+    )
 
     return this.api
   }
@@ -75,6 +84,17 @@ export class UserRoutes {
           username: req.params.username,
           changes: req.body
         })
+        if (user)
+          return res
+            .status(this.codes.OK)
+            .send(this.ResponseHandler.build(user, false))
+      }, req, res
+    })
+
+  public toggleStatus = async (req: Request, res: Response) =>
+    this.RouteMethod.build({
+      resolve: async () => {
+        const user = await this.UserController.toggleStatus(req.params.username)
         if (user)
           return res
             .status(this.codes.OK)
