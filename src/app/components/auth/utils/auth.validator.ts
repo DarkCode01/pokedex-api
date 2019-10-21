@@ -56,6 +56,9 @@ const changePassValidator = [
       min: 6
     }),
   check('newPassword', changePassword.validator.newpass)
+    .trim()
+    .not().isIn(passwords() as string[])
+    .withMessage(validator.commonPass)
     .isLength({
       min: 6
     })
@@ -70,6 +73,9 @@ const forgotPassExpireValidator = [
 
 const resetPassValidator = [
   check('password', changePassword.validator.pass)
+    .trim()
+    .not().isIn(passwords() as string[])
+    .withMessage(validator.commonPass)
     .isLength({
       min: 6
     }),

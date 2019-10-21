@@ -41,6 +41,7 @@ export class Email {
 
     const send = await this.transporter.sendMail(message)
     if (send)
+      console.info('Preview URL: ', nodemailer.getTestMessageUrl(send))
       return 'The email has been sent successfully.'
   }
 }
