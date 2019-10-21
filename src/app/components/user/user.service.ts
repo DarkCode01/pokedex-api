@@ -115,4 +115,18 @@ export class UserService {
       msg: UserResponses.unauthorized
     })
   }
+
+  public toggleStatus = async (username: string) => {
+    const user = await this.UserRepository.getUserByUsername(username)
+    if (!user)
+      throw this.ErrorHandler.build({
+        status: this.codes.BAD_REQUEST,
+        msg: UserResponses.userNotFound
+      })
+
+    const update = await this.UserRepository.update(user, { isActive: !user.isActive })
+    if (update)
+      await this.UserRepository.saveUser(user)
+    return update.isActive ? UserResponses.active : UserResponses.disable
+  }
 }
