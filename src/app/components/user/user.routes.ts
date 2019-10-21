@@ -50,7 +50,7 @@ export class UserRoutes {
     return this.api
   }
 
-  public get = async (req: Request, res: Response) =>
+  public get = (req: Request, res: Response) =>
     this.RouteMethod.build({
       resolve: async () => {
         const user = await this.UserController.get(req.params.username, req.user)
@@ -61,7 +61,7 @@ export class UserRoutes {
       }, req, res
     })
 
-  public list = async (req: Request, res: Response) =>
+  public list = (req: Request, res: Response) =>
     this.RouteMethod.build({
       resolve: async () => {
         const { page, perPage } = req.query
@@ -76,7 +76,7 @@ export class UserRoutes {
       }, req, res
     })
 
-  public update = async (req: Request, res: Response) =>
+  public update = (req: Request, res: Response) =>
     this.RouteMethod.build({
       resolve: async () => {
         const user = await this.UserController.update({
@@ -91,7 +91,7 @@ export class UserRoutes {
       }, req, res
     })
 
-  public toggleStatus = async (req: Request, res: Response) =>
+  public toggleStatus = (req: Request, res: Response) =>
     this.RouteMethod.build({
       resolve: async () => {
         const user = await this.UserController.toggleStatus(req.params.username)

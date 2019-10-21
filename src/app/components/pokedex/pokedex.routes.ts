@@ -35,7 +35,7 @@ export class PokedexRoutes {
     return this.api
   }
 
-  public get = async (req: Request, res: Response) =>
+  public get = (req: Request, res: Response) =>
     this.RouteMethod.build({
       resolve: async () => {
         const pokedex = await this.PokedexController.get(req.params.pokedexname, req.user)
@@ -46,7 +46,7 @@ export class PokedexRoutes {
       }, req, res
     })
 
-  public list = async (req: Request, res: Response) =>
+  public list = (req: Request, res: Response) =>
     this.RouteMethod.build({
       resolve: async () => {
         const { page, perPage } = req.query
