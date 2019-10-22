@@ -1,4 +1,6 @@
 import { UserDTO, UserResponses, Roles } from './user.providers'
+import path from 'path'
+import fs from 'fs'
 
 export class UserService {
   constructor(
@@ -154,6 +156,15 @@ export class UserService {
     throw this.ErrorHandler.build({
       status: this.codes.UNAUTHORIZED,
       msg: UserResponses.unauthorized
+    })
+  }
+
+  public picture = (picture: string): string => {
+    const findPicture = path.resolve(__dirname, `../../../uploads/users/${picture}`)
+    if (fs.existsSync(findPicture)) return findPicture
+    else throw this.ErrorHandler.build({
+      status: this.codes.BAD_REQUEST,
+      msg: UserResponses.picture
     })
   }
 }
