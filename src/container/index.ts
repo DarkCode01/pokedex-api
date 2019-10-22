@@ -18,6 +18,7 @@ import {
   JWT,
   Email,
   OwnerMiddleware,
+  userPictureMiddleware,
   AuthRoutes,
   AuthController,
   AuthService,
@@ -101,6 +102,7 @@ container
   .register({
     AuthMiddleware: asClass(AuthMiddleware).singleton(),
     OwnerMiddleware: asClass(OwnerMiddleware).singleton(),
+    userPictureMiddleware: asValue(userPictureMiddleware),
   })
 
 export default container

@@ -26,6 +26,7 @@ export { deleteUploadedFiles } from '../infrastructure/utils/deleteUploadedFiles
 // Middlewares
 export { AuthMiddleware } from '../infrastructure/middleware/AuthenticationMiddleware'
 export { OwnerMiddleware } from '../infrastructure/middleware/OwnerMiddleware'
+export { userPictureMiddleware } from '../infrastructure/middleware/uploadsMiddleware/userPictureMiddleware'
 
 // Auth providers
 export {
