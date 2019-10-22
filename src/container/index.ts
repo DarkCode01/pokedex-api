@@ -14,6 +14,7 @@ import {
   ErrorHandler,
   encryptPassword,
   comparePassword,
+  deleteUploadedFiles,
   JWT,
   Email,
   OwnerMiddleware,
@@ -55,6 +56,7 @@ container
     comparePassword: asValue(comparePassword),
     JWT: asClass(JWT).singleton(),
     Email: asClass(Email).singleton(),
+    deleteUploadedFiles: asValue(deleteUploadedFiles),
   })
   // Http
   .register({

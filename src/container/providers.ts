@@ -21,6 +21,7 @@ export { encryptPassword, comparePassword } from '../infrastructure/utils/encryp
 export { JWT } from '../infrastructure/utils/jwt'
 export { Email } from '../infrastructure/utils/sendEmail'
 export { getCommonPassword } from '../infrastructure/utils/readPassword'
+export { deleteUploadedFiles } from '../infrastructure/utils/deleteUploadedFiles'
 
 // Middlewares
 export { AuthMiddleware } from '../infrastructure/middleware/AuthenticationMiddleware'
@@ -32,7 +33,7 @@ export {
   AuthController,
   AuthService,
   AuthRepository
-} from '../app/auth/auth.providers'
+} from '../application/auth/auth.providers'
 
 // User providers
 export {
@@ -41,7 +42,7 @@ export {
   UserService,
   UserMapper,
   UserRepository
-} from '../app/user/user.providers'
+} from '../application/user/user.providers'
 
 // Gender providers
 export {
@@ -49,4 +50,4 @@ export {
   GenderService,
   GenderMapper,
   GenderRepository
-} from '../app/gender/gender.providers'
+} from '../application/gender/gender.providers'

@@ -6,7 +6,8 @@ export class UserService {
     private UserRepository: any,
     private GenderController: any,
     private ErrorHandler: any,
-    private codes: ApiCodes,
+    private codes: statusCodes,
+    private deleteUploadedFiles: any,
   ) {}
 
   public get = async (username: string, _user: UserDTO) : Promise<UserDTO> => {
@@ -128,5 +129,24 @@ export class UserService {
     if (update)
       await this.UserRepository.saveUser(user)
     return update.isActive ? UserResponses.active : UserResponses.disable
+  }
+
+  public upload = async (props: {
+    username: string,
+    userLogged: UserDTO,
+    picture: string,
+  }) => {
+    const { username, userLogged, picture } = props
+    if (userLogged.username === username) {
+      const user = await this.UserRepository.getUserByUsername(username)
+      if (user) {
+
+      }
+    }
+
+    throw this.ErrorHandler.build({
+      status: this.codes.UNAUTHORIZED,
+      msg: UserResponses.unauthorized
+    })
   }
 }

@@ -1,5 +1,5 @@
 import { Response, NextFunction, Request } from 'express'
-import { Roles } from '../../app/user/user.providers'
+import { Roles } from '../../application/user/user.providers'
 
 export class OwnerMiddleware {
   constructor(
