@@ -66,7 +66,7 @@ export class UserController {
 
   /**
   * @description Delete user by username
-  * @param {string} picture
+  * @param {string} username
   * @returns {Promise<string>}
   */
   public delete = async (username: string) =>

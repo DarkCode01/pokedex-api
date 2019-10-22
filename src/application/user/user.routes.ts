@@ -29,7 +29,7 @@ export class UserRoutes {
     )
 
     /**
-    * @description Get and Update User
+    * @description Get, Update and Delete User
     * @private
     */
     this.api.route('/user/:username')
@@ -42,6 +42,14 @@ export class UserRoutes {
         updateValidator as Array<any>,
         this.AuthMiddleware.ensureAuth,
         this.update
+      )
+      .delete(
+        getValidator as Array<any>,
+        [
+          this.AuthMiddleware.ensureAuth,
+          this.OwnerMiddleware.isOwner
+        ],
+        this.delete
       )
 
     /**
@@ -146,6 +154,17 @@ export class UserRoutes {
       resolve: () => {
         const picture = this.UserController.picture(req.params.picture)
         if (picture) res.sendFile(path.resolve(picture))
+      }, req, res
+    })
+
+  public delete: RequestHandler = (req: Request, res: Response) =>
+    this.RouteMethod.build({
+      resolve: async () => {
+        const deleted = await this.UserController.delete(req.params.username)
+        if (deleted)
+          return res
+            .status(this.codes.OK)
+            .send(this.ResponseHandler.build(deleted))
       }, req, res
     })
 }
