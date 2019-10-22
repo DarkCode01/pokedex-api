@@ -56,6 +56,9 @@ export class UserRepository {
   public saveUser = async (user: User): Promise<User> =>
     await this._User.save(user)
 
+  public delete = async (user: User): Promise<User> =>
+    await this._User.remove(user)
+
   public update = async (user: User, update: {}): Promise<User> =>
     await this._User.merge(user, update)
 }

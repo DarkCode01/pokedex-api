@@ -7,4 +7,5 @@ export const UserResponses: any = {
   disable: 'This user has been disabled.',
   active: 'This user has been actived.',
   picture: 'Picture not found.',
+  delete: 'the user has been removed.'
 }
