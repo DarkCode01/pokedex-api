@@ -167,4 +167,17 @@ export class UserService {
       msg: UserResponses.picture
     })
   }
+
+  public delete = async (username: string) => {
+    const user = await this.UserRepository.getUserByUsername(username)
+    if (!user)
+      throw this.ErrorHandler.build({
+        status: this.codes.BAD_REQUEST,
+        msg: UserResponses.userNotFound
+      })
+
+    const deleteThisUser = await this.UserRepository.delete(user)
+    if (deleteThisUser)
+      return UserResponses.delete
+  }
 }
