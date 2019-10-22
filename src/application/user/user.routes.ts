@@ -13,6 +13,7 @@ export class UserRoutes {
     private codes: statusCodes,
     private AuthMiddleware: any,
     private OwnerMiddleware: any,
+    private userPictureMiddleware: any,
   ) {}
 
   public get routes(): Router {
@@ -21,8 +22,8 @@ export class UserRoutes {
     * @private
     */
     this.api.get('/users',
-      this.AuthMiddleware.ensureAuth,
-      this.OwnerMiddleware.isOwner,
+      [this.AuthMiddleware.ensureAuth,
+      this.OwnerMiddleware.isOwner],
       this.list
     )
 
@@ -48,9 +49,19 @@ export class UserRoutes {
     */
     this.api.put('/user/toggle_status/:username',
       disableValidator as Array<any>,
-      this.AuthMiddleware.ensureAuth,
-      this.OwnerMiddleware.isOwner,
+      [this.AuthMiddleware.ensureAuth,
+      this.OwnerMiddleware.isOwner],
       this.toggleStatus
+    )
+
+    /**
+    * @description Upload Picture
+    * @private
+    */
+    this.api.put('/user_picture/:username',
+      [this.AuthMiddleware.ensureAuth,
+      this.userPictureMiddleware],
+      this.upload
     )
 
     return this.api
@@ -101,6 +112,21 @@ export class UserRoutes {
     this.RouteMethod.build({
       resolve: async () => {
         const user = await this.UserController.toggleStatus(req.params.username)
+        if (user)
+          return res
+            .status(this.codes.OK)
+            .send(this.ResponseHandler.build(user, false))
+      }, req, res
+    })
+
+  public upload: RequestHandler = (req: Request, res: Response) =>
+    this.RouteMethod.build({
+      resolve: async () => {
+        const user = await this.UserController.upload({
+          userLogged: req.user,
+          username: req.params.username,
+          picture: req.file.filename,
+        })
         if (user)
           return res
             .status(this.codes.OK)
