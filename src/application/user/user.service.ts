@@ -117,7 +117,7 @@ export class UserService {
     })
   }
 
-  public toggleStatus = async (username: string) => {
+  public toggleStatus = async (username: string): Promise<string> => {
     const user = await this.UserRepository.getUserByUsername(username)
     if (!user)
       throw this.ErrorHandler.build({
@@ -135,12 +135,19 @@ export class UserService {
     username: string,
     userLogged: UserDTO,
     picture: string,
-  }) => {
+  }): Promise<UserDTO> => {
     const { username, userLogged, picture } = props
     if (userLogged.username === username) {
       const user = await this.UserRepository.getUserByUsername(username)
       if (user) {
+        // delete the file from the current user
+        this.deleteUploadedFiles(`users/${user.picture}`)
 
+        // Update user picture
+        const changePicture = await this.UserRepository.update(user, { picture })
+        if (changePicture)
+          await this.UserRepository.saveUser(user)
+          return this.UserMapper.mapToDTO(changePicture)
       }
     }
 
