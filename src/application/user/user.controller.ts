@@ -56,4 +56,7 @@ export class UserController {
     userLogged: UserDTO,
     picture: string,
   }): Promise<UserDTO> => await this.UserService.upload(query)
+
+  public picture = (picture: string) =>
+    this.UserService.picture(picture)
 }
