@@ -27,6 +27,7 @@
     "@types/node": "^10.14.21",
     "@types/supertest": "^2.0.4",
     "@types/compression": "^1.0.1",
+    "@types/nodemailer": "^6.2.1",
     "jest": "^24.9.0",
     "nodemon": "^1.19.3",
     "supertest": "^4.0.2",
@@ -36,7 +37,6 @@
     "typescript": "^3.6.4"
   },
   "dependencies": {
-    "@types/nodemailer": "^6.2.1",
     "awilix": "^4.2.2",
     "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
