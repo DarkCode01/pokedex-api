@@ -7,14 +7,30 @@ export class AuthController {
     private Email: any
   ) {}
 
-  public create = async (user: User) =>
+  /**
+  * @description Create user and return token with UserDTO
+  * @param {User} user
+  * @returns {Promise<string>}
+  */
+  public create = async (user: User): Promise<string> =>
     await this.AuthService.create(user)
 
+  /**
+  * @description Authenticate user and return token with UserDTO.
+  * @param {UserAuth} user
+  * @returns {Promise<string>}
+  */
   public auth = async (user: {
     email: string,
     password: string
-  }) => await this.AuthService.auth(user)
+  }): Promise<string> => await this.AuthService.auth(user)
 
+  /**
+  * @description Change user password, return confirmation message.
+  * @param {User} user
+  * @param {any} payload
+  * @returns {Promise<string>}
+  */
   public changePassword = async (user: User, payload: any) => {
     const { username } = user
     const { password, newPassword } = payload
@@ -24,6 +40,11 @@ export class AuthController {
       return res
   }
 
+  /**
+  * @description Forgot password.
+  * @param {ForgotPayload} props
+  * @returns {Promise<string>}
+  */
   public forgotPassword = async (props: {
     email: string,
     url: string
@@ -40,9 +61,20 @@ export class AuthController {
     }
   }
 
-  public checkPasswordExpire = async (token: string) =>
+  /**
+  * @description Verify that the forgotten token password has not yet expired.
+  * @param {string} token
+  * @returns {Promise<User>}
+  */
+  public checkPasswordExpire = async (token: string): Promise<User> =>
     await this.AuthService.checkPasswordExpire(token)
 
-  public resetPassword = async (token: string, password: string) =>
+  /**
+  * @description Receive the token and the new password and return confirmation message.
+  * @param {string} token
+  * @param {string} password
+  * @returns {Promise<string>}
+  */
+  public resetPassword = async (token: string, password: string): Promise<string> =>
     await this.AuthService.resetPassword(token, password)
 }

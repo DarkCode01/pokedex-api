@@ -5,20 +5,44 @@ export class UserController {
     private UserService: any,
   ) {}
 
-  public get = async (username: string, user: UserDTO) =>
+  /**
+  * @description Get User info
+  *
+  * @param {string} username
+  * @param {UserDTO} user
+  * @returns {Promise<UserDTO>}
+  */
+  public get = async (username: string, user: UserDTO): Promise<UserDTO> =>
     await this.UserService.get(username, user)
 
+  /**
+  * @description Get list of users
+  * @private
+  * @param {paginate} query
+  * @returns {Promise<UserDTO[]>}
+  */
   public list = async (query: {
     perPage: number,
     page: number,
-  }) => await this.UserService.list(query)
+  }): Promise<UserDTO[]> => await this.UserService.list(query)
 
+  /**
+  * @description Update user info
+  * @param {updatePayload} query
+  * @returns {Promise<UserDTO>}
+  */
   public update = async (query: {
     username: string,
     userLogged: UserDTO,
     changes: UserDTO
-  }) => await this.UserService.update(query)
+  }): Promise<UserDTO> => await this.UserService.update(query)
 
-  public toggleStatus = async (username: string) =>
+  /**
+  * @description Change user status
+  * @example true to false \ false to true
+  * @param {string} username
+  * @returns {Promise<string>}
+  */
+  public toggleStatus = async (username: string): Promise<string> =>
     await this.UserService.toggleStatus(username)
 }

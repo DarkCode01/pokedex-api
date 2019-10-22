@@ -20,9 +20,9 @@
     }
   },
   "files": [
-    "main.ts",
-    "config/*.ts",
-    "src/**/*.ts"
+    "**/main.ts",
+    "**/config/*.ts",
+    "**/src/**/*.ts"
   ],
   "transpileOnly": true,
   "exclude": [

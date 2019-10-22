@@ -1,4 +1,4 @@
-import { Router, Response, Request } from 'express'
+import { Router, Response, Request, RequestHandler } from 'express'
 
 // Validators
 import { getValidator } from './pokedex.providers'
@@ -16,16 +16,20 @@ export class PokedexRoutes {
   ) {}
 
   public get routes(): Router {
-    // @Desc        Get List of Pokedexs
-    // @Access      Private
+    /**
+    * @description Get List of Pokedexs
+    * @private
+    */
     this.api.get('/pokedexs',
       this.AuthMiddleware.ensureAuth,
       this.OwnerMiddleware.isOwner,
       this.list
     )
 
-    // @Desc        Get Pokedex
-    // @Access      Private
+    /**
+    * @description Get Pokedex
+    * @private
+    */
     this.api.get('/pokedex/:uuid',
       getValidator as Array<any>,
       this.AuthMiddleware.ensureAuth,
@@ -35,7 +39,7 @@ export class PokedexRoutes {
     return this.api
   }
 
-  public get = (req: Request, res: Response) =>
+  public get: RequestHandler = (req: Request, res: Response) =>
     this.RouteMethod.build({
       resolve: async () => {
         const pokedex = await this.PokedexController.get(req.params.pokedexname, req.user)
@@ -46,7 +50,7 @@ export class PokedexRoutes {
       }, req, res
     })
 
-  public list = (req: Request, res: Response) =>
+  public list: RequestHandler = (req: Request, res: Response) =>
     this.RouteMethod.build({
       resolve: async () => {
         const { page, perPage } = req.query

@@ -23,25 +23,31 @@ export class AuthRoutes {
   ) {}
 
   public get routes(): Router {
-    // @Desc    Create user
-    // @Access  Public
+    /**
+    * @description Create User
+    * @public
+    */
     this.api.post(
       '/register',
       createValidator as Array<any>,
       this.create
     )
 
-    // @Desc    Authentication
-    // @Access  Public
+    /**
+    * @description Authentication
+    * @public
+    */
     this.api.post(
       '/auth',
       authValidator as Array<any>,
       this.auth
     )
 
-    // @Desc       Change Password
-    // @Access     Private
-    // @Namespace  /account
+    /**
+    * @description Change Password
+    * @namespace  /account
+    * @private
+    */
     this.api.put(
       '/account/change_password',
       this.AuthMiddleware.ensureAuth,
@@ -49,27 +55,33 @@ export class AuthRoutes {
       this.changePassword
     )
 
-    // @Desc        Forgot Password
-    // @Access      Public
-    // @Namespace  /account
+    /**
+    * @description Forgot Password
+    * @namespace  /account
+    * @public
+    */
     this.api.post(
       '/account/forgot_password',
       forgotPassValidator as Array<any>,
       this.forgotPassword
     )
 
-    // @Desc        Check Password Expire
-    // @Access      Public
-    // @Namespace  /account
+    /**
+    * @description Check Password Expire
+    * @namespace  /account
+    * @public
+    */
     this.api.get(
       '/account/forgot_password_expire/:token',
       forgotPassExpireValidator as Array<any>,
       this.checkPasswordExpire
     )
 
-    // @Desc        Reset Password
-    // @Access      Public
-    // @Namespace  /account
+    /**
+    * @description Reset Password
+    * @namespace  /account
+    * @public
+    */
     this.api.put(
       '/account/reset_password/:token',
       resetPassValidator as Array<any>,

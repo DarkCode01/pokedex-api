@@ -3,7 +3,7 @@ import { validationResult } from 'express-validator'
 export class RouteMethod {
   constructor(
     private ResponseHandler: any,
-    private codes: ApiCodes
+    private codes: statusCodes
   ) {}
 
   public async build({ req, res, resolve }: any) {

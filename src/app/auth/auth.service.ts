@@ -1,6 +1,6 @@
 import crypto from 'crypto'
 
-import { UserDTO, Roles } from '../user/user.providers'
+import { UserDTO, Roles, User } from '../user/user.providers'
 import { AuthResponses } from './auth.providers'
 
 export class AuthService {
@@ -15,7 +15,7 @@ export class AuthService {
     private JWT: any,
   ) {}
 
-  public create = async (userPayload: any) : Promise<UserDTO> => {
+  public create = async (userPayload: any): Promise<UserDTO> => {
     const user = await this.UserMapper.mapToEntity(userPayload)
     user.password = this.encryptPassword(user.password)
 
@@ -45,7 +45,7 @@ export class AuthService {
     return await this.JWT.generateToken(this.UserMapper.mapToDTO(saveUser))
   }
 
-  public auth = async (userPayload: any) : Promise<UserDTO> => {
+  public auth = async (userPayload: any): Promise<UserDTO> => {
     const getUserByEmail = await this.AuthRepository.getUserByEmail(userPayload.emailOrUsername)
     const getUserByUsername = await this.AuthRepository.getUserByUsername(userPayload.emailOrUsername)
     const user = getUserByEmail || getUserByUsername
@@ -76,7 +76,7 @@ export class AuthService {
     username: string,
     password: string,
     newPassword: string
-  }) => {
+  }): Promise<string> => {
     const { username, password, newPassword } = props
     let user = await this.AuthRepository.getUserByUsername(username)
 
@@ -101,7 +101,7 @@ export class AuthService {
     })
   }
 
-  public forgotPassword = async (email: string) => {
+  public forgotPassword = async (email: string): Promise<string> => {
     const user = await this.AuthRepository.getUserByEmail(email)
 
     if (!user)
@@ -111,7 +111,7 @@ export class AuthService {
       })
 
     // Generate Token
-    const token = crypto.randomBytes(20).toString('hex')
+    const token: string = crypto.randomBytes(20).toString('hex')
     const forgotPasswordToken = crypto
       .createHash('sha256')
       .update(token)
@@ -130,7 +130,7 @@ export class AuthService {
     return forgotPasswordToken
   }
 
-  public checkPasswordExpire = async (token: string) => {
+  public checkPasswordExpire = async (token: string): Promise<User> => {
     const user = await this.AuthRepository
       .getUserByForgotPasswordToken(token)
 
@@ -143,7 +143,7 @@ export class AuthService {
     return user
   }
 
-  public resetPassword = async (token: string, password: string) => {
+  public resetPassword = async (token: string, password: string): Promise<void> => {
     const user = await this.checkPasswordExpire(token)
     if (user) {
       const updateUser = await this.AuthRepository.update(user,

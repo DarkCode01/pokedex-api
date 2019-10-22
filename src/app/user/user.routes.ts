@@ -16,16 +16,20 @@ export class UserRoutes {
   ) {}
 
   public get routes(): Router {
-    // @Desc        Get List of Users
-    // @Access      Private
+    /**
+    * @description Get List of Users
+    * @private
+    */
     this.api.get('/users',
       this.AuthMiddleware.ensureAuth,
       this.OwnerMiddleware.isOwner,
       this.list
     )
 
-    // @Desc        Get and Update User
-    // @Access      Private
+    /**
+    * @description Get and Update User
+    * @private
+    */
     this.api.route('/user/:username')
       .get(
         getValidator as Array<any>,
@@ -38,8 +42,10 @@ export class UserRoutes {
         this.update
       )
 
-    // @Desc        Toggle user status
-    // @Access      Private
+    /**
+    * @description Toggle user status
+    * @private
+    */
     this.api.put('/user/toggle_status/:username',
       disableValidator as Array<any>,
       this.AuthMiddleware.ensureAuth,
