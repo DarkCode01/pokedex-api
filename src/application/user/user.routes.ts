@@ -1,4 +1,5 @@
 import { Router, Response, Request, RequestHandler } from 'express'
+import path from 'path'
 
 // Validators
 import { getValidator, updateValidator, disableValidator } from './user.providers'
@@ -63,6 +64,12 @@ export class UserRoutes {
       this.userPictureMiddleware],
       this.upload
     )
+
+    /**
+    * @description Get Picture
+    * @public
+    */
+    this.api.get('/user_picture/:picture', this.picture)
 
     return this.api
   }
@@ -131,6 +138,14 @@ export class UserRoutes {
           return res
             .status(this.codes.OK)
             .send(this.ResponseHandler.build(user, false))
+      }, req, res
+    })
+
+  public picture: RequestHandler = (req: Request, res: Response) =>
+    this.RouteMethod.build({
+      resolve: () => {
+        const picture = this.UserController.picture(req.params.picture)
+        if (picture) res.sendFile(path.resolve(picture))
       }, req, res
     })
 }
