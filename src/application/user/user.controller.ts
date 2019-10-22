@@ -45,4 +45,15 @@ export class UserController {
   */
   public toggleStatus = async (username: string): Promise<string> =>
     await this.UserService.toggleStatus(username)
+
+  /**
+  * @description Upload user picture
+  * @param {uploadPayload} query
+  * @returns {Promise<UserDTO>}
+  */
+  public upload = async (query: {
+    username: string,
+    userLogged: UserDTO,
+    picture: string,
+  }): Promise<UserDTO> => await this.UserService.upload(query)
 }
