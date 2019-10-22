@@ -57,6 +57,18 @@ export class UserController {
     picture: string,
   }): Promise<UserDTO> => await this.UserService.upload(query)
 
+  /**
+  * @description Get user picture
+  * @param {string} picture
+  */
   public picture = (picture: string) =>
     this.UserService.picture(picture)
+
+  /**
+  * @description Delete user by username
+  * @param {string} picture
+  * @returns {Promise<string>}
+  */
+  public delete = async (username: string) =>
+    await this.UserService.delete(username)
 }
