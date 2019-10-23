@@ -52,3 +52,12 @@ export {
   GenderMapper,
   GenderRepository
 } from '../application/gender/gender.providers'
+
+// Pokedex providers
+export {
+  PokedexRoutes,
+  PokedexController,
+  PokedexService,
+  PokedexMapper,
+  PokedexRepository
+} from '../application/pokedex/pokedex.providers'
