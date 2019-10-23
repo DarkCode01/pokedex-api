@@ -24,4 +24,7 @@ export class PokedexRepository {
 
   public save = async (pokedex: Pokedex): Promise<Pokedex> =>
     await this._Pokedex.save(pokedex)
+
+  public update = async (pokedex: Pokedex, update: {}): Promise<Pokedex> =>
+    await this._Pokedex.merge(pokedex, update)
 }
