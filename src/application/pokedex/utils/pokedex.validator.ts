@@ -11,5 +11,5 @@ const getValidator = [
 ]
 
 export {
-  getValidator
+  getValidator,
 }
