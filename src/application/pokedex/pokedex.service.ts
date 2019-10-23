@@ -1,5 +1,6 @@
 import { PokedexDTO, PokedexResponses } from './pokedex.providers'
 import { AuthResponses } from '../auth/auth.providers'
+import { UserDTO, Roles, UserResponses } from '../user/user.providers'
 
 export class PokedexService {
   constructor(
@@ -24,10 +25,17 @@ export class PokedexService {
       return this.PokedexMapper.mapToDTO(saved)
   }
 
-  public get = async (userId: number) => {
-    let pokedex = await this.PokedexRepository.getByUserId(userId)
-    if (!pokedex) pokedex = await this.create(userId)
+  public get = async (userId: number, userLogged: UserDTO) => {
+    if (userLogged.id === userId || userLogged.role === Roles.owner) {
+      let pokedex = await this.PokedexRepository.getByUserId(userId)
+      if (!pokedex) pokedex = await this.create(userId)
 
-    return this.PokedexMapper.mapToDTO(pokedex)
+      return this.PokedexMapper.mapToDTO(pokedex)
+    }
+
+    throw this.ErrorHandler.build({
+      status: this.codes.UNAUTHORIZED,
+      msg: UserResponses.unauthorized
+    })
   }
 }
