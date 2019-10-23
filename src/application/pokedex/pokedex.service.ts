@@ -38,4 +38,18 @@ export class PokedexService {
       msg: UserResponses.unauthorized
     })
   }
+
+  public toggleStatus = async (userId: number): Promise<string> => {
+    const pokedex = await this.PokedexRepository.getByUserId(userId)
+    if (!pokedex)
+      throw this.ErrorHandler.build({
+        status: this.codes.BAD_REQUEST,
+        msg: PokedexResponses.pokedexDoesNotExist
+      })
+
+    const update = await this.PokedexRepository.update(pokedex, { isActive: !pokedex.isActive })
+    if (update)
+      await this.PokedexRepository.save(pokedex)
+    return update.isActive ? PokedexResponses.active : PokedexResponses.disable
+  }
 }
