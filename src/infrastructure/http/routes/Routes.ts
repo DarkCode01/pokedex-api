@@ -1,7 +1,9 @@
 export const ApiRoutes = ({
   AuthRoutes,
-  UserRoutes
+  UserRoutes,
+  PokedexRoutes,
 }: any) => ([
   AuthRoutes.routes,
-  UserRoutes.routes
+  UserRoutes.routes,
+  PokedexRoutes.routes,
 ])

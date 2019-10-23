@@ -17,21 +17,10 @@ export class PokedexRoutes {
 
   public get routes(): Router {
     /**
-    * @description Get List of Pokedexs
-    * @private
-    */
-    this.api.get('/pokedexs',
-      this.AuthMiddleware.ensureAuth,
-      this.OwnerMiddleware.isOwner,
-      this.list
-    )
-
-    /**
     * @description Get Pokedex
     * @private
     */
-    this.api.get('/pokedex/:uuid',
-      getValidator as Array<any>,
+    this.api.get('/:userId/pokedex',
       this.AuthMiddleware.ensureAuth,
       this.get
     )
@@ -42,26 +31,11 @@ export class PokedexRoutes {
   public get: RequestHandler = (req: Request, res: Response) =>
     this.RouteMethod.build({
       resolve: async () => {
-        const pokedex = await this.PokedexController.get(req.params.pokedexname, req.user)
+        const pokedex = await this.PokedexController.get(req.params.userId)
         if (pokedex)
           return res
             .status(this.codes.OK)
             .send(this.ResponseHandler.build(pokedex, false))
-      }, req, res
-    })
-
-  public list: RequestHandler = (req: Request, res: Response) =>
-    this.RouteMethod.build({
-      resolve: async () => {
-        const { page, perPage } = req.query
-        const pokedexs = await this.PokedexController.list({
-          perPage,
-          page,
-        })
-        if (pokedexs)
-          return res
-            .status(this.codes.OK)
-            .send(this.ResponseHandler.build(pokedexs, false))
       }, req, res
     })
 }
