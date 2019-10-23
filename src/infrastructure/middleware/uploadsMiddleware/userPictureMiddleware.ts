@@ -1,9 +1,11 @@
 import multer from 'multer'
 import path from 'path'
 
+import { config } from '../../../container/providers'
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads/users/')
+    cb(null, config.userOptions.uploads)
   },
   filename: (req, file, cb) => {
     if (req.user && file) {

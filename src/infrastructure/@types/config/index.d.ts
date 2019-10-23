@@ -26,6 +26,10 @@ type nodemailer = {
   }
 }
 
+type userOptions = {
+  uploads: string
+}
+
 type test = {
   uri: string | undefined
 }
@@ -38,6 +42,7 @@ declare type config = {
   database: database
   jwt: jwt
   test: test
+  userOptions: userOptions
   nodemailer: nodemailer
   forgotPass: forgotPass
 }

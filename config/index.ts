@@ -31,6 +31,9 @@ export default {
   forgotPass: {
     url: process.env.AGENT_CLIENT_URI
   },
+  userOptions: {
+    uploads: process.env.UPLOADS_USERS || 'uploads/users/'
+  },
   test: {
     uri: process.env.TEST_URI
   }
