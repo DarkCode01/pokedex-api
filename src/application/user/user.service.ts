@@ -12,8 +12,8 @@ export class UserService {
     private deleteUploadedFiles: any,
   ) {}
 
-  public get = async (username: string, _user: UserDTO) : Promise<UserDTO> => {
-    if (_user.username === username || _user.role === Roles.owner) {
+  public get = async (username: string, userLogged: UserDTO) : Promise<UserDTO> => {
+    if (userLogged.username === username || userLogged.role === Roles.owner) {
       const user = await this.UserRepository.getUserByUsername(username)
       if (!user)
         throw this.ErrorHandler.build({
