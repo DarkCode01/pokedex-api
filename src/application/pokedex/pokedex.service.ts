@@ -1,55 +1,33 @@
 import { PokedexDTO, PokedexResponses } from './pokedex.providers'
+import { AuthResponses } from '../auth/auth.providers'
 
 export class PokedexService {
   constructor(
+    private UserRepository: any,
     private PokedexMapper: any,
     private PokedexRepository: any,
     private ErrorHandler: any,
     private codes: statusCodes,
   ) {}
 
-  public get = async (pokedexname: string, _pokedex: PokedexDTO) => {
-    /* if (_pokedex.user === pokedexname || _pokedex.role === Roles.owner) {
-      const pokedex = await this.PokedexRepository.getPokedexByPokedexname(pokedexname)
-      if (!pokedex)
-        throw this.ErrorHandler.build({
-          status: this.codes.BAD_REQUEST,
-          msg: PokedexResponses.pokedexNotFound
-        })
-
-      return await this.PokedexMapper.mapToDTO(pokedex)
-    }
-
-    throw this.ErrorHandler.build({
-      status: this.codes.UNAUTHORIZED,
-      msg: PokedexResponses.unauthorized
-    }) */
-  }
-
-  public list = async (props: {
-    perPage: number,
-    page: number,
-  }) : Promise <{
-    pokedexs: PokedexDTO[],
-    allPokedexs: number,
-    pages: number,
-  }> => {
-    const { page, perPage } = props
-    const pokedexs = await this.PokedexRepository.getAll({
-      page,
-      perPage,
-    })
-    if (!pokedexs && !pokedexs.rows)
+  public create = async (userId: number) => {
+    const user = await this.UserRepository.getById(userId)
+    if (!user)
       throw this.ErrorHandler.build({
         status: this.codes.BAD_REQUEST,
-        msg: PokedexResponses.noRecords
+        msg: AuthResponses.auth.accountDoesNotExist
       })
 
-    const mapListToDTO = this.PokedexMapper.mapListToDTO(pokedexs.rows)
-    return {
-      pokedexs: mapListToDTO,
-      allPokedexs: pokedexs.allPokedexs,
-      pages: pokedexs.pages
-    }
+    const pokedex = await this.PokedexMapper.mapToEntity({ user })
+    const saved = await this.PokedexRepository.save(pokedex)
+    if (saved)
+      return this.PokedexMapper.mapToDTO(saved)
+  }
+
+  public get = async (userId: number) => {
+    let pokedex = await this.PokedexRepository.getByUserId(userId)
+    if (!pokedex) pokedex = await this.create(userId)
+
+    return this.PokedexMapper.mapToDTO(pokedex)
   }
 }
