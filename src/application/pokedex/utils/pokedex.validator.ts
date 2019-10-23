@@ -4,10 +4,10 @@ import { PokedexResponses } from './pokedex.responses'
 const { validator } = PokedexResponses
 
 const getValidator = [
-  param('username', validator.username)
-    .isLength({
-      min: 3
-    })
+  param('userId', validator.userId)
+    .exists()
+    .toInt()
+    .isInt()
 ]
 
 export {

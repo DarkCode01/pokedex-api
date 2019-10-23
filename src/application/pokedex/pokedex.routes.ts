@@ -21,6 +21,7 @@ export class PokedexRoutes {
     * @private
     */
     this.api.get('/:userId/pokedex',
+      getValidator as Array<any>,
       this.AuthMiddleware.ensureAuth,
       this.get
     )
