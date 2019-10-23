@@ -16,34 +16,12 @@ export class PokedexRepository {
     return this._Pokedex
   }
 
-  public async getAll(query: {
-    page: number,
-    perPage: number,
-  }): Promise<{
-    rows: Pokedex[],
-    allPokedexs: number,
-    pages: number
-  }> {
-    const page = query.page || 1
-    const perPage = query.perPage || 5
+  public create = async (pokedex: Pokedex): Promise<Pokedex> =>
+    await this._Pokedex.create(pokedex)
 
-    const rows = await this._Pokedex.find({
-      skip: ((perPage * page) - perPage),
-      take: perPage,
-    })
+  public getByUserId = async (userId: number): Promise<Pokedex|undefined> =>
+    await this._Pokedex.findOne({ userId })
 
-    const pages: number = Math.ceil(rows.lenght / perPage)
-
-    return {
-      rows,
-      allPokedexs: rows.lenght,
-      pages
-    }
-  }
-
-  public savePokedex = async (pokedex: Pokedex): Promise<Pokedex> =>
+  public save = async (pokedex: Pokedex): Promise<Pokedex> =>
     await this._Pokedex.save(pokedex)
-
-  public update = async (pokedex: Pokedex, update: {}): Promise<Pokedex> =>
-    await this._Pokedex.merge(pokedex, update)
 }

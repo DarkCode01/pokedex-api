@@ -5,11 +5,6 @@ export class PokedexController {
     private PokedexService: any,
   ) {}
 
-  public get = async (username: string, user: PokedexDTO) =>
-    await this.PokedexService.get(username, user)
-
-  public list = async (query: {
-    perPage: number,
-    page: number,
-  }) => await this.PokedexService.list(query)
+  public get = async (userId: number): Promise<PokedexDTO> =>
+    await this.PokedexService.get(userId)
 }
