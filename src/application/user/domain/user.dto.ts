@@ -2,6 +2,9 @@ import { MapProp } from 'ts-simple-automapper'
 
 export class UserDTO {
   @MapProp()
+  id: number
+
+  @MapProp()
   uuid: string
 
   @MapProp()
@@ -33,4 +36,7 @@ export class UserDTO {
 
   @MapProp()
   isActive: boolean
+
+  @MapProp()
+  pokedexId: number
 }

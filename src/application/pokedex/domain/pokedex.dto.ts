@@ -5,8 +5,5 @@ export class PokedexDTO {
   userId: number
 
   @MapProp()
-  user: {}
-
-  @MapProp()
   isActive: boolean
 }
