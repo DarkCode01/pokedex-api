@@ -21,7 +21,8 @@ export class Pokemon {
   captured: boolean
 
   @Column({
-    type: 'simple-json'
+    type: 'simple-json',
+    nullable: true
   })
   location: {
     lat: string,

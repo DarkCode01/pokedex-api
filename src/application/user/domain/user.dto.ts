@@ -36,7 +36,4 @@ export class UserDTO {
 
   @MapProp()
   isActive: boolean
-
-  @MapProp()
-  pokedexId: number
 }
