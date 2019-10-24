@@ -9,8 +9,15 @@ export class Pokemon {
   @CreateDateColumn()
   createDate: Date
 
-  @Column()
+  @Column({
+    unique: true
+  })
   name: string
+
+  @Column({
+    unique: true
+  })
+  slug: string
 
   @Column()
   description: string
@@ -19,6 +26,11 @@ export class Pokemon {
     default: false
   })
   captured: boolean
+
+  @Column({
+    type: 'simple-json'
+  })
+  type: string[]
 
   @Column({
     type: 'simple-json',
