@@ -21,8 +21,7 @@ export class PokedexService {
 
     const pokedex = await this.PokedexMapper.mapToEntity({ user })
     const saved = await this.PokedexRepository.save(pokedex)
-    if (saved)
-      return this.PokedexMapper.mapToDTO(saved)
+    if (saved) return saved
   }
 
   public get = async (userId: number, userLogged: UserDTO) => {
@@ -30,7 +29,7 @@ export class PokedexService {
       let pokedex = await this.PokedexRepository.getByUserId(userId)
       if (!pokedex) pokedex = await this.create(userId)
 
-      return this.PokedexMapper.mapToDTO(pokedex)
+      return pokedex
     }
 
     throw this.ErrorHandler.build({
