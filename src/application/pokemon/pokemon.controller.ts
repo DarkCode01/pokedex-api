@@ -1,4 +1,4 @@
-import { PokemonDTO } from './pokemon.providers'
+import { Pokemon, PokemonDTO } from './pokemon.providers'
 import { UserDTO } from '../user/user.providers'
 
 export class PokemonController {
@@ -7,10 +7,11 @@ export class PokemonController {
   ) {}
 
   /**
-  * @description Get a user's pokemon and if it doesn't exist create a pokemon.
-  * @param {number} userId
+  * @description Create pokemon
+  * @param {Pokemon} pokemon
+  * @param {UserDTO} userLogged
   * @returns {Promise<PokemonDTO>}
   */
-  public get = async (userId: number, userLogged: UserDTO): Promise<PokemonDTO> =>
-    await this.PokemonService.get(userId, userLogged)
+  public create = async (pokemon: Pokemon, userLogged: UserDTO): Promise<PokemonDTO> =>
+    await this.PokemonService.create(pokemon, userLogged)
 }
