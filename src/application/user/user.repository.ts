@@ -1,10 +1,10 @@
-import { getRepository, Connection } from 'typeorm'
+import { getRepository, Connection, Repository } from 'typeorm'
 
 // Entity
 import { User, Roles } from './user.providers'
 
 export class UserRepository {
-  private _User: any
+  private _User: Repository<User>
 
   constructor(private DatabaseConnection: Connection) {
     this.getUserRepository()

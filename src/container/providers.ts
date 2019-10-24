@@ -61,3 +61,12 @@ export {
   PokedexMapper,
   PokedexRepository
 } from '../application/pokedex/pokedex.providers'
+
+// Pokemon providers
+export {
+  PokemonRoutes,
+  PokemonController,
+  PokemonService,
+  PokemonMapper,
+  PokemonRepository
+} from '../application/pokemon/pokemon.providers'

@@ -1,10 +1,10 @@
-import { getRepository, Connection } from 'typeorm'
+import { getRepository, Connection, Repository } from 'typeorm'
 
 // Entity
 import { Pokedex } from './pokedex.providers'
 
 export class PokedexRepository {
-  private _Pokedex: any
+  private _Pokedex: Repository<Pokedex>
 
   constructor(private DatabaseConnection: Connection) {
     this.getPokedexRepository()

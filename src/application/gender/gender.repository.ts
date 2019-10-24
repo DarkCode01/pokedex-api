@@ -1,10 +1,10 @@
-import { getRepository, Connection } from 'typeorm'
+import { getRepository, Connection, Repository } from 'typeorm'
 
 // Entity
 import { Gender } from './gender.providers'
 
 export class GenderRepository {
-  private _Gender: any
+  private _Gender: Repository<Gender>
 
   constructor(private DatabaseConnection: Connection) {
     this.getRepository()
@@ -20,7 +20,7 @@ export class GenderRepository {
     await this._Gender.create(gender)
 
   public getGenderByName = async (name: string): Promise<Gender|undefined> =>
-    await this._Gender.findOne({ name })
+    await this._Gender.findOne({ name: name as any })
 
   public saveGender = async (gender: Gender): Promise<Gender> =>
     await this._Gender.save(gender)

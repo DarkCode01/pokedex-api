@@ -38,6 +38,11 @@ import {
   PokedexService,
   PokedexMapper,
   PokedexRepository,
+  PokemonRoutes,
+  PokemonController,
+  PokemonService,
+  PokemonMapper,
+  PokemonRepository,
 } from './providers'
 
 const container = createContainer({
@@ -78,6 +83,7 @@ container
     UserRepository: asClass(UserRepository).singleton(),
     GenderRepository: asClass(GenderRepository).singleton(),
     PokedexRepository: asClass(PokedexRepository).singleton(),
+    PokemonRepository: asClass(PokemonRepository).singleton(),
   })
   // Services
   .register({
@@ -85,6 +91,7 @@ container
     UserService: asClass(UserService).singleton(),
     GenderService: asClass(GenderService).singleton(),
     PokedexService: asClass(PokedexService).singleton(),
+    PokemonService: asClass(PokemonService).singleton(),
   })
   // Controllers
   .register({
@@ -92,6 +99,7 @@ container
     UserController: asClass(UserController).singleton(),
     GenderController: asClass(GenderController).singleton(),
     PokedexController: asClass(PokedexController).singleton(),
+    PokemonController: asClass(PokemonController).singleton(),
   })
   // Routes
   .register({
@@ -101,12 +109,14 @@ container
     AuthRoutes: asClass(AuthRoutes).singleton(),
     UserRoutes: asClass(UserRoutes).singleton(),
     PokedexRoutes: asClass(PokedexRoutes).singleton(),
+    PokemonRoutes: asClass(PokemonRoutes).singleton(),
   })
   // Mappers
   .register({
     UserMapper: asClass(UserMapper).singleton(),
     GenderMapper: asClass(GenderMapper).singleton(),
     PokedexMapper: asClass(PokedexMapper).singleton(),
+    PokemonMapper: asClass(PokemonMapper).singleton(),
   })
   // Middlewares
   .register({
