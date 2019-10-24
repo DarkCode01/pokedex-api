@@ -9,8 +9,13 @@ export class PokemonMapper {
     return pokemonDTO
   }
 
-  public mapToEntity = async (from: any): Promise<Pokemon> =>
-    await this.PokemonRepository.create(from)
+  public mapToEntity = async (from: any): Promise<Pokemon> => {
+    const pokemon = await this.PokemonRepository.create(from)
+    const { latitude: lat, longitude: long, height, weight } = from
+    pokemon.location = { lat, long }
+    pokemon.proportions = { height, weight }
+    return pokemon
+  }
 
   public mapListToDTO(pokemons: Pokemon[]): PokemonDTO[] {
     return pokemons.map(pokemon => this.mapToDTO(pokemon))
