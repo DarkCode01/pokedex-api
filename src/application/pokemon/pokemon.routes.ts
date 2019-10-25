@@ -1,7 +1,7 @@
 import { Router, Response, Request, RequestHandler } from 'express'
 
 // Validators
-import { createValidator } from './pokemon.providers'
+import { createValidator, getValidator } from './pokemon.providers'
 
 export class PokemonRoutes {
   private readonly api: Router = Router()
@@ -25,6 +25,17 @@ export class PokemonRoutes {
       this.create
     )
 
+    /**
+    * @description Get, User
+    * @private
+    */
+    this.api.route('/:userId/pokemon/:slug')
+      .get(
+        getValidator as Array<any>,
+        this.AuthMiddleware.ensureAuth,
+        this.get
+      )
+
     return this.api
   }
 
@@ -35,6 +46,21 @@ export class PokemonRoutes {
         if (pokemon)
           return res
             .status(this.codes.CREATE)
+            .send(this.ResponseHandler.build(pokemon, false))
+      }, req, res
+    })
+
+  public get: RequestHandler = (req: Request, res: Response) =>
+    this.RouteMethod.build({
+      resolve: async () => {
+        const pokemon = await this.PokemonController.get({
+          userId: req.params.userId,
+          userLogged: req.user,
+          slug: req.params.slug,
+        })
+        if (pokemon)
+          return res
+            .status(this.codes.OK)
             .send(this.ResponseHandler.build(pokemon, false))
       }, req, res
     })
