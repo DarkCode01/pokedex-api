@@ -28,6 +28,11 @@ export class Pokemon {
   captured: boolean
 
   @Column({
+    nullable: true
+  })
+  picture: string
+
+  @Column({
     type: 'simple-json'
   })
   type: string[]

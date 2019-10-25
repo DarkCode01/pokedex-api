@@ -12,6 +12,7 @@ export class PokemonRoutes {
     private RouteMethod: any,
     private codes: statusCodes,
     private AuthMiddleware: any,
+    private pokemonPictureMiddleware: any,
   ) {}
 
   public get routes(): Router {
@@ -40,6 +41,18 @@ export class PokemonRoutes {
         this.AuthMiddleware.ensureAuth,
         this.delete
       )
+
+    /**
+    * @description Upload Picture
+    * @private
+    */
+    this.api.put('/pokemon_picture/:userId/:slug',
+      [
+        this.AuthMiddleware.ensureAuth,
+        this.pokemonPictureMiddleware
+      ],
+      this.upload
+    )
 
     return this.api
   }
@@ -82,6 +95,22 @@ export class PokemonRoutes {
           return res
             .status(this.codes.OK)
             .send(this.ResponseHandler.build(response))
+      }, req, res
+    })
+
+  public upload: RequestHandler = (req: Request, res: Response) =>
+    this.RouteMethod.build({
+      resolve: async () => {
+        const pokemon = await this.PokemonController.upload({
+          userId: req.params.userId,
+          userLogged: req.user,
+          slug: req.params.slug,
+          picture: req.file.filename,
+        })
+        if (pokemon)
+          return res
+            .status(this.codes.OK)
+            .send(this.ResponseHandler.build(pokemon, false))
       }, req, res
     })
 }

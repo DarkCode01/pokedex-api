@@ -40,4 +40,16 @@ export class PokemonController {
     slug: string,
   }): Promise<UserDTO> =>
     await this.PokemonService.delete(query)
+
+  /**
+  * @description Upload pokemon picture
+  * @param {uploadPayload} query
+  * @returns {Promise<PokemonDTO>}
+  */
+  public upload = async (query: {
+    userId: number,
+    userLogged: UserDTO,
+    slug: string,
+    picture: string,
+  }): Promise<PokemonDTO> => await this.PokemonService.upload(query)
 }

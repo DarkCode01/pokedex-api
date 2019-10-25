@@ -17,6 +17,9 @@ export class PokemonDTO {
   captured: boolean
 
   @MapProp()
+  picture: string
+
+  @MapProp()
   type: string[]
 
   @MapProp()
