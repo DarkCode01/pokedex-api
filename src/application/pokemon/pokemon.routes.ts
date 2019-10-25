@@ -35,6 +35,11 @@ export class PokemonRoutes {
         this.AuthMiddleware.ensureAuth,
         this.get
       )
+      .delete(
+        getValidator as Array<any>,
+        this.AuthMiddleware.ensureAuth,
+        this.delete
+      )
 
     return this.api
   }
@@ -62,6 +67,21 @@ export class PokemonRoutes {
           return res
             .status(this.codes.OK)
             .send(this.ResponseHandler.build(pokemon, false))
+      }, req, res
+    })
+
+  public delete: RequestHandler = (req: Request, res: Response) =>
+    this.RouteMethod.build({
+      resolve: async () => {
+        const response = await this.PokemonController.delete({
+          userId: req.params.userId,
+          userLogged: req.user,
+          slug: req.params.slug,
+        })
+        if (response)
+          return res
+            .status(this.codes.OK)
+            .send(this.ResponseHandler.build(response))
       }, req, res
     })
 }

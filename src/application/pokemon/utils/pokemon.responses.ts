@@ -14,4 +14,5 @@ export const PokemonResponses: any = {
   isRegistered: 'Oops! We found a pokemon with this same name. Try another name.',
   invalidName: 'Please enter a name with valid characters.',
   pokemonNotFound: 'Oops, we have not found this pokemon.',
+  delete: 'the pokemon has been removed.',
 }

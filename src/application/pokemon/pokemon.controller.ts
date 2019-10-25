@@ -27,4 +27,17 @@ export class PokemonController {
     slug: string,
   }): Promise<UserDTO> =>
     await this.PokemonService.get(query)
+
+  /**
+  * @description Delete a pokemon
+  *
+  * @param {deletePayload} query
+  * @returns {Promise<string>}
+  */
+  public delete = async (query: {
+    userId: number,
+    userLogged: UserDTO,
+    slug: string,
+  }): Promise<UserDTO> =>
+    await this.PokemonService.delete(query)
 }
