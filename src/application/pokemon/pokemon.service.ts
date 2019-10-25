@@ -1,7 +1,7 @@
 import slugify from '@sindresorhus/slugify'
 
-import { Pokemon, PokemonResponses } from './pokemon.providers'
-import { UserDTO } from '../user/user.providers'
+import { Pokemon,  PokemonDTO, PokemonResponses } from './pokemon.providers'
+import { UserDTO, Roles, UserResponses } from '../user/user.providers'
 import { Pokedex } from '../pokedex/pokedex.providers'
 
 export class PokemonService {
@@ -18,7 +18,10 @@ export class PokemonService {
     const pokemon: Pokemon = await this.PokemonMapper.mapToEntity(pokemonPayload)
     pokemon.slug = slugify(pokemon.name)
     pokemon.pokedex = pokedex
-    const isPokemon = await this.PokemonRepository.getBySlug(pokemon.slug)
+    const isPokemon = await this.PokemonRepository.getBySlug({
+      slug: pokemon.slug,
+      pokedexId: pokemon.pokedex.id,
+    })
     if (isPokemon)
       throw this.ErrorHandler.build({
         status: this.codes.BAD_REQUEST,
@@ -34,5 +37,32 @@ export class PokemonService {
     const saved = await this.PokemonRepository.save(pokemon)
     if (saved)
       return this.PokemonMapper.mapToDTO(saved)
+  }
+
+  public get = async (props: {
+    userId: number,
+    userLogged: UserDTO,
+    slug: string,
+  }): Promise<PokemonDTO> => {
+    const { userId, userLogged, slug } = props
+    if (userLogged.id === userId || userLogged.role === Roles.owner) {
+      const pokedex: Pokedex = await this.PokedexService.get(userId, userLogged)
+      const pokemon = await this.PokemonRepository.getBySlug({
+        slug,
+        pokedexId: pokedex.id,
+      })
+      if (!pokemon)
+        throw this.ErrorHandler.build({
+          status: this.codes.BAD_REQUEST,
+          msg: PokemonResponses.pokemonNotFound
+        })
+
+      return await this.PokemonMapper.mapToDTO(pokemon)
+    }
+
+    throw this.ErrorHandler.build({
+      status: this.codes.UNAUTHORIZED,
+      msg: UserResponses.unauthorized
+    })
   }
 }

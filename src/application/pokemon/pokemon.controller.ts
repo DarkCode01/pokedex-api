@@ -14,4 +14,17 @@ export class PokemonController {
   */
   public create = async (pokemon: Pokemon, userLogged: UserDTO): Promise<PokemonDTO> =>
     await this.PokemonService.create(pokemon, userLogged)
+
+  /**
+  * @description Get Pokemon
+  *
+  * @param {getPayload} query
+  * @returns {Promise<PokemonDTO>}
+  */
+  public get = async (query: {
+    userId: number,
+    userLogged: UserDTO,
+    slug: string,
+  }): Promise<UserDTO> =>
+    await this.PokemonService.get(query)
 }

@@ -25,7 +25,10 @@ export class PokemonRepository {
   public update = async (pokemon: Pokemon, update: {}): Promise<Pokemon> =>
     await this._Pokemon.merge(pokemon, update)
 
-  public getBySlug = async (slug: string): Promise<Pokemon|undefined> =>
-    await this._Pokemon.findOne({ slug })
+  public getBySlug = async (props: {
+    slug: string,
+    pokedexId: number,
+  }): Promise<Pokemon|undefined> =>
+    await this._Pokemon.findOne({ slug: props.slug, pokedexId: props.pokedexId })
 
 }
