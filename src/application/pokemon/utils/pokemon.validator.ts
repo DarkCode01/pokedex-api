@@ -1,4 +1,4 @@
-import { body } from 'express-validator'
+import { body, param } from 'express-validator'
 import { PokemonResponses } from './pokemon.responses'
 
 const { validator } = PokemonResponses
@@ -31,6 +31,17 @@ const createValidator = [
     .exists(),
 ]
 
+const getValidator = [
+  param('userId', validator.userId)
+    .exists()
+    .toInt()
+    .isInt(),
+  param('slug', validator.slug)
+    .trim()
+    .isLength({ min: 2 }),
+]
+
 export {
   createValidator,
+  getValidator,
 }

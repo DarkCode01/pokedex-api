@@ -7,8 +7,11 @@ export const PokemonResponses: any = {
     captured: 'Please enter a valid value [true or false].',
     height: 'Please enter a valid height.',
     weight: 'Please enter a valid weight.',
+    userId: 'Please enter a valid id.',
+    slug: 'Please enter a valid slug.',
   },
   pokedexDoesNotExist: 'Oops! We haven\'t found your pokedex.',
   isRegistered: 'Oops! We found a pokemon with this same name. Try another name.',
   invalidName: 'Please enter a name with valid characters.',
+  pokemonNotFound: 'Oops, we have not found this pokemon.',
 }
