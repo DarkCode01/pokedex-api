@@ -65,4 +65,33 @@ export class PokemonService {
       msg: UserResponses.unauthorized
     })
   }
+
+  public delete = async (props: {
+    userId: number,
+    userLogged: UserDTO,
+    slug: string,
+  }): Promise<PokemonDTO> => {
+    const { userId, userLogged, slug } = props
+    if (userLogged.id === userId || userLogged.role === Roles.owner) {
+      const pokedex: Pokedex = await this.PokedexService.get(userId, userLogged)
+      const pokemon = await this.PokemonRepository.getBySlug({
+        slug,
+        pokedexId: pokedex.id,
+      })
+      if (!pokemon)
+        throw this.ErrorHandler.build({
+          status: this.codes.BAD_REQUEST,
+          msg: PokemonResponses.pokemonNotFound
+        })
+
+      const deleteThisPokemon = await this.PokemonRepository.delete(pokemon)
+      if (deleteThisPokemon)
+        return PokemonResponses.delete
+    }
+
+    throw this.ErrorHandler.build({
+      status: this.codes.UNAUTHORIZED,
+      msg: UserResponses.unauthorized
+    })
+  }
 }
