@@ -31,4 +31,6 @@ export class PokemonRepository {
   }): Promise<Pokemon|undefined> =>
     await this._Pokemon.findOne({ slug: props.slug, pokedexId: props.pokedexId })
 
+  public delete = async (pokemon: Pokemon): Promise<Pokemon> =>
+    await this._Pokemon.remove(pokemon)
 }
