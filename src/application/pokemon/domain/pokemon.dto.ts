@@ -8,10 +8,16 @@ export class PokemonDTO {
   name: string
 
   @MapProp()
+  slug: string
+
+  @MapProp()
   description: string
 
   @MapProp()
   captured: boolean
+
+  @MapProp()
+  type: string[]
 
   @MapProp()
   location: {}
