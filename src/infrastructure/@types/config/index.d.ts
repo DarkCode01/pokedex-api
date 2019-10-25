@@ -30,6 +30,10 @@ type userOptions = {
   uploads: string
 }
 
+type pokemonOptions = {
+  uploads: string
+}
+
 type test = {
   uri: string | undefined
 }
@@ -43,6 +47,7 @@ declare type config = {
   jwt: jwt
   test: test
   userOptions: userOptions
+  pokemonOptions: pokemonOptions
   nodemailer: nodemailer
   forgotPass: forgotPass
 }

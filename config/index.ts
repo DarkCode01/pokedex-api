@@ -34,6 +34,9 @@ export default {
   userOptions: {
     uploads: process.env.UPLOADS_USERS || 'uploads/users/'
   },
+  pokemonOptions: {
+    uploads: process.env.UPLOADS_USERS || 'uploads/pokemons/'
+  },
   test: {
     uri: process.env.TEST_URI
   }
