@@ -27,6 +27,7 @@ export { deleteUploadedFiles } from '../infrastructure/utils/deleteUploadedFiles
 export { AuthMiddleware } from '../infrastructure/middleware/AuthenticationMiddleware'
 export { OwnerMiddleware } from '../infrastructure/middleware/OwnerMiddleware'
 export { userPictureMiddleware } from '../infrastructure/middleware/uploadsMiddleware/userPictureMiddleware'
+export { pokemonPictureMiddleware } from '../infrastructure/middleware/uploadsMiddleware/pokemonPictureMiddleware'
 
 // Auth providers
 export {

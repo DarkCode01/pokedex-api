@@ -19,6 +19,7 @@ import {
   Email,
   OwnerMiddleware,
   userPictureMiddleware,
+  pokemonPictureMiddleware,
   AuthRoutes,
   AuthController,
   AuthService,
@@ -123,6 +124,7 @@ container
     AuthMiddleware: asClass(AuthMiddleware).singleton(),
     OwnerMiddleware: asClass(OwnerMiddleware).singleton(),
     userPictureMiddleware: asValue(userPictureMiddleware),
+    pokemonPictureMiddleware: asValue(pokemonPictureMiddleware),
   })
 
 export default container
