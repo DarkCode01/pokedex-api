@@ -65,14 +65,13 @@ export class User {
   isActive: boolean
 
   @Column({
+    type: 'simple-json',
     nullable: true
   })
-  forgotPasswordToken: string
-
-  @Column({
-    nullable: true
-  })
-  forgotPasswordExpire: Date
+  forgotPassword: {
+    token: string,
+    expire: Date,
+  }
 
   @Column({
     nullable: true

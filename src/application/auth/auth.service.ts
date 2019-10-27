@@ -111,23 +111,22 @@ export class AuthService {
       })
 
     // Generate Token
-    const token: string = crypto.randomBytes(20).toString('hex')
-    const forgotPasswordToken = crypto
+    const hex: string = crypto.randomBytes(20).toString('hex')
+    const token = crypto
       .createHash('sha256')
-      .update(token)
+      .update(hex)
       .digest('hex')
 
-    const expireDate = new Date()
+    const expire = new Date()
     // Increase 30 minutes to the current time
-    expireDate.setMinutes(expireDate.getMinutes() + 30)
-    const forgotPasswordExpire = expireDate
+    expire.setMinutes(expire.getMinutes() + 30)
     const updateUser = await this.AuthRepository.update(user,
-      { forgotPasswordToken, forgotPasswordExpire })
+      { forgotPassword: { token, expire }})
 
     if (updateUser)
       await this.AuthRepository.saveUser(user)
 
-    return forgotPasswordToken
+    return token
   }
 
   public checkPasswordExpire = async (token: string): Promise<User> => {
@@ -147,8 +146,7 @@ export class AuthService {
     const user = await this.checkPasswordExpire(token)
     if (user) {
       const updateUser = await this.AuthRepository.update(user,
-        { forgotPasswordToken: null,
-          forgotPasswordExpire: null,
+        { forgotPassword: { token: null, expire: null },
           password
         })
 
