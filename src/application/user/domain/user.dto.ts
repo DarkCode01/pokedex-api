@@ -36,4 +36,7 @@ export class UserDTO {
 
   @MapProp()
   isActive: boolean
+
+  @MapProp()
+  onBoarding: boolean
 }
