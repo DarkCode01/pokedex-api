@@ -145,9 +145,10 @@ export class AuthService {
   public resetPassword = async (token: string, password: string): Promise<void> => {
     const user = await this.checkPasswordExpire(token)
     if (user) {
+      const encryptPassword = this.encryptPassword(password)
       const updateUser = await this.AuthRepository.update(user,
         { forgotPassword: { token: null, expire: null },
-          password
+          password: encryptPassword,
         })
 
       if (updateUser)
