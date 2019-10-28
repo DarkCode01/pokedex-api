@@ -1,11 +1,5 @@
 import nodemailer, { Transporter, SendMailOptions } from 'nodemailer'
 
-interface IBuild {
-  to: string,
-  subject: string,
-  html: string
-}
-
 export class Email {
   private transporter: Transporter
 
@@ -30,8 +24,13 @@ export class Email {
     return this.transporter
   }
 
-  public async build({ to, subject, html }: IBuild) {
+  public async build(props: {
+    to: string,
+    subject: string,
+    html: string
+  }) {
     const { from } = this.config.nodemailer
+    const { to, subject, html } = props
     const message: SendMailOptions = {
       from,
       to,
