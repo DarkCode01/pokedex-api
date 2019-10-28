@@ -35,7 +35,9 @@ export class AuthRepository {
 
   public getUserByForgotPasswordToken = async (token: string): Promise<User|undefined> =>
     await this._User.findOne({
-      forgotPasswordToken: token,
-      forgotPasswordExpire: MoreThanOrEqual(new Date())
+      forgotPassword: {
+        token,
+        expire: MoreThanOrEqual(new Date())
+      }
     })
 }
