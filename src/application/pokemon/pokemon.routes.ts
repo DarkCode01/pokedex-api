@@ -9,7 +9,7 @@ export class PokemonRoutes {
   constructor (
     private PokemonController: any,
     private ResponseHandler: responseHandler,
-    private RouteMethod: any,
+    private RouteMethod: routeMethod,
     private codes: statusCodes,
     private AuthMiddleware: any,
     private pokemonPictureMiddleware: any,

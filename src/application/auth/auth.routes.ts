@@ -1,4 +1,4 @@
-import { Router, Response, Request, RequestHandler } from 'express'
+import { Router, Response, RequestHandler, Request } from 'express'
 
 // Validators
 import {
@@ -16,7 +16,7 @@ export class AuthRoutes {
   constructor (
     private AuthController: any,
     private ResponseHandler: responseHandler,
-    private RouteMethod: any,
+    private RouteMethod: routeMethod,
     private codes: statusCodes,
     private config: config,
     private AuthMiddleware: any

@@ -1,6 +1,6 @@
 import { validationResult } from 'express-validator'
 
-export class RouteMethod {
+export class RouteMethod implements routeMethod {
   constructor(
     private ResponseHandler: responseHandler,
     private codes: statusCodes
