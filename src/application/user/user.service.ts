@@ -71,6 +71,7 @@ export class UserService {
       birthdate: payload.birthdate,
       city: payload.city,
       gender: payload.gender,
+      onBoarding: payload.onBoarding,
     }
 
     if (
