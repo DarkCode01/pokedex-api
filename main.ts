@@ -1,4 +1,4 @@
-import ioc from './src/container'
+import ioc from '@container'
 const Server: any = ioc.resolve('server')
 
 class Main {

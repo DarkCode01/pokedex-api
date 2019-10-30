@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm'
-import { User } from '../../user/user.providers'
+import { User } from '@app/user/user.providers'
 
 enum enumGender {
   male = 'male',

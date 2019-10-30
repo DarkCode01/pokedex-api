@@ -1,7 +1,7 @@
 import { getRepository, Connection, MoreThanOrEqual } from 'typeorm'
 
 // Entity
-import { User } from '../user/user.providers'
+import { User } from '@app/user/user.providers'
 
 export class AuthRepository {
   private _User: any

@@ -10,20 +10,30 @@
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "strictPropertyInitialization": false,
-    "baseUrl": "./",
+    "baseUrl": ".",
     "outDir": "dist",
-    "typeRoots" : [
-      "src/**/@types",
-      "./node_modules/@types"
-    ],
     "paths": {
-      "*": [
-        "node_modules/*"
-      ]
-    }
+      "*": ["node_modules/*"],
+      "@src/*": ["src/*"],
+      "@config/*": ["config/*"],
+      "@app/*": ["src/application/*"],
+      "@container": ["src/container/index"],
+      "@providers": ["src/container/providers"],
+      "@database/*": ["src/database/*"],
+      "@infra/*": ["src/infrastructure/*"],
+      "@utils/*": ["src/infrastructure/utils/*"],
+      "@middlewares/*": ["src/infrastructure/middleware/*"],
+      "@http/*": ["src/infrastructure/http/*"]
+    },
+    "typeRoots" : [
+      "./node_modules/@types",
+      "src/application/@types",
+      "src/database/@types",
+      "src/infrastructure/@types"
+    ],
   },
-  "transpileOnly": true,
   "exclude": [
-    "**/node_modules/*"
+    "**/node_modules/*",
+    "**/src/**/*.spec.ts"
   ]
 }

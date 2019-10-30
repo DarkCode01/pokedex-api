@@ -1,13 +1,13 @@
-import request from 'supertest'
+/* import request from 'supertest'
 import { statusCodes } from '../../infrastructure/http/response'
-import config from '../../../config'
+import { Configuration as config } from 'config/Configuration'
 // import { User, UserDTO } from '../user/user.providers'
 const api = request.agent(config.test.uri)
 
 /*****************************************************
 *  Integration Test of User Actions                  *
 ******************************************************/
-const userMock = {
+/* const userMock = {
   name: 'Efrain',
   lastname: 'Peralta',
   username: 'usertest',
@@ -31,4 +31,4 @@ describe('Integration of ExpressJS controllers and routes, Endpoint delivery.', 
     expect(auth.statusCode).toEqual(statusCodes.OK)
     expect(auth.body).toHaveProperty('data')
   })
-})
+}) */

@@ -4,7 +4,7 @@ import { createContainer, asClass, asValue, asFunction, InjectionMode } from 'aw
 import {
   Server,
   App,
-  config,
+  Configuration,
   DatabaseConnection,
   Routing,
   RouteMethod,
@@ -59,7 +59,7 @@ container
   })
   // Values
   .register({
-    config: asValue(config),
+    config: asValue(Configuration),
     codes: asValue(statusCodes),
   })
   // Utils

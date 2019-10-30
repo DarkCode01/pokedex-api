@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, OneToOne, JoinColumn } from 'typeorm'
-import { User } from '../../user/user.providers'
+import { User } from '@app/user/user.providers'
 
 @Entity({ name: 'pokedex' })
 export class Pokedex {

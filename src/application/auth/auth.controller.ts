@@ -1,5 +1,5 @@
 import { forgotMessage, AuthResponses } from './auth.providers'
-import { User } from '../user/user.providers'
+import { User } from '@app/user/user.providers'
 
 export class AuthController {
   constructor(

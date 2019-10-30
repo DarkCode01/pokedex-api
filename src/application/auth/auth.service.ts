@@ -1,6 +1,6 @@
 import crypto from 'crypto'
 
-import { UserDTO, Roles, User } from '../user/user.providers'
+import { UserDTO, Roles, User } from '@app/user/user.providers'
 import { AuthResponses } from './auth.providers'
 
 export class AuthService {

@@ -1,6 +1,6 @@
 import { param, body, check } from 'express-validator'
 // import { UserResponses } from './user.responses'
-import { AuthResponses } from '../../auth/auth.providers'
+import { AuthResponses } from '@app/auth/auth.providers'
 
 const { validator } = AuthResponses
 

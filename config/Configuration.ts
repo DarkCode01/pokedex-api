@@ -3,7 +3,7 @@ dotenv.config({
   path: '.env'
 })
 
-export default {
+export const Configuration = {
   server: {
     port: parseInt(process.env.PORT as string),
     prefixRoutes: process.env.PREFIX_ROUTES,

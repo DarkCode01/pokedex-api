@@ -1,33 +1,33 @@
 // Main
-export { Server } from '../server'
-export { App } from '../app'
-export { DatabaseConnection } from '../database/DatabaseConnection'
+export { Server } from '@src/server'
+export { App } from '@src/app'
+export { DatabaseConnection } from '@database/DatabaseConnection'
 
 // Values
-export { default as config } from '../../config'
+export { Configuration } from '@config/Configuration'
 
 // Routes
-export { Routing } from '../infrastructure/http/routes'
-export { RouteMethod } from '../infrastructure/http/response/routeMethod'
+export { Routing } from '@http/routes'
+export { RouteMethod } from '@http/response/routeMethod'
 
 // Http Response
-export { statusCodes, ResponseHandler, ErrorHandler } from '../infrastructure/http/response'
+export { statusCodes, ResponseHandler, ErrorHandler } from '@http/response'
 
 // Routes
-export { ApiRoutes } from '../infrastructure/http/routes/Routes'
+export { ApiRoutes } from '@http/routes/Routes'
 
 // Utils
-export { encryptPassword, comparePassword } from '../infrastructure/utils/encryption'
-export { JWT } from '../infrastructure/utils/jwt'
-export { Email } from '../infrastructure/utils/sendEmail'
-export { getCommonPassword } from '../infrastructure/utils/readPassword'
-export { deleteUploadedFiles } from '../infrastructure/utils/deleteUploadedFiles'
+export { encryptPassword, comparePassword } from '@utils/encryption'
+export { JWT } from '@utils/jwt'
+export { Email } from '@utils/sendEmail'
+export { getCommonPassword } from '@utils/readPassword'
+export { deleteUploadedFiles } from '@utils/deleteUploadedFiles'
 
 // Middlewares
-export { AuthMiddleware } from '../infrastructure/middleware/AuthenticationMiddleware'
-export { OwnerMiddleware } from '../infrastructure/middleware/OwnerMiddleware'
-export { userPictureMiddleware } from '../infrastructure/middleware/uploadsMiddleware/userPictureMiddleware'
-export { pokemonPictureMiddleware } from '../infrastructure/middleware/uploadsMiddleware/pokemonPictureMiddleware'
+export { AuthMiddleware } from '@middlewares/AuthenticationMiddleware'
+export { OwnerMiddleware } from '@middlewares/OwnerMiddleware'
+export { userPictureMiddleware } from '@middlewares/uploadsMiddleware/userPictureMiddleware'
+export { pokemonPictureMiddleware } from '@middlewares/uploadsMiddleware/pokemonPictureMiddleware'
 
 // Auth providers
 export {
@@ -35,7 +35,7 @@ export {
   AuthController,
   AuthService,
   AuthRepository
-} from '../application/auth/auth.providers'
+} from '@app/auth/auth.providers'
 
 // User providers
 export {
@@ -44,7 +44,7 @@ export {
   UserService,
   UserMapper,
   UserRepository
-} from '../application/user/user.providers'
+} from '@app/user/user.providers'
 
 // Gender providers
 export {
@@ -52,7 +52,7 @@ export {
   GenderService,
   GenderMapper,
   GenderRepository
-} from '../application/gender/gender.providers'
+} from '@app/gender/gender.providers'
 
 // Pokedex providers
 export {
@@ -61,7 +61,7 @@ export {
   PokedexService,
   PokedexMapper,
   PokedexRepository
-} from '../application/pokedex/pokedex.providers'
+} from '@app/pokedex/pokedex.providers'
 
 // Pokemon providers
 export {
@@ -70,4 +70,4 @@ export {
   PokemonService,
   PokemonMapper,
   PokemonRepository
-} from '../application/pokemon/pokemon.providers'
+} from '@app/pokemon/pokemon.providers'

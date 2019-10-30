@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne } from 'typeorm'
-import { Pokedex } from '../../pokedex/pokedex.providers'
+import { Pokedex } from '@app/pokedex/pokedex.providers'
 
 @Entity({ name: 'pokemons' })
 export class Pokemon {

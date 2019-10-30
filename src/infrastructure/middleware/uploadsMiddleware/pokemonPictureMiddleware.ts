@@ -1,7 +1,7 @@
 import multer from 'multer'
 import path from 'path'
 
-import { config } from '../../../container/providers'
+import { Configuration as config } from '@config/Configuration'
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
