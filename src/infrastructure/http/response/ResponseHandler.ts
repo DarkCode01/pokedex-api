@@ -1,5 +1,5 @@
-export class ResponseHandler {
-  public build(data: string | any, isMsg = true) {
+export class ResponseHandler implements responseHandler {
+  public build(data: string | any, isMsg = true): string | any {
     try {
       if (isMsg) {
         return {
@@ -7,10 +7,10 @@ export class ResponseHandler {
             msg: data
           }
         }
-      } else {
-        return {
-          data
-        }
+      }
+
+      return {
+        data
       }
     } catch (e) {
       console.error(e)

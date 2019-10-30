@@ -2,7 +2,7 @@ import { validationResult } from 'express-validator'
 
 export class RouteMethod {
   constructor(
-    private ResponseHandler: any,
+    private ResponseHandler: responseHandler,
     private codes: statusCodes
   ) {}
 

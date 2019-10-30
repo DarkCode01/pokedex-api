@@ -3,7 +3,7 @@ import { Roles } from '@app/user/user.providers'
 
 export class OwnerMiddleware {
   constructor(
-    private ResponseHandler: any,
+    private ResponseHandler: responseHandler,
     private codes: statusCodes
   ) {}
 

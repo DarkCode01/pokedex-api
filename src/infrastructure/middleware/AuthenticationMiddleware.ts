@@ -3,7 +3,7 @@ import { Response, NextFunction, Request } from 'express'
 export class AuthMiddleware {
   constructor(
     private JWT: any,
-    private ResponseHandler: any,
+    private ResponseHandler: responseHandler,
     private codes: statusCodes
   ) {}
 

@@ -9,7 +9,7 @@ export class UserRoutes {
 
   constructor (
     private UserController: any,
-    private ResponseHandler: any,
+    private ResponseHandler: responseHandler,
     private RouteMethod: any,
     private codes: statusCodes,
     private AuthMiddleware: any,

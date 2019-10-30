@@ -15,7 +15,7 @@ export class AuthRoutes {
 
   constructor (
     private AuthController: any,
-    private ResponseHandler: any,
+    private ResponseHandler: responseHandler,
     private RouteMethod: any,
     private codes: statusCodes,
     private config: config,
