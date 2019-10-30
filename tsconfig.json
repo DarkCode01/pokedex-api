@@ -12,7 +12,10 @@
     "strictPropertyInitialization": false,
     "baseUrl": "./",
     "outDir": "dist",
-    "typeRoots" : ["src/infrastructure/@types", "./node_modules/@types"],
+    "typeRoots" : [
+      "src/**/@types",
+      "./node_modules/@types"
+    ],
     "paths": {
       "*": [
         "node_modules/*"
