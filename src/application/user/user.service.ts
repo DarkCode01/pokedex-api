@@ -7,7 +7,7 @@ export class UserService {
     private UserMapper: any,
     private UserRepository: any,
     private GenderController: any,
-    private ErrorHandler: any,
+    private ErrorHandler: errorHandler,
     private codes: statusCodes,
     private deleteUploadedFiles: any,
   ) {}

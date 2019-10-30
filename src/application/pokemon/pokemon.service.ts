@@ -12,7 +12,7 @@ export class PokemonService {
     private PokemonMapper: any,
     private PokemonRepository: any,
     private PokedexService: any,
-    private ErrorHandler: any,
+    private ErrorHandler: errorHandler,
     private codes: statusCodes,
     private deleteUploadedFiles: any,
   ) {}

@@ -7,7 +7,7 @@ export class AuthService {
   constructor (
     private AuthRepository: any,
     private UserMapper: any,
-    private ErrorHandler: any,
+    private ErrorHandler: errorHandler,
     private codes: statusCodes,
     private GenderController: any,
     private encryptPassword: any,
