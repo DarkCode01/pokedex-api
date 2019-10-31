@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-export class Routing implements routing {
+export class Routing implements IRouting {
   public readonly router: Router = Router()
   constructor(
     private config: config,

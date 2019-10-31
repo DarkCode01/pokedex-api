@@ -9,7 +9,7 @@ export class App {
   private port: number
 
   constructor (
-    private routing: routing,
+    private routing: IRouting,
     private config: config
   ) {
     this.port = this.config.server.port
