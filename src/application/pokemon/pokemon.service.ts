@@ -1,4 +1,6 @@
 import slugify from '@sindresorhus/slugify'
+import path from 'path'
+import fs from 'fs'
 
 import { Pokemon,  PokemonDTO, PokemonResponses } from './pokemon.providers'
 import { UserDTO, Roles, UserResponses } from '../user/user.providers'
@@ -128,6 +130,15 @@ export class PokemonService {
     throw this.ErrorHandler.build({
       status: this.codes.UNAUTHORIZED,
       msg: UserResponses.unauthorized
+    })
+  }
+
+  public picture = (picture: string): string => {
+    const findPicture = path.resolve(__dirname, `../../../uploads/pokemons/${picture}`)
+    if (fs.existsSync(findPicture)) return findPicture
+    else throw this.ErrorHandler.build({
+      status: this.codes.BAD_REQUEST,
+      msg: UserResponses.picture
     })
   }
 }

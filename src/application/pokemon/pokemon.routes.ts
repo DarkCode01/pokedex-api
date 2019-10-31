@@ -1,4 +1,5 @@
 import { Router, Response, Request, RequestHandler } from 'express'
+import path from 'path'
 
 // Validators
 import { createValidator, getValidator } from './pokemon.providers'
@@ -53,6 +54,12 @@ export class PokemonRoutes implements IRoutes {
       ],
       this.upload
     )
+
+    /**
+    * @description Get Picture
+    * @public
+    */
+   this.api.get('/pokemon_picture/:picture', this.picture)
 
     return this.api
   }
@@ -111,6 +118,14 @@ export class PokemonRoutes implements IRoutes {
           return res
             .status(this.codes.OK)
             .send(this.ResponseHandler.build(pokemon, false))
+      }, req, res
+    })
+
+  public picture: RequestHandler = (req: Request, res: Response) =>
+    this.RouteMethod.build({
+      resolve: () => {
+        const picture = this.PokemonController.picture(req.params.picture)
+        if (picture) res.sendFile(path.resolve(picture))
       }, req, res
     })
 }

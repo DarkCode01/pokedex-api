@@ -52,4 +52,11 @@ export class PokemonController {
     slug: string,
     picture: string,
   }): Promise<PokemonDTO> => await this.PokemonService.upload(query)
+
+  /**
+  * @description Get pokemon picture
+  * @param {string} picture
+  */
+  public picture = (picture: string) =>
+    this.PokemonService.picture(picture)
 }
