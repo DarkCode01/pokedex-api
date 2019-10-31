@@ -1,8 +1,5 @@
 import slugify from '@sindresorhus/slugify'
 
-import path from 'path'
-import fs from 'fs'
-
 import { Pokemon,  PokemonDTO, PokemonResponses } from './pokemon.providers'
 import { UserDTO, Roles, UserResponses } from '../user/user.providers'
 import { Pokedex } from '../pokedex/pokedex.providers'
