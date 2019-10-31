@@ -1,7 +1,3 @@
-import request from 'supertest'
-import { config } from '../../../container/providers'
-const api = request.agent(config.test.uri)
-
 /*****************************************************
 *  Integration Test of User Actions                  *
 ******************************************************/
