@@ -10,8 +10,8 @@ import {
   resetPassValidator
 } from './auth.providers'
 
-export class AuthRoutes {
-  private readonly api: Router = Router()
+export class AuthRoutes implements IRoutes {
+  readonly api: Router = Router()
 
   constructor (
     private AuthController: any,

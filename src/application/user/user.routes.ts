@@ -4,8 +4,8 @@ import path from 'path'
 // Validators
 import { getValidator, updateValidator, disableValidator } from './user.providers'
 
-export class UserRoutes {
-  private readonly api: Router = Router()
+export class UserRoutes implements IRoutes {
+  readonly api: Router = Router()
 
   constructor (
     private UserController: any,

@@ -3,8 +3,8 @@ import { Router, Response, Request, RequestHandler } from 'express'
 // Validators
 import { getValidator } from './pokedex.providers'
 
-export class PokedexRoutes {
-  private readonly api: Router = Router()
+export class PokedexRoutes implements IRoutes {
+  readonly api: Router = Router()
 
   constructor (
     private PokedexController: any,

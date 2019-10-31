@@ -1,11 +1,11 @@
-export const ApiRoutes = ({
-  AuthRoutes,
-  UserRoutes,
-  PokedexRoutes,
-  PokemonRoutes,
-}: any) => ([
-  AuthRoutes.routes,
-  UserRoutes.routes,
-  PokedexRoutes.routes,
-  PokemonRoutes.routes,
+export const ApiRoutes = (props: {
+  AuthRoutes: IRoutes,
+  UserRoutes: IRoutes,
+  PokedexRoutes: IRoutes,
+  PokemonRoutes: IRoutes,
+}) => ([
+  props.AuthRoutes.routes,
+  props.UserRoutes.routes,
+  props.PokedexRoutes.routes,
+  props.PokemonRoutes.routes,
 ])

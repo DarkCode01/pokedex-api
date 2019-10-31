@@ -3,8 +3,8 @@ import { Router, Response, Request, RequestHandler } from 'express'
 // Validators
 import { createValidator, getValidator } from './pokemon.providers'
 
-export class PokemonRoutes {
-  private readonly api: Router = Router()
+export class PokemonRoutes implements IRoutes {
+  readonly api: Router = Router()
 
   constructor (
     private PokemonController: any,
