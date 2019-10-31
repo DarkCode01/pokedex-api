@@ -3,7 +3,7 @@ import { getRepository, Connection, Repository } from 'typeorm'
 // Entity
 import { User, Roles } from './user.providers'
 
-export class UserRepository {
+export class UserRepository implements IUserRepository {
   private _User: Repository<User>
 
   constructor(private DatabaseConnection: Connection) {

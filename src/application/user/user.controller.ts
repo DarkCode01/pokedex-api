@@ -2,7 +2,7 @@ import { UserDTO } from './user.providers'
 
 export class UserController {
   constructor(
-    private UserService: any,
+    private UserService: IUserService,
   ) {}
 
   /**
@@ -24,7 +24,11 @@ export class UserController {
   public list = async (query: {
     perPage: number,
     page: number,
-  }): Promise<UserDTO[]> => await this.UserService.list(query)
+  }) : Promise <{
+    users: UserDTO[],
+    allUsers: number,
+    pages: number,
+  }> => await this.UserService.list(query)
 
   /**
   * @description Update user info

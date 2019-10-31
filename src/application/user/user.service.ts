@@ -2,10 +2,10 @@ import { UserDTO, UserResponses, Roles } from './user.providers'
 import path from 'path'
 import fs from 'fs'
 
-export class UserService {
+export class UserService implements IUserService {
   constructor(
     private UserMapper: IMapper,
-    private UserRepository: any,
+    private UserRepository: IUserRepository,
     private GenderController: any,
     private ErrorHandler: errorHandler,
     private codes: statusCodes,
@@ -39,7 +39,7 @@ export class UserService {
     pages: number,
   }> => {
     const { page, perPage } = props
-    const users = await this.UserRepository.getAll({
+    const users: any = await this.UserRepository.getAll({
       page,
       perPage,
     })
