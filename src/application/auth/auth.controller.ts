@@ -1,10 +1,10 @@
 import { forgotMessage, AuthResponses } from './auth.providers'
-import { User } from '@app/user/user.providers'
+import { User, UserDTO } from '@app/user/user.providers'
 
 export class AuthController {
   constructor(
-    private AuthService: any,
-    private Email: any
+    private AuthService: IAuthService,
+    private Email: IEmail
   ) {}
 
   /**
@@ -12,7 +12,7 @@ export class AuthController {
   * @param {User} user
   * @returns {Promise<string>}
   */
-  public create = async (user: User): Promise<string> =>
+  public create = async (user: User): Promise<UserDTO> =>
     await this.AuthService.create(user)
 
   /**
@@ -23,7 +23,7 @@ export class AuthController {
   public auth = async (user: {
     email: string,
     password: string
-  }): Promise<string> => await this.AuthService.auth(user)
+  }): Promise<UserDTO> => await this.AuthService.auth(user)
 
   /**
   * @description Change user password, return confirmation message.
@@ -75,6 +75,6 @@ export class AuthController {
   * @param {string} password
   * @returns {Promise<string>}
   */
-  public resetPassword = async (token: string, password: string): Promise<string> =>
+  public resetPassword = async (token: string, password: string): Promise<void> =>
     await this.AuthService.resetPassword(token, password)
 }

@@ -3,16 +3,16 @@ import crypto from 'crypto'
 import { UserDTO, Roles, User } from '@app/user/user.providers'
 import { AuthResponses } from './auth.providers'
 
-export class AuthService {
+export class AuthService implements IAuthService {
   constructor (
     private AuthRepository: any,
     private UserMapper: any,
     private ErrorHandler: errorHandler,
     private codes: statusCodes,
     private GenderController: any,
-    private encryptPassword: any,
-    private comparePassword: any,
-    private JWT: any,
+    private encryptPassword: IEncryptPassword,
+    private comparePassword: IcomparePassword,
+    private JWT: IJWT,
   ) {}
 
   public create = async (userPayload: any): Promise<UserDTO> => {

@@ -1,6 +1,6 @@
 import nodemailer, { Transporter, SendMailOptions } from 'nodemailer'
 
-export class Email {
+export class Email implements IEmail {
   private transporter: Transporter
 
   constructor (private config: config) {
