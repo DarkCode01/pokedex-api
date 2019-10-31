@@ -22,7 +22,7 @@ export const Configuration = {
   nodemailer: {
     host: process.env.SMTP_HOST,
     port: process.env.SMTP_PORT,
-    from: process.env.MAILER_FROM || 'Forgot Password <forgot@pokedex.com.do>',
+    from: process.env.MAILER_FROM || 'Pokedex - Forgot Password',
     auth: {
       user: process.env.SMTP_EMAIL,
       pass: process.env.SMTP_PASSWORD,
