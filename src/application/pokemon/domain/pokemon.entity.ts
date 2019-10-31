@@ -10,7 +10,7 @@ import {
 import { Pokedex } from '@app/pokedex/pokedex.providers'
 import { Type } from '@app/type/type.providers'
 
-@Entity({ name: 'pokemons' })
+@Entity()
 export class Pokemon {
   @PrimaryGeneratedColumn()
   id: number
@@ -42,8 +42,10 @@ export class Pokemon {
   picture: string
 
   @ManyToMany(type => Type)
-  @JoinTable()
-  types: Type[]
+  @JoinTable({
+    name: 'pokemon_type'
+  })
+  type: Type[]
 
   @Column({
     type: 'simple-json',
