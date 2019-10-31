@@ -1,0 +1,5 @@
+export { Type } from './domain/type.entity'
+export { TypeController } from './type.controller'
+export { TypeService } from './type.service'
+export { TypeRepository } from './type.repository'
+export { TypeMapper } from './domain/type.mapper'

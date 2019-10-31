@@ -1,5 +1,13 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne } from 'typeorm'
-import { Pokedex } from '@app/pokedex/pokedex.providers'
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  ManyToOne,
+  ManyToMany,
+  JoinTable
+} from 'typeorm'
+import { Type } from '@app/type/type.providers'
 
 @Entity({ name: 'pokemons' })
 export class Pokemon {
@@ -32,10 +40,9 @@ export class Pokemon {
   })
   picture: string
 
-  @Column({
-    type: 'simple-json'
-  })
-  type: string[]
+  @ManyToMany(type => Type)
+  @JoinTable()
+  types: Type[]
 
   @Column({
     type: 'simple-json',
