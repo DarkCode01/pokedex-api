@@ -1,6 +1,6 @@
 import { Response, NextFunction, Request } from 'express'
 
-export class AuthMiddleware {
+export class AuthMiddleware implements authMiddleware {
   constructor(
     private JWT: any,
     private ResponseHandler: responseHandler,

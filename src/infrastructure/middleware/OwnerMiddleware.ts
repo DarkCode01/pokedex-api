@@ -1,7 +1,7 @@
 import { Response, NextFunction, Request } from 'express'
 import { Roles } from '@app/user/user.providers'
 
-export class OwnerMiddleware {
+export class OwnerMiddleware implements ownerMiddleware {
   constructor(
     private ResponseHandler: responseHandler,
     private codes: statusCodes

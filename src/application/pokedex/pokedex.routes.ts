@@ -11,8 +11,8 @@ export class PokedexRoutes implements IRoutes {
     private ResponseHandler: responseHandler,
     private RouteMethod: routeMethod,
     private codes: statusCodes,
-    private AuthMiddleware: any,
-    private OwnerMiddleware: any,
+    private AuthMiddleware: authMiddleware,
+    private OwnerMiddleware: ownerMiddleware,
   ) {}
 
   public get routes(): Router {

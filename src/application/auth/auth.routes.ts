@@ -19,7 +19,7 @@ export class AuthRoutes implements IRoutes {
     private RouteMethod: routeMethod,
     private codes: statusCodes,
     private config: config,
-    private AuthMiddleware: any
+    private AuthMiddleware: authMiddleware
   ) {}
 
   public get routes(): Router {

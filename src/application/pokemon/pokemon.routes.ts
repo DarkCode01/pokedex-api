@@ -11,7 +11,7 @@ export class PokemonRoutes implements IRoutes {
     private ResponseHandler: responseHandler,
     private RouteMethod: routeMethod,
     private codes: statusCodes,
-    private AuthMiddleware: any,
+    private AuthMiddleware: authMiddleware,
     private pokemonPictureMiddleware: any,
   ) {}
 
