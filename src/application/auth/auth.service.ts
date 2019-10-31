@@ -5,8 +5,8 @@ import { AuthResponses } from './auth.providers'
 
 export class AuthService implements IAuthService {
   constructor (
-    private AuthRepository: any,
-    private UserMapper: any,
+    private AuthRepository: IAuthRepository,
+    private UserMapper: IMapper,
     private ErrorHandler: errorHandler,
     private codes: statusCodes,
     private GenderController: any,

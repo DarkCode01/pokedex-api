@@ -1,10 +1,10 @@
-import { getRepository, Connection, MoreThanOrEqual } from 'typeorm'
+import { getRepository, Connection, MoreThanOrEqual, Repository } from 'typeorm'
 
 // Entity
 import { User } from '@app/user/user.providers'
 
-export class AuthRepository {
-  private _User: any
+export class AuthRepository implements IAuthRepository {
+  private _User: Repository<User>
 
   constructor(private DatabaseConnection: Connection) {
     this.getUserRepository()

@@ -1,8 +1,8 @@
 import { Mapper } from 'ts-simple-automapper'
 import { User, UserDTO } from '../user.providers'
 
-export class UserMapper {
-  constructor(private AuthRepository: any) {}
+export class UserMapper implements IMapper {
+  constructor(private AuthRepository: IAuthRepository) {}
 
   public mapToDTO(from: any): UserDTO {
     const userDTO: UserDTO = new Mapper().map(from, new UserDTO())

@@ -9,7 +9,7 @@ import { Pokedex } from '../pokedex/pokedex.providers'
 
 export class PokemonService {
   constructor(
-    private PokemonMapper: any,
+    private PokemonMapper: IMapper,
     private PokemonRepository: any,
     private PokedexService: any,
     private ErrorHandler: errorHandler,

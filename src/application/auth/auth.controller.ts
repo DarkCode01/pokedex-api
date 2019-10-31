@@ -1,7 +1,7 @@
 import { forgotMessage, AuthResponses } from './auth.providers'
 import { User, UserDTO } from '@app/user/user.providers'
 
-export class AuthController {
+export class AuthController implements IAuthController {
   constructor(
     private AuthService: IAuthService,
     private Email: IEmail
@@ -31,13 +31,11 @@ export class AuthController {
   * @param {any} payload
   * @returns {Promise<string>}
   */
-  public changePassword = async (user: User, payload: any) => {
+  public changePassword = async (user: UserDTO, payload: any): Promise<string> => {
     const { username } = user
     const { password, newPassword } = payload
 
-    const res = await this.AuthService.changePassword({ username, password, newPassword })
-    if (res)
-      return res
+    return await this.AuthService.changePassword({ username, password, newPassword })
   }
 
   /**
@@ -48,16 +46,14 @@ export class AuthController {
   public forgotPassword = async (props: {
     email: string,
     url: string
-  }) => {
+  }): Promise<any> => {
     const token = await this.AuthService.forgotPassword(props.email)
     if (token) {
-      const sendEmail = await this.Email.build({
+      return await this.Email.build({
         to: props.email,
         subject: AuthResponses.nodemailer.subject,
         html: forgotMessage(`${props.url}/${token}`)
       })
-      if (sendEmail)
-        return sendEmail
     }
   }
 
@@ -75,6 +71,6 @@ export class AuthController {
   * @param {string} password
   * @returns {Promise<string>}
   */
-  public resetPassword = async (token: string, password: string): Promise<void> =>
+  public resetPassword = async (token: string, password: string): Promise<any> =>
     await this.AuthService.resetPassword(token, password)
 }

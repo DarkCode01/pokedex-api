@@ -5,7 +5,7 @@ import { UserDTO, Roles, UserResponses } from '@app/user/user.providers'
 export class PokedexService {
   constructor(
     private UserRepository: any,
-    private PokedexMapper: any,
+    private PokedexMapper: IMapper,
     private PokedexRepository: any,
     private ErrorHandler: errorHandler,
     private codes: statusCodes,

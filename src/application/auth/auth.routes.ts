@@ -1,4 +1,5 @@
 import { Router, Response, RequestHandler, Request } from 'express'
+import { UserDTO } from '@app/user/user.providers'
 
 // Validators
 import {
@@ -10,11 +11,12 @@ import {
   resetPassValidator
 } from './auth.providers'
 
+
 export class AuthRoutes implements IRoutes {
   readonly api: Router = Router()
 
   constructor (
-    private AuthController: any,
+    private AuthController: IAuthController,
     private ResponseHandler: responseHandler,
     private RouteMethod: routeMethod,
     private codes: statusCodes,
@@ -116,7 +118,7 @@ export class AuthRoutes implements IRoutes {
   public changePassword: RequestHandler = (req: Request, res: Response) =>
     this.RouteMethod.build({
       resolve: async () => {
-        const response = await this.AuthController.changePassword(req.user, req.body)
+        const response = await this.AuthController.changePassword(req.user as UserDTO, req.body)
         if (response)
           return res
             .status(this.codes.OK)
@@ -149,7 +151,7 @@ export class AuthRoutes implements IRoutes {
       }, req, res
     })
 
-  public resetPassword: RequestHandler = (req: Request, res: Response) =>
+  public resetPassword: RequestHandler = (req: Request, res: Response): Promise<any> =>
     this.RouteMethod.build({
       resolve: async () => {
         const response = await this.AuthController.resetPassword(req.params.token, req.body.password)

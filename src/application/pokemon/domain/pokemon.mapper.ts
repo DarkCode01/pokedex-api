@@ -1,7 +1,7 @@
 import { Mapper } from 'ts-simple-automapper'
 import { Pokemon, PokemonDTO } from '../pokemon.providers'
 
-export class PokemonMapper {
+export class PokemonMapper implements IMapper {
   constructor(private PokemonRepository: any) {}
 
   public mapToDTO(from: any): PokemonDTO {

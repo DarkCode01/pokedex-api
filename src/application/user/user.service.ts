@@ -4,7 +4,7 @@ import fs from 'fs'
 
 export class UserService {
   constructor(
-    private UserMapper: any,
+    private UserMapper: IMapper,
     private UserRepository: any,
     private GenderController: any,
     private ErrorHandler: errorHandler,
