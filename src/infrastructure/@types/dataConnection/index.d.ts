@@ -1,5 +1,9 @@
-import { Connection } from 'typeorm';
+import { Connection } from 'typeorm'
 
-declare class DataConnection extends Connection {
-  isConnectedInfo(): void
+declare global {
+  interface DataConnection {
+    connection: Connection
+    isConnectedInfo(): void
+    connect(): Promise<Connection>
+  }
 }

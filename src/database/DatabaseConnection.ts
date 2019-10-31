@@ -1,6 +1,6 @@
 import { createConnection, Connection } from 'typeorm'
 
-export class DatabaseConnection {
+export class DatabaseConnection implements DataConnection {
   public connection: Connection
   constructor (private config: config) {}
 

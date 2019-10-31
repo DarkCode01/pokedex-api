@@ -1,5 +1,4 @@
 import { Application } from 'express'
-import { DataConnection } from '@infra/@types/dataConnection'
 
 export class Server {
   constructor(
