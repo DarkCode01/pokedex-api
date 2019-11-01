@@ -29,6 +29,10 @@ const createValidator = [
   body('weight', validator.weight)
     .optional()
     .exists(),
+  body('type', validator.type)
+    .toArray()
+    .isArray()
+    .custom(value => value[0]),
 ]
 
 const getValidator = [

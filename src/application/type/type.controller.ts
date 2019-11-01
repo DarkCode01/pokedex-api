@@ -2,12 +2,13 @@ export class TypeController {
   constructor(private TypeService: any) {}
 
   /**
-  * @description Get a type and return, if it does not find,
-  * create a new type if it meets the enum of established types.
+  * @description Get a type and return,
+  * if it does not find,
+  * create a new type.
   *
   * @param {string} name
   * @returns {Promise<Type>}
   */
-  public getOrCreateType = async (name: string) =>
-    await this.TypeService.getOrCreateType(name)
+  public getOrCreateTypes = async (types: string[]) =>
+    await this.TypeService.getOrCreateTypes(types)
 }

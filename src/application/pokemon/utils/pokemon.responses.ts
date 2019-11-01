@@ -9,6 +9,7 @@ export const PokemonResponses: any = {
     weight: 'Please enter a valid weight.',
     userId: 'Please enter a valid id.',
     slug: 'Please enter a valid slug.',
+    type: 'Please enter a valid type.',
   },
   pokedexDoesNotExist: 'Oops! We haven\'t found your pokedex.',
   isRegistered: 'Oops! We found a pokemon with this same name. Try another name.',

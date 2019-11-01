@@ -3,14 +3,16 @@ import path from 'path'
 import fs from 'fs'
 
 import { Pokemon,  PokemonDTO, PokemonResponses } from './pokemon.providers'
-import { UserDTO, Roles, UserResponses } from '../user/user.providers'
-import { Pokedex } from '../pokedex/pokedex.providers'
+import { UserDTO, Roles, UserResponses } from '@app/user/user.providers'
+import { Pokedex } from '@app/pokedex/pokedex.providers'
+import { Type } from '@app/type/type.providers'
 
 export class PokemonService {
   constructor(
     private PokemonMapper: IMapper,
     private PokemonRepository: any,
     private PokedexService: any,
+    private TypeController: any,
     private ErrorHandler: errorHandler,
     private codes: statusCodes,
     private deleteUploadedFiles: any,
@@ -19,8 +21,10 @@ export class PokemonService {
   public create = async (pokemonPayload: any, userLogged: UserDTO) => {
     const pokedex: Pokedex = await this.PokedexService.get(userLogged.id, userLogged)
     const pokemon: Pokemon = await this.PokemonMapper.mapToEntity(pokemonPayload)
+    const type: Type[] = await this.TypeController.getOrCreateTypes(pokemonPayload.type)
     pokemon.slug = slugify(pokemon.name)
     pokemon.pokedex = pokedex
+    pokemon.type = type
     const isPokemon = await this.PokemonRepository.getBySlug({
       slug: pokemon.slug,
       pokedexId: pokemon.pokedex.id,

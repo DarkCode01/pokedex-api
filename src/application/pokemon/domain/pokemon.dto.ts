@@ -1,4 +1,5 @@
 import { MapProp } from 'ts-simple-automapper'
+import { Type } from '@app/type/type.providers'
 
 export class PokemonDTO {
   @MapProp()
@@ -20,7 +21,7 @@ export class PokemonDTO {
   picture: string
 
   @MapProp()
-  type: string[]
+  type: Type[]
 
   @MapProp()
   location: {}

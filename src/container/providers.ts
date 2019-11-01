@@ -71,3 +71,11 @@ export {
   PokemonMapper,
   PokemonRepository
 } from '@app/pokemon/pokemon.providers'
+
+// Type providers
+export {
+  TypeController,
+  TypeService,
+  TypeMapper,
+  TypeRepository
+} from '@app/type/type.providers'
