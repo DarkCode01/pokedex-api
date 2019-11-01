@@ -6,7 +6,10 @@ import { Pokedex } from './pokedex.providers'
 export class PokedexRepository {
   private _Pokedex: Repository<Pokedex>
 
-  constructor(private DatabaseConnection: Connection) {
+  constructor(
+    private DatabaseConnection: Connection,
+    private PokemonRepository: any,
+  ) {
     this.getPokedexRepository()
   }
 
@@ -27,4 +30,10 @@ export class PokedexRepository {
 
   public update = async (pokedex: Pokedex, update: {}): Promise<Pokedex> =>
     await this._Pokedex.merge(pokedex, update)
+
+  public delete = async (pokedex: Pokedex): Promise<Pokedex> => {
+    const pokemons = await this.PokemonRepository.getAll(pokedex.id)
+    if (pokemons) await this.PokemonRepository.delete(pokemons)
+    return await this._Pokedex.remove(pokedex)
+  }
 }

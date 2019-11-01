@@ -6,7 +6,10 @@ import { User, Roles } from './user.providers'
 export class UserRepository implements IUserRepository {
   private _User: Repository<User>
 
-  constructor(private DatabaseConnection: Connection) {
+  constructor(
+    private DatabaseConnection: Connection,
+    private PokedexRepository: any,
+  ) {
     this.getUserRepository()
   }
 
@@ -59,8 +62,11 @@ export class UserRepository implements IUserRepository {
   public saveUser = async (user: User): Promise<User> =>
     await this._User.save(user)
 
-  public delete = async (user: User): Promise<User> =>
-    await this._User.remove(user)
+  public delete = async (user: User): Promise<User> => {
+    const pokedex = await this.PokedexRepository.getByUserId(user.id)
+    if (pokedex) await this.PokedexRepository.delete(pokedex)
+    return await this._User.remove(user)
+  }
 
   public update = async (user: User, update: {}): Promise<User> =>
     await this._User.merge(user, update)

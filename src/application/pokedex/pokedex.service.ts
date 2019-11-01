@@ -1,4 +1,4 @@
-import { PokedexDTO, PokedexResponses } from './pokedex.providers'
+import { PokedexResponses } from './pokedex.providers'
 import { AuthResponses } from '@app/auth/auth.providers'
 import { UserDTO, Roles, UserResponses } from '@app/user/user.providers'
 
