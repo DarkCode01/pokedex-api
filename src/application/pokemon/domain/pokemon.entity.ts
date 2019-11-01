@@ -41,7 +41,9 @@ export class Pokemon {
   })
   picture: string
 
-  @ManyToMany(type => Type)
+  @ManyToMany(type => Type, {
+    eager: true
+  })
   @JoinTable({
     name: 'pokemon_type'
   })
