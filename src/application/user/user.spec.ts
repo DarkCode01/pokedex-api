@@ -1,6 +1,7 @@
 import request from 'supertest'
 import { statusCodes } from '../../infrastructure/http/response'
 import { Configuration as config } from '../../../config/Configuration'
+import { AuthResponses } from '../auth/utils/auth.responses'
 const api = request.agent(config.test.uri)
 
 /*****************************************************
@@ -13,6 +14,7 @@ const userMock = {
   email: 'testuser@pokedex.com',
   password: 'pokedexPass23',
   gender: 'male',
+  role: 'owner',
   emailOrUsername: 'pokedex-usertest',
 }
 let token: string = ''
@@ -25,12 +27,31 @@ describe('Integration of ExpressJS controllers and routes, Endpoint delivery.', 
     expect(register.body).toHaveProperty('data')
   })
 
+  it('Create user with email that is already registered.', async () => {
+    const register: any = await api.post('/register')
+      .send(userMock)
+    expect(register.statusCode).toEqual(statusCodes.BAD_REQUEST)
+    expect(register.body).toHaveProperty('data')
+    expect(register.body.data.msg).toEqual(AuthResponses.emailExists)
+  })
+
   it('Authenticate user', async () => {
     const auth: any = await api.post('/auth')
       .send(userMock)
     expect(auth.statusCode).toEqual(statusCodes.OK)
     expect(auth.body).toHaveProperty('data')
     token = auth.body.data
+  })
+
+  it('Authenticate user with incorrect data.', async () => {
+    const auth: any = await api.post('/auth')
+      .send({
+        emailOrUsername: userMock.emailOrUsername,
+        password: 'incorrectPassword',
+      })
+    expect(auth.statusCode).toEqual(statusCodes.BAD_REQUEST)
+    expect(auth.body).toHaveProperty('data')
+    expect(auth.body.data.msg).toEqual(AuthResponses.auth.badCredentials)
   })
 
   it('Get user', async () => {
