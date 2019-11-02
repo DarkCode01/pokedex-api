@@ -20,11 +20,20 @@ export class PokedexRoutes implements IRoutes {
     * @description Get Pokedex
     * @private
     */
-    this.api.get('/:userId/pokedex',
-      getValidator as Array<any>,
-      this.AuthMiddleware.ensureAuth,
-      this.get
-    )
+    this.api.route('/:userId/pokedex')
+      .get(
+        getValidator as Array<any>,
+        this.AuthMiddleware.ensureAuth,
+        this.get
+      )
+      .delete(
+        getValidator as Array<any>,
+        [
+          this.AuthMiddleware.ensureAuth,
+          this.OwnerMiddleware.isOwner
+        ],
+        this.delete
+      )
 
     /**
     * @description Toggle pokedex status
@@ -61,6 +70,17 @@ export class PokedexRoutes implements IRoutes {
           return res
             .status(this.codes.OK)
             .send(this.ResponseHandler.build(pokedex, false))
+      }, req, res
+    })
+
+  public delete: RequestHandler = (req: Request, res: Response) =>
+    this.RouteMethod.build({
+      resolve: async () => {
+        const deleted = await this.PokedexController.delete(req.params.userId)
+        if (deleted)
+          return res
+            .status(this.codes.OK)
+            .send(this.ResponseHandler.build(deleted))
       }, req, res
     })
 }

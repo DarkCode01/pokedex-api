@@ -22,4 +22,12 @@ export class PokedexController {
   */
   public toggleStatus = async (userId: number): Promise<string> =>
     await this.PokedexService.toggleStatus(userId)
+
+  /**
+  * @description Delete pokedex
+  * @param {number} userId
+  * @returns {Promise<string>}
+  */
+  public delete = async (userId: number) =>
+    await this.PokedexService.delete(userId)
 }

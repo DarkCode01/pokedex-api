@@ -1,4 +1,4 @@
-import { PokedexResponses } from './pokedex.providers'
+import { Pokedex, PokedexResponses } from './pokedex.providers'
 import { AuthResponses } from '@app/auth/auth.providers'
 import { UserDTO, Roles, UserResponses } from '@app/user/user.providers'
 
@@ -50,5 +50,18 @@ export class PokedexService {
     if (update)
       await this.PokedexRepository.save(pokedex)
     return update.isActive ? PokedexResponses.active : PokedexResponses.disable
+  }
+
+  public delete = async (userId: number) => {
+    const pokedex = await this.PokedexRepository.getByUserId(userId)
+    if (!pokedex)
+      throw this.ErrorHandler.build({
+        status: this.codes.BAD_REQUEST,
+        msg: PokedexResponses.pokedexDoesNotExist
+      })
+
+    const deletePokedex = await this.PokedexRepository.delete(pokedex)
+    if (deletePokedex)
+      return PokedexResponses.delete
   }
 }
