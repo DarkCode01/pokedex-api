@@ -5,7 +5,7 @@ import {
   CreateDateColumn,
   ManyToOne,
   ManyToMany,
-  JoinTable
+  JoinTable,
 } from 'typeorm'
 import { Pokedex } from '@app/pokedex/pokedex.providers'
 import { Type } from '@app/type/type.providers'

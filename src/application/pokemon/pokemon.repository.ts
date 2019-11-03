@@ -1,12 +1,17 @@
-import { getRepository, Connection, Repository } from 'typeorm'
+import { getRepository, Connection, Repository, Like } from 'typeorm'
+import slugify from '@sindresorhus/slugify'
 
 // Entity
 import { Pokemon } from './pokemon.providers'
+import { Type } from '@app/type/type.providers'
 
 export class PokemonRepository {
   private _Pokemon: Repository<Pokemon>
 
-  constructor(private DatabaseConnection: Connection) {
+  constructor(
+    private DatabaseConnection: Connection,
+    private TypeRepository: any,
+  ) {
     this.getPokemonRepository()
   }
 
@@ -36,4 +41,53 @@ export class PokemonRepository {
 
   public delete = async (pokemon: Pokemon): Promise<Pokemon> =>
     await this._Pokemon.remove(pokemon)
+
+  public async search(query: {
+    page: number,
+    perPage: number,
+    searchTerms: string,
+    pokedexId: number,
+  }): Promise<{
+    rows: Pokemon[],
+    allPokemons: number,
+    pages: number
+  }> {
+    const page = query.page || 1
+    const perPage = query.perPage || 5
+    const searchTerms = query.searchTerms || ''
+    const { pokedexId } = query
+
+    const getPokemonsByNameAndDesc = await this._Pokemon.find({
+      skip: ((perPage * page) - perPage),
+      take: perPage,
+      where: [{
+        name: Like(`%${searchTerms}%`),
+        pokedexId,
+      },
+      {
+        slug: Like(`%${slugify(searchTerms)}%`),
+        pokedexId,
+      },
+      {
+        description: Like(`%${searchTerms}%`),
+        pokedexId,
+      }],
+    })
+
+    const types: Type[] = await this.TypeRepository.search(searchTerms)
+    const pokemons = await this._Pokemon.find({ pokedexId })
+    const pokemonsByTypes:Pokemon[] = []
+    pokemons.map(pokemon => pokemon.type.map(t =>
+      types.map(type => type.name === t.name &&
+        pokemonsByTypes.push(pokemon))))
+
+    const rows = [ ...getPokemonsByNameAndDesc, ...pokemonsByTypes ]
+    const pages: number = Math.ceil(rows.length / perPage)
+
+    return {
+      rows,
+      allPokemons: rows.length,
+      pages
+    }
+  }
 }

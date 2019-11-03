@@ -71,4 +71,21 @@ export class PokemonController {
   */
   public picture = (picture: string) =>
     this.PokemonService.picture(picture)
+
+  /**
+  * @description Search pokemons
+  *
+  * @param {queryPayload} query
+  * @returns {Promise<PokemonDTO[]>}
+  */
+  public search = async (query: {
+    userLogged: UserDTO,
+    perPage: number,
+    page: number,
+    searchTerms: string,
+  }): Promise <{
+    pokemons: PokemonDTO[],
+    allPokemons: number,
+    pages: number,
+  }> => await this.PokemonService.search(query)
 }

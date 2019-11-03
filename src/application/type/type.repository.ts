@@ -1,4 +1,4 @@
-import { getRepository, Connection, Repository } from 'typeorm'
+import { getRepository, Connection, Repository, Like } from 'typeorm'
 
 // Entity
 import { Type } from './type.providers'
@@ -24,4 +24,11 @@ export class TypeRepository {
 
   public saveType = async (type: Type): Promise<Type> =>
     await this._Type.save(type)
+
+  public search = async (searchTerms: string): Promise<Type[]> =>
+    await this._Type.find({
+      where: {
+        name: Like(`%${searchTerms}%`),
+      }
+    })
 }

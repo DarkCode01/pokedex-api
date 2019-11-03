@@ -209,4 +209,36 @@ export class PokemonService {
       msg: UserResponses.unauthorized
     })
   }
+
+  public search = async (props: {
+    userLogged: UserDTO,
+    perPage: number,
+    page: number,
+    searchTerms: string,
+  }): Promise <{
+    pokemons: PokemonDTO[],
+    allPokemons: number,
+    pages: number,
+  }> => {
+    const { page, perPage, searchTerms, userLogged } = props
+    const pokedex: Pokedex = await this.PokedexService.get(userLogged.id, userLogged)
+    const pokemons: any = await this.PokemonRepository.search({
+      page,
+      perPage,
+      searchTerms,
+      pokedexId: pokedex.id
+    })
+    if (!pokemons && !pokemons.rows)
+      throw this.ErrorHandler.build({
+        status: this.codes.BAD_REQUEST,
+        msg: UserResponses.noRecords
+      })
+
+    const mapListToDTO = this.PokemonMapper.mapListToDTO(pokemons.rows)
+    return {
+      pokemons: mapListToDTO,
+      allPokemons: pokemons.allPokemons,
+      pages: pokemons.pages
+    }
+  }
 }

@@ -66,6 +66,15 @@ export class PokemonRoutes implements IRoutes {
     */
    this.api.get('/pokemon_picture/:picture', this.picture)
 
+    /**
+    * @description Search pokemons
+    * @private
+    */
+    this.api.get('/pokemon/search',
+      this.AuthMiddleware.ensureAuth,
+      this.search
+    )
+
     return this.api
   }
 
@@ -147,6 +156,23 @@ export class PokemonRoutes implements IRoutes {
           return res
             .status(this.codes.OK)
             .send(this.ResponseHandler.build(pokemon, false))
+      }, req, res
+    })
+
+  public search: RequestHandler = (req: Request, res: Response) =>
+    this.RouteMethod.build({
+      resolve: async () => {
+        const { page, perPage, search } = req.query
+        const pokemons = await this.PokemonController.search({
+          userLogged: req.user,
+          perPage,
+          page,
+          searchTerms: search
+        })
+        if (pokemons)
+          return res
+            .status(this.codes.OK)
+            .send(this.ResponseHandler.build(pokemons, false))
       }, req, res
     })
 }
