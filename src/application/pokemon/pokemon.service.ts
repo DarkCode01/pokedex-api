@@ -145,4 +145,68 @@ export class PokemonService {
       msg: UserResponses.picture
     })
   }
+
+  public update = async (props: {
+    userId: number,
+    userLogged: UserDTO,
+    changes: PokemonDTO|any,
+    slug: string
+  }) => {
+    const { userId, slug, userLogged, changes: payload } = props
+    const { latitude: lat, longitude: long, height, weight } = payload
+    const changes: any = {
+      name: payload.name,
+      slug: undefined,
+      description: payload.description,
+      captured: payload.captured,
+      type: payload.type,
+      location: { lat, long },
+      proportions: { height, weight }
+    }
+
+    if (
+      userLogged.id === userId ||
+      userLogged.role === Roles.owner
+    ) {
+      const pokedex: Pokedex = await this.PokedexService.get(userId, userLogged)
+      const pokemon: Pokemon = await this.PokemonRepository.getBySlug({
+        slug,
+        pokedexId: pokedex.id,
+      })
+      if (!pokemon)
+        throw this.ErrorHandler.build({
+          status: this.codes.BAD_REQUEST,
+          msg: PokemonResponses.pokemonNotFound
+        })
+
+      if (changes.name) {
+        const generateSlug = slugify(changes.name)
+        if (generateSlug !== pokemon.slug) {
+          const isPokemon = await this.PokemonRepository.getBySlug({
+            slug: generateSlug,
+            pokedexId: pokedex.id,
+          })
+          if (isPokemon)
+            throw this.ErrorHandler.build({
+              status: this.codes.BAD_REQUEST,
+              msg: PokemonResponses.isRegistered
+            })
+          changes.slug = generateSlug
+        }
+      }
+
+      if (changes.type)
+        pokemon.type = await this.TypeController.getOrCreateTypes(changes.type)
+
+      const update = await this.PokemonRepository.update(pokemon, { ...changes, type: undefined })
+      if (update)
+        await this.PokemonRepository.save(pokemon)
+        return this.PokemonMapper.mapToDTO(update)
+    }
+
+    throw this.ErrorHandler.build({
+      status: this.codes.UNAUTHORIZED,
+      msg: UserResponses.unauthorized
+    })
+  }
 }

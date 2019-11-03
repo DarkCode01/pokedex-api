@@ -2,7 +2,7 @@ import { Router, Response, Request, RequestHandler } from 'express'
 import path from 'path'
 
 // Validators
-import { createValidator, getValidator } from './pokemon.providers'
+import { createValidator, getValidator, updateValidator } from './pokemon.providers'
 
 export class PokemonRoutes implements IRoutes {
   readonly api: Router = Router()
@@ -28,7 +28,7 @@ export class PokemonRoutes implements IRoutes {
     )
 
     /**
-    * @description Get, User
+    * @description Get, Pokemon
     * @private
     */
     this.api.route('/:userId/pokemon/:slug')
@@ -41,6 +41,11 @@ export class PokemonRoutes implements IRoutes {
         getValidator as Array<any>,
         this.AuthMiddleware.ensureAuth,
         this.delete
+      )
+      .put(
+        updateValidator as Array<any>,
+        this.AuthMiddleware.ensureAuth,
+        this.update
       )
 
     /**
@@ -126,6 +131,22 @@ export class PokemonRoutes implements IRoutes {
       resolve: () => {
         const picture = this.PokemonController.picture(req.params.picture)
         if (picture) res.sendFile(path.resolve(picture))
+      }, req, res
+    })
+
+  public update: RequestHandler = (req: Request, res: Response) =>
+    this.RouteMethod.build({
+      resolve: async () => {
+        const pokemon = await this.PokemonController.update({
+          userLogged: req.user,
+          userId: req.params.userId,
+          slug: req.params.slug,
+          changes: req.body
+        })
+        if (pokemon)
+          return res
+            .status(this.codes.OK)
+            .send(this.ResponseHandler.build(pokemon, false))
       }, req, res
     })
 }

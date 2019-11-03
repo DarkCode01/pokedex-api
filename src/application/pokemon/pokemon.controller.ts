@@ -25,8 +25,20 @@ export class PokemonController {
     userId: number,
     userLogged: UserDTO,
     slug: string,
-  }): Promise<UserDTO> =>
+  }): Promise<PokemonDTO> =>
     await this.PokemonService.get(query)
+
+  /**
+  * @description Update Pokemon
+  * @param {updatePayload} query
+  * @returns {Promise<PokemonDTO>}
+  */
+  public update = async (query: {
+    userId: number,
+    userLogged: UserDTO,
+    slug: string,
+    changes: PokemonDTO
+  }): Promise<PokemonDTO> => await this.PokemonService.update(query)
 
   /**
   * @description Delete a pokemon
@@ -38,7 +50,7 @@ export class PokemonController {
     userId: number,
     userLogged: UserDTO,
     slug: string,
-  }): Promise<UserDTO> =>
+  }): Promise<PokemonDTO> =>
     await this.PokemonService.delete(query)
 
   /**
