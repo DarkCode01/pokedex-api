@@ -52,7 +52,7 @@ export class AuthController implements IAuthController {
       return await this.Email.build({
         to: props.email,
         subject: AuthResponses.nodemailer.subject,
-        html: forgotMessage(`${props.url}/${token}`)
+        html: forgotMessage(`${props.url}/reset-password/${token}`)
       })
     }
   }

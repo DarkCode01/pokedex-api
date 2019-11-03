@@ -11,7 +11,7 @@ The dependencies are managed by a container (IoC) to have a low or no coupling.
 
 ### In Progress
 
-*0%* ✅✅✅✅✅🔲🔲🔲 *100%*
+*0%* ✅✅✅✅✅✅✅🔲 *100%*
 
 
 ### Followed best practices ❤️
@@ -43,12 +43,31 @@ To contribute to this repo you must consider the following:
 
 1. Clone.
 2. Move to --> ``` cd pokedex-api ```
-3. Make sure you have Docker running on your machine.
-4. Update the file ``` .env ```
-5. Run ``` docker-compose up ```
+3. Update the file ``` .env ```
+4. Run ``` npm i && npm run watch ```
 6. Check ``` localhost:2302/api/v1 ```
 
 ## NOTE 📢
+
+The first registered user is assigned the ROLE = OWNER, this will have special permissions
+in all its pokedex, according to the requirements.
+
+* Update, Delete, Disable, List and view users.
+* Update, Delete, Disable, List and view pokedex.
+* If the OWNER deletes a user or pokedex, all data related to it is deleted.
+
+### Password validation
+
+User passwords have a small layer of additional validation
+to avoid the use of common or highly insecure passwords.
+
+You can see this list of common passwords in
+
+``` src/infrastructure/utils/commonPasswords.txt ```
+
+You can add more passwords or delete from this file.
+
+## End
 
 If he came this far it is because we are ready. ✔️
 
