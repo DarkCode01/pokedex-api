@@ -8,46 +8,55 @@ This project follows the DDD architecture and simulates the behavior of microser
 
 The dependencies are managed by a container (IoC) to have a low or no coupling.
 
-
-### In Progress
-
-*0%* ✅✅✅✅✅✅✅🔲 *100%*
-
-
 ### Followed best practices ❤️
+***
 
 1. 🔗 [NodeJS Best Practices](https://github.com/goldbergyoni/nodebestpractices)
 2. 🔗 [DDD Architecture](https://en.wikipedia.org/wiki/Domain-driven_design)
 3. 🔗 [Inversion of control (IoC)](https://en.wikipedia.org/wiki/Inversion_of_control)
 
-### Contribute
-
-To contribute to this repo you must consider the following:
-
-1. 🔗 Use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0-beta.4/)
-2. Consider the use of dependencies well.
-3. Read about Node JS Best Practices.
-4. Follow the architecture that takes the project.
-5. 🔗 Use [Git Flow](https://danielkummer.github.io/git-flow-cheatsheet/)
-
 ### Main Technologies ⚙️
+***
 
-1. NodeJS >=12.6.0
-2. ExpressJS
+1. 🔗 [NodeJS >=12.6.0](https://nodejs.org/)
+2. 🔗 [ExpressJS](https://expressjs.com/)
 3. 🔗 [TYPEORM](https://typeorm.io/#/)
-4. PostgreSQL
-5. 🔗 [Docker](https://www.docker.com/)
-6. 🔗 [Jest](https://jestjs.io/)
+4. 🔗 [PostgreSQL](https://www.postgresql.org/)
+5. 🔗 [Jest](https://jestjs.io/)
 
 ### Getting Started 📌
+***
 
-1. Clone.
-2. Move to --> ``` cd pokedex-api ```
-3. Update the file ``` .env ```
-4. Run ``` npm i && npm run watch ```
-6. Check ``` localhost:2302/api/v1 ```
+__This API is consumed by the Pokedex hosted in the following repository:__ [Pokedex](https://github.com/Efraa/pokedex)
 
-## NOTE 📢
+1. Clone
+2. Move to --> `cd pokedex-api`
+3. copy `.example.env` to `.env`
+4. Run `npm install`
+6. Be sure to create your Postgres database.
+
+### Getting Started 📌
+***
+
+* `PORT` : The port used by the application to expose itself. *Default* --> `2302`
+* `PREFIX_ROUTES` : Prefix that routes use. *Default* --> `/api/v1`
+* `DB_HOST` : Database address. *Default* --> `localhost`
+* `POSTGRES_USER` : Database user.
+* `POSTGRES_PASSWORD` Database pass.
+* `POSTGRES_DB` : The database name used by the application.
+* `TOKEN_EXPIRE` : When authentication tokens expire. *default* --> `72h`
+* `SECRET` : Secret word to generate authentication tokens. *default* --> `secret-pokedex-api`
+* `SMTP_EMAIL` : Your GMAIL email to send emails. *example* --> `pokedex@gmail.com`
+* `SMTP_PASSWORD` : Password of your GMAIL email.
+* `AGENT_CLIENT_URI` : Base URL of your Frontend client. *default* --> `http://localhost:3000`
+
+### Ready 📌
+***
+
+Run `npm run watch` ✔️
+
+### NOTE 📢
+***
 
 The first registered user is assigned the ROLE = OWNER, this will have special permissions
 in all its pokedex, according to the requirements.
@@ -56,7 +65,7 @@ in all its pokedex, according to the requirements.
 * Update, Delete, Disable, List and view pokedex.
 * If the OWNER deletes a user or pokedex, all data related to it is deleted.
 
-### Password validation
+### Password validation 📢
 
 User passwords have a small layer of additional validation
 to avoid the use of common or highly insecure passwords.
@@ -67,7 +76,18 @@ You can see this list of common passwords in
 
 You can add more passwords or delete from this file.
 
-## End
+### Contribute 📌
+***
+
+To contribute to this repo you must consider the following:
+
+1. 🔗 Use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0-beta.4/)
+2. Consider the use of dependencies well.
+3. Read about Node JS Best Practices.
+4. Follow the architecture that takes the project.
+5. 🔗 Use [Git Flow](https://danielkummer.github.io/git-flow-cheatsheet/)
+
+## End 📌
 
 If he came this far it is because we are ready. ✔️
 
