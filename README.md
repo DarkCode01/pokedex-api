@@ -35,7 +35,7 @@ __This API is consumed by the Pokedex hosted in the following repository:__ [Pok
 4. Run `npm install`
 6. Be sure to create your Postgres database.
 
-### Getting Started 📌
+### Env variables 📌
 ***
 
 * `PORT` : The port used by the application to expose itself. *Default* --> `2302`
