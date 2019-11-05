@@ -4,7 +4,7 @@ import { PokedexDTO } from './domain/pokedex.dto'
 
 export class PokedexController {
   constructor(
-    private PokedexService: any,
+    private PokedexService: IPokedexService,
   ) {}
 
   /**

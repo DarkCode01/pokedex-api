@@ -3,7 +3,7 @@ import { AuthResponses } from '@app/auth/auth.providers'
 import { UserDTO, Roles, UserResponses } from '@app/user/user.providers'
 import { PokemonDTO } from '@app/pokemon/pokemon.providers'
 
-export class PokedexService {
+export class PokedexService implements IPokedexService {
   constructor(
     private UserRepository: any,
     private PokedexMapper: IMapper,
@@ -14,7 +14,7 @@ export class PokedexService {
     private codes: statusCodes,
   ) {}
 
-  public create = async (userId: number) => {
+  public create = async (userId: number): Promise<Pokedex> => {
     const user = await this.UserRepository.getById(userId)
     if (!user)
       throw this.ErrorHandler.build({
@@ -23,11 +23,10 @@ export class PokedexService {
       })
 
     const pokedex = await this.PokedexMapper.mapToEntity({ user })
-    const saved = await this.PokedexRepository.save(pokedex)
-    if (saved) return saved
+    return await this.PokedexRepository.save(pokedex)
   }
 
-  public get = async (userId: number, userLogged: UserDTO) => {
+  public get = async (userId: number, userLogged: UserDTO): Promise<Pokedex> => {
     if (userLogged.id === userId || userLogged.role === Roles.owner) {
       let pokedex = await this.PokedexRepository.getByUserId(userId)
       if (!pokedex) pokedex = await this.create(userId)
@@ -95,16 +94,14 @@ export class PokedexService {
     return update.isActive ? PokedexResponses.active : PokedexResponses.disable
   }
 
-  public delete = async (userId: number) => {
+  public delete = async (userId: number): Promise<string> => {
     const pokedex = await this.PokedexRepository.getByUserId(userId)
     if (!pokedex)
       throw this.ErrorHandler.build({
         status: this.codes.BAD_REQUEST,
         msg: PokedexResponses.pokedexDoesNotExist
       })
-
-    const deletePokedex = await this.PokedexRepository.delete(pokedex)
-    if (deletePokedex)
-      return PokedexResponses.delete
+    await this.PokedexRepository.delete(pokedex)
+    return PokedexResponses.delete
   }
 }

@@ -11,7 +11,7 @@ export class PokemonService implements IPokemonService {
   constructor(
     private PokemonMapper: IMapper,
     private PokemonRepository: IPokemonRepository,
-    private PokedexService: any,
+    private PokedexService: IPokedexService,
     private TypeController: any,
     private ErrorHandler: errorHandler,
     private codes: statusCodes,
