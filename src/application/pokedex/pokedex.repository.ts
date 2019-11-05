@@ -3,7 +3,7 @@ import { getRepository, Connection, Repository } from 'typeorm'
 // Entity
 import { Pokedex } from './pokedex.providers'
 
-export class PokedexRepository {
+export class PokedexRepository implements IPokedexRepository {
   private _Pokedex: Repository<Pokedex>
 
   constructor(

@@ -7,7 +7,7 @@ export class PokedexService implements IPokedexService {
   constructor(
     private UserRepository: any,
     private PokedexMapper: IMapper,
-    private PokedexRepository: any,
+    private PokedexRepository: IPokedexRepository,
     private PokemonRepository: IPokemonRepository,
     private PokemonMapper: any,
     private ErrorHandler: errorHandler,
@@ -52,7 +52,7 @@ export class PokedexService implements IPokedexService {
   }> => {
     const { page, perPage, userLogged, userId } = props
     if (userLogged.id === userId || userLogged.role === Roles.owner) {
-      let pokedex: Pokedex = await this.PokedexRepository.getByUserId(userId)
+      let pokedex: Pokedex|undefined = await this.PokedexRepository.getByUserId(userId)
       if (!pokedex) pokedex = await this.create(userId)
 
       const pokemons: any = await this.PokemonRepository.list({

@@ -8,7 +8,7 @@ export class UserRepository implements IUserRepository {
 
   constructor(
     private DatabaseConnection: Connection,
-    private PokedexRepository: any,
+    private PokedexRepository: IPokedexRepository,
   ) {
     this.getUserRepository()
   }
