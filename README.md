@@ -20,9 +20,10 @@ The dependencies are managed by a container (IoC) to have a low or no coupling.
 
 1. 🔗 [NodeJS >=12.6.0](https://nodejs.org/)
 2. 🔗 [ExpressJS](https://expressjs.com/)
-3. 🔗 [TYPEORM](https://typeorm.io/#/)
-4. 🔗 [PostgreSQL](https://www.postgresql.org/)
-5. 🔗 [Jest](https://jestjs.io/)
+3. 🔗 [TypeScript](https://www.typescriptlang.org/)
+4. 🔗 [TYPEORM](https://typeorm.io/#/)
+5. 🔗 [PostgreSQL](https://www.postgresql.org/)
+6. 🔗 [Jest](https://jestjs.io/)
 
 ### Getting Started 📌
 ***

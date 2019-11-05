@@ -67,7 +67,6 @@ export class PokedexService {
           msg: PokedexResponses.noRecords
         })
 
-
       const mapListToDTO = this.PokemonMapper.mapListToDTO(pokemons.rows)
       return {
         pokemons: mapListToDTO,
