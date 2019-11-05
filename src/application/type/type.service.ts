@@ -1,9 +1,9 @@
 import { Type } from './type.providers'
 
-export class TypeService {
+export class TypeService implements ITypeService {
   constructor(
     private TypeMapper: any,
-    private TypeRepository: any
+    private TypeRepository: ITypeRepository
   ) {}
 
   public create = async (name: string): Promise<Type> => {

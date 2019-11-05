@@ -10,7 +10,7 @@ export class PokemonRepository implements IPokemonRepository {
 
   constructor(
     private DatabaseConnection: Connection,
-    private TypeRepository: any,
+    private TypeRepository: ITypeRepository,
   ) {
     this.getPokemonRepository()
   }

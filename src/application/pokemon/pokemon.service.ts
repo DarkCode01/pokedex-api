@@ -12,7 +12,7 @@ export class PokemonService implements IPokemonService {
     private PokemonMapper: IMapper,
     private PokemonRepository: IPokemonRepository,
     private PokedexService: IPokedexService,
-    private TypeController: any,
+    private TypeController: ITypeController,
     private ErrorHandler: errorHandler,
     private codes: statusCodes,
     private deleteUploadedFiles: any,

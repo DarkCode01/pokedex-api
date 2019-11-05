@@ -6,7 +6,6 @@ export class UserService implements IUserService {
   constructor(
     private UserMapper: IMapper,
     private UserRepository: IUserRepository,
-    private PokedexRepository: IPokedexRepository,
     private GenderController: any,
     private ErrorHandler: errorHandler,
     private codes: statusCodes,

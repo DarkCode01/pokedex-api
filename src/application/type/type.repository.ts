@@ -3,7 +3,7 @@ import { getRepository, Connection, Repository, Like } from 'typeorm'
 // Entity
 import { Type } from './type.providers'
 
-export class TypeRepository {
+export class TypeRepository implements ITypeRepository {
   private _Type: Repository<Type>
 
   constructor(private DatabaseConnection: Connection) {
@@ -16,8 +16,8 @@ export class TypeRepository {
     return this._Type
   }
 
-  public create = async (type: Type): Promise<Type> =>
-    await this._Type.create(type)
+  public create = async (type: any): Promise<Type> =>
+    await this._Type.create(type as Type)
 
   public getTypeByName = async (name: string): Promise<Type|undefined> =>
     await this._Type.findOne({ name: name as any })

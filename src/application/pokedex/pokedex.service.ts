@@ -5,7 +5,7 @@ import { PokemonDTO } from '@app/pokemon/pokemon.providers'
 
 export class PokedexService implements IPokedexService {
   constructor(
-    private UserRepository: any,
+    private UserRepository: IUserRepository,
     private PokedexMapper: IMapper,
     private PokedexRepository: IPokedexRepository,
     private PokemonRepository: IPokemonRepository,
