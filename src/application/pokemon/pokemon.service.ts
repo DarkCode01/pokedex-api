@@ -27,7 +27,7 @@ export class PokemonService {
     pokemon.type = type
     const isPokemon = await this.PokemonRepository.getBySlug({
       slug: pokemon.slug,
-      pokedexId: pokemon.pokedex.id,
+      pokedexId: pokedex.id,
     })
     if (isPokemon)
       throw this.ErrorHandler.build({

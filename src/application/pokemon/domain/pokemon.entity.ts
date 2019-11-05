@@ -41,6 +41,11 @@ export class Pokemon {
   })
   picture: string
 
+  @Column({
+    nullable: true
+  })
+  color: string
+
   @ManyToMany(type => Type, {
     eager: true
   })

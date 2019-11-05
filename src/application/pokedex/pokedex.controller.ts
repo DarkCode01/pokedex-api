@@ -1,5 +1,6 @@
-import { PokedexDTO } from './pokedex.providers'
-import { UserDTO } from '../user/user.providers'
+import { UserDTO } from '@app/user/user.providers'
+import { PokemonDTO } from '@app/pokemon/pokemon.providers'
+import { PokedexDTO } from './domain/pokedex.dto'
 
 export class PokedexController {
   constructor(
@@ -7,12 +8,20 @@ export class PokedexController {
   ) {}
 
   /**
-  * @description Get a user's pokedex and if it doesn't exist create a pokedex.
-  * @param {number} userId
-  * @returns {Promise<PokedexDTO>}
+  * @description Get list of pokemons
+  * @param {paginate} query
+  * @returns {Promise<PokemonDTO>[]}
   */
-  public get = async (userId: number, userLogged: UserDTO): Promise<PokedexDTO> =>
-    await this.PokedexService.get(userId, userLogged)
+  public list = async (query: {
+    userId: number,
+    userLogged: UserDTO,
+    perPage: number,
+    page: number,
+  }): Promise<{
+    pokemons: PokemonDTO[],
+    allPokemons: number,
+    pages: number,
+  }> => await this.PokedexService.list(query)
 
   /**
   * @description Change Pokedex status

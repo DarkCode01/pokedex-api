@@ -42,6 +42,38 @@ export class PokemonRepository {
   public delete = async (pokemon: Pokemon): Promise<Pokemon> =>
     await this._Pokemon.remove(pokemon)
 
+  public async list(query: {
+    page: number,
+    perPage: number,
+    pokedexId: number,
+  }): Promise<{
+    rows: Pokemon[],
+    allPokemons: number,
+    pages: number
+  }> {
+    const page = query.page || 1
+    const perPage = query.perPage || 5
+
+    const rows = await this._Pokemon.find({
+      skip: ((perPage * page) - perPage),
+      take: perPage,
+      where: {
+        pokedexId: query.pokedexId
+      },
+    })
+
+    const count: number = await this._Pokemon.count({
+      pokedexId: query.pokedexId
+    })
+    const pages: number = Math.ceil(count / perPage)
+
+    return {
+      rows,
+      allPokemons: count,
+      pages
+    }
+  }
+
   public async search(query: {
     page: number,
     perPage: number,

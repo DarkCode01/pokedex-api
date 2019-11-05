@@ -21,6 +21,9 @@ export class PokemonDTO {
   picture: string
 
   @MapProp()
+  color: string
+
+  @MapProp()
   type: Type[]
 
   @MapProp()

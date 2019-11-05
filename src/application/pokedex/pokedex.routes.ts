@@ -24,7 +24,7 @@ export class PokedexRoutes implements IRoutes {
       .get(
         getValidator as Array<any>,
         this.AuthMiddleware.ensureAuth,
-        this.get
+        this.list
       )
       .delete(
         getValidator as Array<any>,
@@ -51,10 +51,16 @@ export class PokedexRoutes implements IRoutes {
     return this.api
   }
 
-  public get: RequestHandler = (req: Request, res: Response) =>
+  public list: RequestHandler = (req: Request, res: Response) =>
     this.RouteMethod.build({
       resolve: async () => {
-        const pokedex = await this.PokedexController.get(req.params.userId, req.user)
+        const { page, perPage } = req.query
+        const pokedex = await this.PokedexController.list({
+          userId: req.params.userId,
+          userLogged: req.user,
+          perPage,
+          page,
+        })
         if (pokedex)
           return res
             .status(this.codes.OK)
