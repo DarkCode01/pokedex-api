@@ -1,8 +1,7 @@
 import { UserDTO } from '@app/user/user.providers'
 import { PokemonDTO } from '@app/pokemon/pokemon.providers'
-import { PokedexDTO } from './domain/pokedex.dto'
 
-export class PokedexController {
+export class PokedexController implements IPokedexController {
   constructor(
     private PokedexService: IPokedexService,
   ) {}
@@ -37,6 +36,6 @@ export class PokedexController {
   * @param {number} userId
   * @returns {Promise<string>}
   */
-  public delete = async (userId: number) =>
+  public delete = async (userId: number): Promise<string> =>
     await this.PokedexService.delete(userId)
 }

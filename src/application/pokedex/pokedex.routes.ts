@@ -7,7 +7,7 @@ export class PokedexRoutes implements IRoutes {
   readonly api: Router = Router()
 
   constructor (
-    private PokedexController: any,
+    private PokedexController: IPokedexController,
     private ResponseHandler: responseHandler,
     private RouteMethod: routeMethod,
     private codes: statusCodes,
@@ -54,9 +54,10 @@ export class PokedexRoutes implements IRoutes {
   public list: RequestHandler = (req: Request, res: Response) =>
     this.RouteMethod.build({
       resolve: async () => {
+        if (!req.user) return
         const { page, perPage } = req.query
         const pokedex = await this.PokedexController.list({
-          userId: req.params.userId,
+          userId: parseInt(req.params.userId),
           userLogged: req.user,
           perPage,
           page,
@@ -71,7 +72,7 @@ export class PokedexRoutes implements IRoutes {
   public toggleStatus: RequestHandler = (req: Request, res: Response) =>
     this.RouteMethod.build({
       resolve: async () => {
-        const pokedex = await this.PokedexController.toggleStatus(req.params.userId)
+        const pokedex = await this.PokedexController.toggleStatus(parseInt(req.params.userId))
         if (pokedex)
           return res
             .status(this.codes.OK)
@@ -82,7 +83,7 @@ export class PokedexRoutes implements IRoutes {
   public delete: RequestHandler = (req: Request, res: Response) =>
     this.RouteMethod.build({
       resolve: async () => {
-        const deleted = await this.PokedexController.delete(req.params.userId)
+        const deleted = await this.PokedexController.delete(parseInt(req.params.userId),)
         if (deleted)
           return res
             .status(this.codes.OK)
