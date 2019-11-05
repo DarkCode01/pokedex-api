@@ -1,9 +1,9 @@
 import { Gender } from './gender.providers'
 
-export class GenderService {
+export class GenderService implements IGenderService {
   constructor(
     private GenderMapper: any,
-    private GenderRepository: any
+    private GenderRepository: IGenderRepository
   ) {}
 
   public getOrCreateGender = async (genderName: string) : Promise<Gender> => {

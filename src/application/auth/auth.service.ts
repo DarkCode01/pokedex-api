@@ -9,7 +9,7 @@ export class AuthService implements IAuthService {
     private UserMapper: IMapper,
     private ErrorHandler: errorHandler,
     private codes: statusCodes,
-    private GenderController: any,
+    private GenderController: IGenderController,
     private encryptPassword: IEncryptPassword,
     private comparePassword: IcomparePassword,
     private JWT: IJWT,
