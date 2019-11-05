@@ -10,7 +10,7 @@ import { Type } from '@app/type/type.providers'
 export class PokemonService {
   constructor(
     private PokemonMapper: IMapper,
-    private PokemonRepository: any,
+    private PokemonRepository: IPokemonRepository,
     private PokedexService: any,
     private TypeController: any,
     private ErrorHandler: errorHandler,
@@ -169,7 +169,7 @@ export class PokemonService {
       userLogged.role === Roles.owner
     ) {
       const pokedex: Pokedex = await this.PokedexService.get(userId, userLogged)
-      const pokemon: Pokemon = await this.PokemonRepository.getBySlug({
+      const pokemon: Pokemon|undefined = await this.PokemonRepository.getBySlug({
         slug,
         pokedexId: pokedex.id,
       })

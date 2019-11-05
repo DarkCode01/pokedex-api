@@ -8,7 +8,7 @@ export class PokedexService {
     private UserRepository: any,
     private PokedexMapper: IMapper,
     private PokedexRepository: any,
-    private PokemonRepository: any,
+    private PokemonRepository: IPokemonRepository,
     private PokemonMapper: any,
     private ErrorHandler: errorHandler,
     private codes: statusCodes,

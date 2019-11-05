@@ -5,7 +5,7 @@ import slugify from '@sindresorhus/slugify'
 import { Pokemon } from './pokemon.providers'
 import { Type } from '@app/type/type.providers'
 
-export class PokemonRepository {
+export class PokemonRepository implements IPokemonRepository {
   private _Pokemon: Repository<Pokemon>
 
   constructor(
@@ -39,8 +39,8 @@ export class PokemonRepository {
   public getAll = async (pokedexId: number): Promise<Pokemon[]|undefined> =>
     await this._Pokemon.find({ pokedexId })
 
-  public delete = async (pokemon: Pokemon): Promise<Pokemon> =>
-    await this._Pokemon.remove(pokemon)
+  public delete = async (pokemon: Pokemon|Pokemon[]): Promise<Pokemon|Pokemon[]> =>
+    await this._Pokemon.remove(pokemon as Pokemon[])
 
   public async list(query: {
     page: number,

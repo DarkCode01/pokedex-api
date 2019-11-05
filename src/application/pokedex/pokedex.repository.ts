@@ -8,7 +8,7 @@ export class PokedexRepository {
 
   constructor(
     private DatabaseConnection: Connection,
-    private PokemonRepository: any,
+    private PokemonRepository: IPokemonRepository,
   ) {
     this.getPokedexRepository()
   }
