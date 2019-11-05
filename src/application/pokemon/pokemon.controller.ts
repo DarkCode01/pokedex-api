@@ -1,7 +1,7 @@
 import { Pokemon, PokemonDTO } from './pokemon.providers'
 import { UserDTO } from '../user/user.providers'
 
-export class PokemonController {
+export class PokemonController implements IPokemonController {
   constructor(
     private PokemonService: IPokemonService,
   ) {}
@@ -69,7 +69,7 @@ export class PokemonController {
   * @description Get pokemon picture
   * @param {string} picture
   */
-  public picture = (picture: string) =>
+  public picture = (picture: string): string =>
     this.PokemonService.picture(picture)
 
   /**

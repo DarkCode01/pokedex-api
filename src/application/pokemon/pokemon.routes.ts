@@ -8,7 +8,7 @@ export class PokemonRoutes implements IRoutes {
   readonly api: Router = Router()
 
   constructor (
-    private PokemonController: any,
+    private PokemonController: IPokemonController,
     private ResponseHandler: responseHandler,
     private RouteMethod: routeMethod,
     private codes: statusCodes,
@@ -81,6 +81,7 @@ export class PokemonRoutes implements IRoutes {
   public create: RequestHandler = (req: Request, res: Response) =>
     this.RouteMethod.build({
       resolve: async () => {
+        if (!req.user) return
         const pokemon = await this.PokemonController.create(req.body, req.user)
         if (pokemon)
           return res
@@ -92,8 +93,9 @@ export class PokemonRoutes implements IRoutes {
   public get: RequestHandler = (req: Request, res: Response) =>
     this.RouteMethod.build({
       resolve: async () => {
+        if (!req.user) return
         const pokemon = await this.PokemonController.get({
-          userId: req.params.userId,
+          userId: parseInt(req.params.userId),
           userLogged: req.user,
           slug: req.params.slug,
         })
@@ -107,8 +109,9 @@ export class PokemonRoutes implements IRoutes {
   public delete: RequestHandler = (req: Request, res: Response) =>
     this.RouteMethod.build({
       resolve: async () => {
+        if (!req.user) return
         const response = await this.PokemonController.delete({
-          userId: req.params.userId,
+          userId: parseInt(req.params.userId),
           userLogged: req.user,
           slug: req.params.slug,
         })
@@ -122,8 +125,9 @@ export class PokemonRoutes implements IRoutes {
   public upload: RequestHandler = (req: Request, res: Response) =>
     this.RouteMethod.build({
       resolve: async () => {
+        if (!req.user) return
         const pokemon = await this.PokemonController.upload({
-          userId: req.params.userId,
+          userId: parseInt(req.params.userId),
           userLogged: req.user,
           slug: req.params.slug,
           picture: req.file.filename,
@@ -146,9 +150,10 @@ export class PokemonRoutes implements IRoutes {
   public update: RequestHandler = (req: Request, res: Response) =>
     this.RouteMethod.build({
       resolve: async () => {
+        if (!req.user) return
         const pokemon = await this.PokemonController.update({
           userLogged: req.user,
-          userId: req.params.userId,
+          userId: parseInt(req.params.userId),
           slug: req.params.slug,
           changes: req.body
         })
@@ -162,6 +167,7 @@ export class PokemonRoutes implements IRoutes {
   public search: RequestHandler = (req: Request, res: Response) =>
     this.RouteMethod.build({
       resolve: async () => {
+        if (!req.user) return
         const { page, perPage, search } = req.query
         const pokemons = await this.PokemonController.search({
           userLogged: req.user,
