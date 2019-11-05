@@ -7,7 +7,7 @@ import { UserDTO, Roles, UserResponses } from '@app/user/user.providers'
 import { Pokedex } from '@app/pokedex/pokedex.providers'
 import { Type } from '@app/type/type.providers'
 
-export class PokemonService {
+export class PokemonService implements IPokemonService {
   constructor(
     private PokemonMapper: IMapper,
     private PokemonRepository: IPokemonRepository,
@@ -18,7 +18,7 @@ export class PokemonService {
     private deleteUploadedFiles: any,
   ) {}
 
-  public create = async (pokemonPayload: any, userLogged: UserDTO) => {
+  public create = async (pokemonPayload: any, userLogged: UserDTO): Promise<PokemonDTO> => {
     const pokedex: Pokedex = await this.PokedexService.get(userLogged.id, userLogged)
     const pokemon: Pokemon = await this.PokemonMapper.mapToEntity(pokemonPayload)
     const type: Type[] = await this.TypeController.getOrCreateTypes(pokemonPayload.type)
@@ -42,8 +42,7 @@ export class PokemonService {
       })
 
     const saved = await this.PokemonRepository.save(pokemon)
-    if (saved)
-      return this.PokemonMapper.mapToDTO(saved)
+    return this.PokemonMapper.mapToDTO(saved)
   }
 
   public get = async (props: {
@@ -151,7 +150,7 @@ export class PokemonService {
     userLogged: UserDTO,
     changes: PokemonDTO|any,
     slug: string
-  }) => {
+  }): Promise<PokemonDTO> => {
     const { userId, slug, userLogged, changes: payload } = props
     const { latitude: lat, longitude: long, height, weight } = payload
     const changes: any = {

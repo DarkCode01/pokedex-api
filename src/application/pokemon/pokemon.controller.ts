@@ -3,7 +3,7 @@ import { UserDTO } from '../user/user.providers'
 
 export class PokemonController {
   constructor(
-    private PokemonService: any,
+    private PokemonService: IPokemonService,
   ) {}
 
   /**
