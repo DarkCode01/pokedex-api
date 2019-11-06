@@ -35,7 +35,7 @@ export const Configuration = {
     uploads: process.env.UPLOADS_USERS || 'uploads/users/'
   },
   pokemonOptions: {
-    uploads: process.env.UPLOADS_USERS || 'uploads/pokemons/'
+    uploads: process.env.UPLOADS_POKEMONS || 'uploads/pokemons/'
   },
   test: {
     uri: process.env.TEST_URI
