@@ -60,6 +60,9 @@ export class PokemonRepository implements IPokemonRepository {
       where: {
         pokedexId: query.pokedexId
       },
+      order: {
+        id: 'DESC'
+      },
     })
 
     const count: number = await this._Pokemon.count({
